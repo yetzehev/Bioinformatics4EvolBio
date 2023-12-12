@@ -1,10 +1,10 @@
 # Outline
 ## Module 1:
 - Bioinformatics introduction
-- Types of genetics markers
-- Evolutionary processes: selection , migration, genetic drift and mutation
+- Types of genetic markers
+- Evolutionary processes: selection, migration, genetic drift and mutation
 ## Module 2: R and Bash
-## Module N: Retruieve public data
+## Module N: Retrieve public data
 ## Module N: Exploratory and clustering analysis
 - Divergence and Population structure
 ## Module N: Genetic Diversity
