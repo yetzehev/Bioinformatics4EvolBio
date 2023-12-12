@@ -13,7 +13,7 @@
 ## Module N : Gene Flow
 Patterson's test
 - ANGSD
-- SweetD
+- SuitD
 - 
 ## Module N: Mutation and genetic drift
 - msmc2
