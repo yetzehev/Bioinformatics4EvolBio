@@ -11,4 +11,8 @@
 
 ## Module N: Selection
 ## Module N : Gene Flow
+Patterson's test
+- ANGSD
+- SweetD
+- 
 ## Module N: Mutation and genetic drift
