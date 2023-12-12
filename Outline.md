@@ -4,6 +4,11 @@
 - Types of genetic markers
 - Evolutionary processes: selection, migration, genetic drift and mutation
 ## Module 2: R and Bash
+- Objects
+- Dataframes edition and plotting : tydiverse
+- Plotting
+- Packages
+- 
 ## Module N: Retrieve public data
 ## Module N: Exploratory and clustering analysis
 - Divergence and Population structure
