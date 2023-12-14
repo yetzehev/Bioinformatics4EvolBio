@@ -9,16 +9,16 @@
 - Plotting
 - Packages
 - 
-## Module N: Retrieve public data
-## Module N: Exploratory and clustering analysis
+## Module 3: Retrieve free datasets
+## Module 4: Exploratory and clustering analysis
 - Divergence and Population structure
-## Module N: Genetic Diversity
+## Module 5: Genetic Diversity
 
-## Module N: Selection
-## Module N : Gene Flow
+## Module 6: Selection
+## Module 7: Gene Flow
 Patterson's test
 - ANGSD
 - SuitD
 - 
-## Module N: Mutation and genetic drift
+## Module 8: Mutation and genetic drift
 - msmc2
