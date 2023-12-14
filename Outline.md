@@ -35,5 +35,5 @@ Patterson's test
 - SuitD: Fstats
 - Treemix
 - 
-## Module 8: Demographic inference: Mutation and genetic drift
+## Module 8: Demographic inference: Mutation and genetic drift (4h)
 - msmc2
