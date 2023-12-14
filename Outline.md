@@ -1,13 +1,14 @@
-Bioinformatics for Evolutionary Biology
+# Bioinformatics for Evolutionary Biology
 Population Genomics
 
-# Outline
-Audiemce
-## Module 1:
+## Outline
+Audience: Students and researches which work is focused on Population Genetics
+Duration 
+## Module 1 (2h):
 - Bioinformatics introduction
 - Types of genetic markers
 - Evolutionary processes: selection, migration, genetic drift and mutation
-## Module 2: R and Bash
+## Module 2(6h): R and Bash
 - Objects
 - Dataframes edition and plotting : tydiverse
 - Plotting
