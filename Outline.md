@@ -1,4 +1,8 @@
+Bioinformatics for Evolutionary Biology
+Population Genomics
+
 # Outline
+Audiemce
 ## Module 1:
 - Bioinformatics introduction
 - Types of genetic markers
