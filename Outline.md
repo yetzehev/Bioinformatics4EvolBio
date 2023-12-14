@@ -1,5 +1,6 @@
 # Bioinformatics for Evolutionary Biology
 Population Genomics
+Duration: Duration: 30 teaching hours
 
 ## Outline
 Audience: Students and researches which work is focused on Population Genetics
