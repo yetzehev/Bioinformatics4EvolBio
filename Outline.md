@@ -20,5 +20,5 @@ Patterson's test
 - ANGSD
 - SuitD
 - 
-## Module 8: Mutation and genetic drift
+## Module 8: Demographic inference: Mutation and genetic drift
 - msmc2
