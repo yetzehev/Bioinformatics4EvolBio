@@ -1,40 +1,80 @@
-# Bioinformatics for Evolutionary Biology
-Population Genomics
-Duration: Duration: 30 teaching hours
+**Nota:** El diseño de  este curso de genetica de poblaciones esta  basado en gran parte del curso en inglés disenado por [Grunwald](https://grunwaldlab.github.io/Population_Genetics_in_R/TOC.html), el contenido  ha sido adaptado  y nuevos modulos fueron agregados
 
-## Outline
-Audience: Students and researches which work is focused on Population Genetics
-Duration 
-## Module 1 : Introduction (2h)
-- Bioinformatics introduction
-- Types of genetic markers
-- Evolutionary processes: selection, migration, genetic drift and mutation
-## Module 2: R and Bash (6h)
-- Objects
-- Dataframes edition and plotting: tydiverse
-- Plotting
-- Packages
-- 
-## Module 3: Retrieve free datasets (2h)
-- NCBI
-- Dryad
-- Zemodo
-- OBS
+**Duración: 20 h, 5 dias**
+**Número de participantes: 10-15**
+
+# Módulo I. Introducción (4h) (D,N)
+
+1.1 R y R studio 
+
+1.2 Objetos de R
+
+1.3 Cortísimo resumen de Genética de poblaciones
+- 1.3.1 Concepto de poblacion
+- 1.3.2 Marcadores genéticos  	
+  - SNPs Idalia
+  - Microsatelites (Nancy)
+  - Multicopia  (CNV) (Preguntar a Azalea sobre sus datos)
+
+1.4  Datos genómicos públicos  Idalia
+
+- 1.4.1 OSF 
+  Datos de maiz (Tesis Idalia) OSF,
+- 1.4.2 DRYAD
+  Datos Azalea
+
+
+
+#  Módulo II. Conjunto de datos genómicos y formatos (8 h) (D, N,I)
+
+2.1 Formatos
+
+- 2.1.1 Variant calling File (VCF)
+
+- 2.1.2 Plink
+
   
-## Module 4: Exploratory and clustering analysis (4h)
-- Divergence and Population structure
-## Module 5: Genetic Diversity (4h)
-- Plink, VCFtools, ANGSD
-- Visualization of genetic diversity statistics
 
-## Module 6: Selection (4h)
-- SweepD
-- SNPadapt
-## Module 7: Gene Flow (4h)
-Patterson's test
-- ANGSD: Dstats
-- SuitD: Fstats
-- Treemix
-- 
-## Module 8: Demographic inference: Mutation and genetic drift (4h)
-- msmc2
+2.2 Filtrado  y clasificación de marcadores
+
+- 2.2.1vcftools  (Nancy, Daniela)
+
+
+2.3  Estadísticos de genética de poblaciones  (Daniela)
+
+- 2.3.1 Popr
+- 2.3.2 Adegenet
+- 2.3.3 Hierfstat (Laura)
+
+
+
+2.4 Estructura poblacional (Idalia)
+
+- 2.4 Random Forest Test (Laura nos pasa los scripts)  
+
+
+
+2.5 Seleccion (Idalia)
+
+-	2.5.1 PCAdapt (Idalia/ Lau)
+-	2.5.2 RDA (Encaragad Nancy y Daniela)
+
+
+
+2.6	Migracion y flujo (Idalia)
+
+
+
+# Módulo III. Manejo de  tablas de datos y visualización (4h) (G e I)
+
+  
+
+ 3.1 Tydiverse (Gustavo e Idalia)
+
+ 3.2 Filtrado y edicion de tabla de datos
+
+ 3.3 Graficas de datos 
+
+
+
+# Reto: Ejercicio de manejo de datos (4h)
