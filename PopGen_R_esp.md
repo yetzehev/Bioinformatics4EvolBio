@@ -24,7 +24,7 @@
   Datos Azalea
 
 #  Módulo II. Manejo de  tablas de datos y visualización (4h) (G e I)
-
+> Preguntar a Gus
   2.1 Formatos (Idalia)
 
 - 2.1.1 Variant calling File (VCF)
