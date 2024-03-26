@@ -6,10 +6,10 @@
 # Módulo I. Introducción (4h) (D,N)
 
 1.1 Cortísimo resumen de Genética de poblaciones (Nancy)
-- 1.1.1 Concepto de poblacion
+- 1.1.1 Concepto de poblacion 
 - 1.1.2 Marcadores genéticos  	
-  - SNPs (Nancy)
-  - Microsatelites (Nancy)
+  - SNPs Idalia
+  - Microsatelites 
   - Multicopia  (CNV) (Preguntar a Azalea sobre sus datos)
     
 1.2 R y R studio (Daniela)
@@ -29,11 +29,11 @@
 
 - 2.1.1 Variant calling File (VCF)
 - 2.1.2 Plink
-- 2.2.3 Genepop
+- 2.2.3 Genepop (Daniela)
 
 2.3  Estadísticos de genética de poblaciones  (Daniela)
 
-- 2.3.1 Popr (Daniela)
+- 2.3.1 Poppr (Daniela)
 - 2.3.2 Adegenet (Daniela)
 - 2.3.3 Hierfstat (Laura)
 
