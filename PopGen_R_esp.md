@@ -39,7 +39,7 @@
 
 2.4 Estructura poblacional (Idalia)
 
-- 2.4 Random Forest Test (Laura nos pasa los scripts)  
+- 2.4 Gradient Forest Test (Laura nos pasa los scripts)  
 
 
 2.5 Seleccion (Idalia)
