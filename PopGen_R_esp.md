@@ -5,10 +5,10 @@
 
 # Módulo I. Introducción (4h) (D,N)
 
-1.1 Cortísimo resumen de Genética de poblaciones (Idalia)
+1.1 Cortísimo resumen de Genética de poblaciones (Nancy)
 - 1.1.1 Concepto de poblacion
 - 1.1.2 Marcadores genéticos  	
-  - SNPs Idalia
+  - SNPs (Nancy)
   - Microsatelites (Nancy)
   - Multicopia  (CNV) (Preguntar a Azalea sobre sus datos)
     
