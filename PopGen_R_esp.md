@@ -16,7 +16,7 @@
 
 1.3 Objetos de R (Daniela)
 
-1.4  Datos genómicos públicos  Idalia
+1.4  Datos genómicos públicos  (Idalia)
 
 - 1.4.1 OSF 
   Datos de maiz (Tesis Idalia) OSF,
