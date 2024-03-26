@@ -5,7 +5,7 @@
 
 # Módulo I. Introducción (4h) (D,N)
 
-1.1 Cortísimo resumen de Genética de poblaciones
+1.1 Cortísimo resumen de Genética de poblaciones (Idalia)
 - 1.1.1 Concepto de poblacion
 - 1.1.2 Marcadores genéticos  	
   - SNPs Idalia
@@ -25,7 +25,7 @@
 
 #  Módulo II. Conjunto de datos genómicos y formatos (8 h) (D, N,I)
 
-2.1 Formatos
+2.1 Formatos (Idalia)
 
 - 2.1.1 Variant calling File (VCF)
 - 2.1.2 Plink
@@ -33,7 +33,7 @@
 
 2.3  Estadísticos de genética de poblaciones  (Daniela)
 
-- 2.3.1 Popr
+- 2.3.1 Popr (Daniela)
 - 2.3.2 Adegenet (Daniela)
 - 2.3.3 Hierfstat (Laura)
 
@@ -57,9 +57,9 @@
 
  3.1 Tydiverse (Gustavo e Idalia)
 
- 3.2 Filtrado y edicion de tabla de datos
+ 3.2 Filtrado y edicion de tabla de datos (Gustavo)
 
- 3.3 Graficas de datos 
+ 3.3 Graficas de datos (Gustavo)
 
 
 
