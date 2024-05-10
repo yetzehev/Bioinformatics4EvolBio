@@ -5,41 +5,51 @@
 
 # Módulo I. Introducción (4h) (D,N)
 
-1.1 Cortísimo resumen de Genética de poblaciones
-- 1.1.1 Concepto de poblacion
+1.1 Cortísimo resumen de Genética de poblaciones (Nancy)
+- 1.1.1 Concepto de poblacion 
 - 1.1.2 Marcadores genéticos  	
   - SNPs Idalia
-  - Microsatelites (Nancy)
+  - Microsatelites 
   - Multicopia  (CNV) (Preguntar a Azalea sobre sus datos)
     
 1.2 R y R studio (Daniela)
 
 1.3 Objetos de R (Daniela)
 
-1.4  Datos genómicos públicos  Idalia
+1.4  Datos genómicos públicos  (Idalia)
 
 - 1.4.1 OSF 
   Datos de maiz (Tesis Idalia) OSF,
 - 1.4.2 DRYAD
   Datos Azalea
 
-#  Módulo II. Conjunto de datos genómicos y formatos (8 h) (D, N,I)
+#  Módulo II. Manejo de  tablas de datos y visualización (4h) (G e I)
+> Preguntar a Gus
 
-2.1 Formatos
+  2.1 Formatos (Idalia)
 
 - 2.1.1 Variant calling File (VCF)
 - 2.1.2 Plink
-- 2.2.3 Genepop
+- 2.2.3 Genepop (Daniela)
+
+ 3.1 Tydiverse (Gustavo e Idalia)
+
+ 3.2 Filtrado y edicion de tabla de datos (Gustavo)
+
+ 3.3 Graficas de datos (Gustavo)
+
+
+# Módulo III. Conjunto de datos genómicos y formatos (8 h) (D, N,I)
 
 2.3  Estadísticos de genética de poblaciones  (Daniela)
 
-- 2.3.1 Popr
+- 2.3.1 Poppr (Daniela)
 - 2.3.2 Adegenet (Daniela)
 - 2.3.3 Hierfstat (Laura)
 
 2.4 Estructura poblacional (Idalia)
 
-- 2.4 Random Forest Test (Laura nos pasa los scripts)  
+- 2.4 Gradient Forest Test (Laura nos pasa los scripts)  
 
 
 2.5 Seleccion (Idalia)
@@ -49,18 +59,6 @@
 -	2.5.3 LFMM (Daniela)
 
 2.6	Migracion y flujo (Idalia)
-
-
-# Módulo III. Manejo de  tablas de datos y visualización (4h) (G e I)
-
-  
-
- 3.1 Tydiverse (Gustavo e Idalia)
-
- 3.2 Filtrado y edicion de tabla de datos
-
- 3.3 Graficas de datos 
-
 
 
 # Reto: Ejercicio de manejo de datos (4h)
