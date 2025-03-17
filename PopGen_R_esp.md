@@ -1,9 +1,17 @@
 # Bioinformática para genética de poblaciones 
-Responsables
-Idalia C. Rojas Barrera
-Laura Figueroa Corona
+Autoras:
+
+- Idalia C. Rojas Barrera 
+
+-  Laura Figueroa Corona
+
+- Daniela Felix
+
+  
 
 **Nota:** El diseño de  este curso de genetica de poblaciones esta  basado en gran parte del curso en inglés disenado por [Grunwald](https://grunwaldlab.github.io/Population_Genetics_in_R/TOC.html), el contenido  ha sido adaptado  y nuevos modulos fueron agregados
+
+
 
 **Duración: 20 h, 5 dias**
 **Número de participantes: 10-15**
