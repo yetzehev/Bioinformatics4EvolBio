@@ -1,4 +1,4 @@
-# Bioinformática para genética de poblaciones 
+# Bioinformática para biología evolutiva
 
 Responsables:
 
@@ -29,6 +29,7 @@ Este curso es un extracto del Módulo II del curso de Genómica de Poblaciones, 
   - 2.3.4 Genepop (Daniela)
   - 2.3.5 BAM, SAM, BED (Daniela)
   - 2.3.6 GTF, GFF ) (Idalia)
+  - 2.3.7 Metadatos 
 
   2.4  Transformacion de formatos
 
@@ -38,9 +39,19 @@ Este curso es un extracto del Módulo II del curso de Genómica de Poblaciones, 
 
     **PAUSA (15 min)**
 
-  2.4 Tydiverse package (https://rpubs.com/paraneda/tidyverse) (1h 30 min)
+  2.4 Manipulacion de tablas de datos en R (Uso de metadatos)
 
-  - 2.4.1 .....
+ ( No estoy segura del contendo de este modulo. Primero pense en manipulacion de tablas de datos.
+
+Pero si en la introduccion propongo introducir los  tipode datos  geneticos supongo que  deberiamos incluir
+
+manejo de  archivos  de datos geneticos, pero no estoy segura. 
+
+Podemos dejarlo solo como manejo de metadatos) 
+
+- 2.4.1 Tydiverse package (https://rpubs.com/paraneda/tidyverse) (1h 30 min)
+
+  - 2.4.1 
   - 2.4.2 ... developing
 
   2.5 Filtrado y edicion de tablas de datos (https://www.stat.berkeley.edu/users/nolan/IntroRPgm/chap-DataFrame.html)
