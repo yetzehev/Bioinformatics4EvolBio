@@ -1,6 +1,6 @@
 # Bioinformática para genética de poblaciones 
 
-Autoras:
+Responsables:
 
 - Idalia C. Rojas Barrera 
 
@@ -15,26 +15,30 @@ Este curso es un extracto del Módulo II del curso de Genómica de Poblaciones, 
 
 # Módulo II. Manejo de  tablas de datos y visualización  en R (6h)
 
+## Sección 1  (1h 45 min)
+
   2.1. R y R studio (Daniela)
 
   2.2 Objetos de R (Daniela)
 
   2.3 Formatos de datos en Bioinformática (https://www.formbio.com/blog/your-essential-guide-different-file-formats-bioinformatics, Idalia)
 
-  - 2.3.1 FASTA
-  - 2.3.2 Variant calling File (VCF)
-  - 2.3.3 Plink 
+  - 2.3.1 FASTA (Idalia)
+  - 2.3.2 Variant calling File (VCF) (Idalia)
+  - 2.3.3 Plink  (Idalia)
   - 2.3.4 Genepop (Daniela)
-  - 2.3.5 BAM, SAM, BED
-  - 2.3.6 GTF, GFF
+  - 2.3.5 BAM, SAM, BED (Daniela)
+  - 2.3.6 GTF, GFF ) (Idalia)
 
   2.4  Transformacion de formatos
 
   - 2.4.1 PGD spider (https://software.bioinformatics.unibe.ch/pgdspider/)
 
+  - 2.4.2 **Paqueterias y herramientas en R SUGERENCIAS?**
+
     **PAUSA (15 min)**
 
-  2.4 Tydiverse package (https://rpubs.com/paraneda/tidyverse)
+  2.4 Tydiverse package (https://rpubs.com/paraneda/tidyverse) (1h 30 min)
 
   - 2.4.1 .....
   - 2.4.2 ... developing
@@ -43,8 +47,12 @@ Este curso es un extracto del Módulo II del curso de Genómica de Poblaciones, 
 
   **PAUSA (15 min)**
 
-  2.6 Visualización de datos genéticos (Gustavo)
+Seccion 3 (2h)
+
+  2.6 Visualización de datos genéticos 
 
   - 2.6.1 Agrupamiento  no supervisado: PCA , K-means
+    - Adegenet
+    - 
   - 2.6.2 Phylogenies (Genes, SNPs): Neighbor-joining and Maximum Likelihood
   - 2.6.3 Visualización de estadísticos de genética de poblaciones: Diversidad genética, índices 
