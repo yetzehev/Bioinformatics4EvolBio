@@ -31,6 +31,7 @@ Este curso es un extracto del **Módulo II** del curso de **Genómica de Poblaci
 
 - **2.4.1** PGD Spider ([Enlace](https://software.bioinformatics.unibe.ch/pgdspider/)) (Daniela)
 - **2.4.2** Paqueterías y herramientas en R (Daniela)
+- **2.4.3** dartR ([Enlace](https://green-striped-gecko.github.io/dartR/))
   - **Daniela, ¿tienes algunas sugerencias para esta sección?**
   - Si! la paquetería dartR sirve para transformar y escribir formatos para datos genéticos. Necesito explorarla más pero seguro la podemos meter.
 
