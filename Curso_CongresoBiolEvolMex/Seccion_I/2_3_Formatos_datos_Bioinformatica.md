@@ -11,7 +11,7 @@ A pesar de su alta precisión, la secuenciación Sanger tiene limitaciones en cu
 
 El formato .ab1 puede visualizarse en diferentes [programas](https://fileinfo.com/extension/ab1), como [Chromas](http://technelysium.com.au/wp/chromas/) o Geneious. La revisión del cromatograma es un paso fundamental para evaluar la calidad y precisión de los picos de secuenciación. Generalmente, la calidad de la secuencia es menor en los extremos, mientras que en la región central se espera que los picos estén bien definidos y representen una sola base. 
 
-![Cromatograma](/home/irojas/git.repositories/Bioinformatics4EvolBio/images/Chromas.png)
+![Cromatograma](./../../images/Chromas.png)
 
 
 
