@@ -95,7 +95,9 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 
 ##  2.3.4  Variant Calling File (VCF)
 
+El formato VCF  es un formato estadarizado para almacenar los tipos más frecuentes de variación de secuencias, incluyendo los SNP (Polimorfismo de un solo nucleotido), indels y variantes estructurales de mayor tamaño,. 
 
+![VCF_FILE](../../images/VCF.png)
 
 
 - **2.3.5* Plink (Idalia)
