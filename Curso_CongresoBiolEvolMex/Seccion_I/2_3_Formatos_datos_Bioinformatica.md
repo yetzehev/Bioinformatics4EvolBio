@@ -95,7 +95,17 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 
 ##  2.3.4  Variant Calling File (VCF)
 
-El formato VCF  es un formato estadarizado para almacenar los tipos más frecuentes de variación de secuencias, incluyendo los SNP (Polimorfismo de un solo nucleotido), indels y variantes estructurales de mayor tamaño,. 
+El formato VCF  es un formato estadarizado para almacenar los tipos más frecuentes de variación de secuencias, incluyendo los SNP (Polimorfismo de un solo nucleotido), indels y variantes estructurales de mayor tamaño.  El formato fue desarrollado por 1000 Genomes Project para representar y almacenar los datos genéticos humanos, pero su uso no esta restringido a genomas diploides y su uso se ha extendido a otros contextos y organismos: Pantas, animales no humanos, y hongos. 
+
+## Un vistazo a la estructura del formato VCF
+
+El formato VCF consta de un encabezado y una sección de datos (Figura 2). El encabezad contiene un número arbitrario de líneas de metainformación, cada una de las cuales comienza con los caracteres '##', y una línea de definición de campos delimitada por TAB, que comienza con un único carácter '#'. Las líneas del encabezado almacenan los metadatos que proporcionan una descripción normalizada de las etiquetas y anotaciones utilizadas en la sección de datos.
+
+ El uso de los metadatos permite adaptar la información almacenada en un archivo VCF al conjunto de datos en cuestión. También puede utilizarse para proporcionar información sobre el medio de creación del archivo, la fecha de creación, la versión de la secuencia de referencia, el software utilizado y cualquier otra información relevante para la historia del archivo. 
+
+La última linea del encabezado nombra ocho columnas obligatorias, que corresponden a columnas de datos que representan el cromosoma (CHROM), una posición basada en 1 del inicio de la variante (POS), identificadores únicos de la variante (ID), el alelo de referencia (REF), una lista separada por comas de alelos alternativos  (ALT), una puntuación de calidad estandarizada por phred (QUAL), información de filtrado de variantes (FILTER) y una lista separada por punto y coma de anotaciones adicionales extensibles por el usuario (INFO) [Fuente](https://doi.org/10.1093/bioinformatics/btr330)
+
+
 
 ![VCF_FILE](../../images/VCF.png)
 
