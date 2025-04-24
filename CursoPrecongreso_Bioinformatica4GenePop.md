@@ -58,7 +58,7 @@ Este curso es un extracto del **Módulo II** del curso de **Genómica de Poblaci
 
 **2.6. Visualización de datos genéticos**
 
-- **2.6.1** Análisis de Componentes Principales (PCA) en `adegenet`
+- **2.6.1** Análisis de Componentes Principales (PCA) en `adegenet` (Daniela)
 - **2.6.2** K-means (Graficar en R los índices de ancestría calculados con `ADMIXTURE`) (Idalia)
   - Buscar una **Shiny app** para graficar mapas de coordenadas y composición de estructura (Laura)
-- **2.6.3** Filogenias (genes, SNPs): Neighbor-Joining y Máxima Verosimilitud (Daniela*)
+- **2.6.3** Filogenias (genes, SNPs): Neighbor-Joining y Máxima Verosimilitud (Idalia)
