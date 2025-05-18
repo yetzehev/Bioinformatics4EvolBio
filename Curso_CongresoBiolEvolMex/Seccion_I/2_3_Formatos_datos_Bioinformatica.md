@@ -110,9 +110,29 @@ La última linea del encabezado nombra ocho columnas obligatorias, que correspon
 ![VCF_FILE](../../images/VCF.png)
 
 
-- **2.3.5* Plink (Idalia)
+## 2.3.5 Plink (Idalia)
 
-- **2.3.6** BAM, SAM, 
+  PLINK es un conjunto de herramientas de análisis de asociación de genomas completos gratuito, de uso común y de código abierto diseñado por Shaun Purcell [Fuente](https://en.wikipedia.org/wiki/PLINK_(genetic_tool-set)). Tiene dos tipos principales de formato, el formato plink integrado por dos tipos de archivos .map y .ped; y el formato binario (.bed,.bim,.fam)
+
+  **.map**  (Archivo de texto con informacion de variantes geneticas)
+
+  Un archivo de texto sin encabezado,donde cada línea reprsenta una variante con los 3-4 columnas.
+
+  **Cromosoma.** Indica el numero de cromosoma, la version PLINK 1.9 también permite nombres de contig, aunque en versiones más antiguas no es posible.
+  **Identificador de la variante** Nombre asociado a la variante genetica.
+  **Posición en morgans o centimorgans** Posición del la variante (opcional; también es posible utilizar el valor ficticio «0»)
+  **Coordenada** Posición  de la variante en contabilizada en  pares de bases.
+  Todas las líneas deben tener el mismo número de columnas (por lo que o bien ninguna línea contiene la columna morgans/centimorgans, o todas la contienen)[Fuente](https://www.cog-genomics.org/plink/1.9/formats#map).
+
+  **.ped** (Archivo de texto con  la información de pedigree y tabla de genotipos)
+
+  No contiene encabezado, cada línea representa un genotipo.  El numero de equivalentes es igual a 2V+6 campos donde V es el número de variantes. Los seis primeros campos son los mismos que los de un archivo .fam. Los campos séptimo y octavo son las variantes alélicas llamadas para la primera variante en el archivo .map ('0' = sin llamada); los campos noveno y décimo son llamadas alélicas para la segunda variante; y así sucesivamente [Fuente](https://www.cog-genomics.org/plink/1.9/formats#map)
+
+## 2.3.6  Archivos SAM&BAM 
+
+  Mapa de alineamiento de secuencias (SAM) file, y su version binaria, Mapa de Alineamiento Binario (BAM). Ambos son archivos  útiles y de uso frecuente, son resultado del proceso de alineación (o mapeo) de lecturas en un genoma  de referencia.
+
+  
 
 - 2.3.7 BED (Idalia)
 

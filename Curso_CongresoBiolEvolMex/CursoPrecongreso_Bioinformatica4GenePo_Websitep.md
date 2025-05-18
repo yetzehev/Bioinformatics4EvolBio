@@ -38,7 +38,7 @@ Este curso es un extracto del **Módulo II** del curso de **Genómica de Poblaci
 
 ## **Sección 2. Manipulación de tablas de datos en R (1h 45 min)**
 
-- 2.1 Manipulación y limpieza de tablas de metadatos en R
+- **2.1** Manipulación y limpieza de tablas de metadatos en R
 
 - **2.2** Paquetes `dplyr` o `tidyverse` 
 
