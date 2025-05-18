@@ -188,6 +188,18 @@ Las primeras tres columnas son obligatorias para el procesamiento de un archivo 
 |      **11**       | **blockSizes**  | Lista de valores separados por [comas](https://en.wikipedia.org/wiki/Comma) correspondientes al tamaño de los bloques (el número de valores debe corresponder al del "blockCount") |     No      |
 |      **12**       | **blockStarts** | Lista de valores separados por comas correspondientes a las coordenadas de inicio de los bloques, coordenadas calculadas en relación a las presentes en la columna chromStart (el número de valores debe corresponder al de "blockCount") |     No      |
 
+
+
+Formato mínimo de un archivo BED con las coordenadas para tres regiones genómicas. 
+
+```
+chr7    127471196    127472363
+chr7    127472363    127473530
+chr7    127473530    127474697
+```
+
+
+
 Fuente: https://en.wikipedia.org/wiki/BED_(file_format)
 
 - **2.3.5**Genepop (Daniela)
