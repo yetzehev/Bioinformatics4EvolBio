@@ -122,7 +122,7 @@ La última linea del encabezado nombra ocho columnas obligatorias, que correspon
   **Identificador de la variante** Nombre asociado a la variante genetica.
   **Posición en morgans o centimorgans** Posición del la variante (opcional; también es posible utilizar el valor ficticio «0»)
   **Coordenada** Posición  de la variante en contabilizada en  pares de bases.
-  Todas las líneas deben tener el mismo número de columnas (por lo que o bien ninguna línea contiene la columna morgans/centimorgans, o todas la contienen)[Fuente](https://www.cog-genomics.org/plink/1.9/formats#map).
+  Todas las líneas deben tener el mismo número de columnas (por lo que o bien ninguna línea contiene la columna morgans/centimorgans, o todas la contienen) [Fuente](https://www.cog-genomics.org/plink/1.9/formats#map).
 
   **.ped** (Archivo de texto con  la información de pedigree y tabla de genotipos)
 
@@ -130,9 +130,41 @@ La última linea del encabezado nombra ocho columnas obligatorias, que correspon
 
 ## 2.3.6  Archivos SAM&BAM 
 
-  Mapa de alineamiento de secuencias (SAM) file, y su version binaria, Mapa de Alineamiento Binario (BAM). Ambos son archivos  útiles y de uso frecuente, son resultado del proceso de alineación (o mapeo) de lecturas en un genoma  de referencia.
+Los archivos SAM y BAM son el resultado del proceso de alineación (o mapeo) de lecturas en una secuencia de referencia. El formato SAM (*Sequence Alignment/Map*, que se traduce literalmente como "Mapa de alineamiento de secuencias") es un formato de texto delimitado por tabuladores que consta de dos secciones: un encabezado opcional y una sección de alineación. Los archivos BAM, por su parte, son la versión comprimida y binaria del formato SAM, lo que los hace más ligeros y permite un almacenamiento más eficiente.
 
-  
+La estructura del archivo SAM comprende:
+
+1. **Encabezado**: Comienza con el carácter "@" y puede variar en tamaño según la información incluida.
+2. **Sección de alineación**: Contiene 11 campos obligatorios, como QNAME, CIGAR, SEQ y QUAL.
+
+
+
+ ![SAM](./../../images/samFile.png)
+
+http://samtools.github.io/hts-specs/
+
+**Encabezado**
+
+El encabezado sigue un formato específico que puede incluir información diversa, como:
+
+- El comando que generó el archivo SAM
+- La versión del formato SAM
+- El nombre y versión del secuenciador
+- Otros metadatos relevantes
+
+Para más detalles sobre las especificaciones del encabezado, puede consultarse el manual de Samtools en su [repositorio de GitHub](http://samtools.github.io/hts-specs/SAMv1.pdf).
+
+
+
+**Alineamiento**
+
+Todos los segmentos mapeados en la sección de alineamiento se representan en su orientación *forward* (5'→3'). Cuando los segmentos se han mapeado en la cadena inversa, la secuencia (SEQ) registrada corresponde al complemento inverso de la secuencia original no mapeada, y los campos opcionales CIGAR y QUAL se invierten.  Por tanto, todos los datos se registran de manera coherente con las bases representadas
+
+
+
+![SAM](./../../images/SAMalignmentFields.png)
+
+
 
 - 2.3.7 BED (Idalia)
 
