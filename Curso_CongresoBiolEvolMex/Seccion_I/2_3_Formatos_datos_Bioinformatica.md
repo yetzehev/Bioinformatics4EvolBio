@@ -97,7 +97,7 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 
 El formato VCF  es un formato estadarizado para almacenar los tipos más frecuentes de variación de secuencias, incluyendo los SNP (Polimorfismo de un solo nucleotido), indels y variantes estructurales de mayor tamaño.  El formato fue desarrollado por 1000 Genomes Project para representar y almacenar los datos genéticos humanos, pero su uso no esta restringido a genomas diploides y su uso se ha extendido a otros contextos y organismos: Pantas, animales no humanos, y hongos. 
 
-## Un vistazo a la estructura del formato VCF
+### Un vistazo a la estructura del formato VCF
 
 El formato VCF consta de un encabezado y una sección de datos (Figura 2). El encabezad contiene un número arbitrario de líneas de metainformación, cada una de las cuales comienza con los caracteres '##', y una línea de definición de campos delimitada por TAB, que comienza con un único carácter '#'. Las líneas del encabezado almacenan los metadatos que proporcionan una descripción normalizada de las etiquetas y anotaciones utilizadas en la sección de datos.
 
@@ -143,7 +143,7 @@ La estructura del archivo SAM comprende:
 
 http://samtools.github.io/hts-specs/
 
-**Encabezado**
+### Encabezado
 
 El encabezado sigue un formato específico que puede incluir información diversa, como:
 
@@ -156,7 +156,7 @@ Para más detalles sobre las especificaciones del encabezado, puede consultarse 
 
 
 
-**Alineamiento**
+### Alineamiento
 
 Todos los segmentos mapeados en la sección de alineamiento se representan en su orientación *forward* (5'→3'). Cuando los segmentos se han mapeado en la cadena inversa, la secuencia (SEQ) registrada corresponde al complemento inverso de la secuencia original no mapeada, y los campos opcionales CIGAR y QUAL se invierten.  Por tanto, todos los datos se registran de manera coherente con las bases representadas
 
@@ -166,7 +166,29 @@ Todos los segmentos mapeados en la sección de alineamiento se representan en su
 
 
 
-- 2.3.7 BED (Idalia)
+## 2.3.7 BED 
+El formato BED (*Browser Extensible Data*, traducible como "Datos Extensibles para Navegador") es un formato de texto ligero que almacena coordenadas genómicas y sus anotaciones asociadas mediante columnas separadas por espacios o tabuladores. Cada línea representa una región genómica (locus) con un mínimo de 3 columnas obligatorias (cromosoma, posición de inicio y fin) y hasta 12 campos opcionales para anotaciones adicionales.
+
+La principal ventaja del formato BED radica en el uso de coordenadas en lugar de secuencias nucleotídicas, lo que optimiza significativamente el tiempo de procesamiento en comparaciones genómicas y análisis a gran escala. Además, su estructura simple facilita su manipulación mediante lenguajes de scripting como Python o Perl, así como el uso de herramientas especializadas como BEDTools, convirtiéndolo en un formato versátil y ampliamente adoptado en análisis genómicos y visualización de datos.
+
+Las primeras tres columnas son obligatorias para el procesamiento de un archivo BED, la infomacion que contiene cada columna se describe en la siguiente tabla. 
+
+| Número de columna |     Título      |                          Definición                          | Obligatorio |
+| :---------------: | :-------------: | :----------------------------------------------------------: | :---------: |
+|       **1**       |    **chrom**    | [Nombre del cromosoma](https://en.wikipedia.org/wiki/Chromosome) (p. ej., chr3, chrY, chr2_random) o *[del andamio](https://en.wikipedia.org/wiki/Scaffolding_(bioinformatics))* (p. ej., scaffold10671) |     Sí      |
+|       **2**       | **chromStart**  | Coordenada de inicio en el cromosoma o andamio para la secuencia considerada (la primera base en el cromosoma está numerada 0, es decir, el número está basado en cero) |     Sí      |
+|       **3**       |  **chromEnd**   | Coordenada final en el cromosoma o andamiaje de la secuencia considerada. |     Sí      |
+|       **4**       |    **name**     |             Nombre de la línea en el archivo BED             |     No      |
+|       **5**       |    **score**    |                  Puntuación entre 0 y 1000                   |     No      |
+|       **6**       |   **strand**    | Orientación de la cadena de ADN (positiva ["+"] o negativa ["-"] o "." si no hay cadena) |     No      |
+|       **7**       | **thickStart**  | Coordenada inicial a partir de la cual la anotación se muestra de forma más gruesa en una representación gráfica (por ejemplo: el [codón](https://en.wikipedia.org/wiki/Codon) de inicio de un [gen](https://en.wikipedia.org/wiki/Gene) ) |     No      |
+|       **8**       |  **thickEnd**   | Coordenadas finales a partir de las cuales la anotación ya no se muestra de forma más gruesa en una representación gráfica (por ejemplo: el codón de parada de un gen) |     No      |
+|       **9**       |   **itemRgb**   | [Valor RGB](https://en.wikipedia.org/wiki/Red_green_blue) en formato R, G, B (por ejemplo, 255,0,0) que determina el color de visualización de la anotación contenida en el archivo BED |     No      |
+|      **10**       | **blockCount**  | Número de bloques (por ejemplo, [exones](https://en.wikipedia.org/wiki/Exon) ) en la línea del archivo BED |     No      |
+|      **11**       | **blockSizes**  | Lista de valores separados por [comas](https://en.wikipedia.org/wiki/Comma) correspondientes al tamaño de los bloques (el número de valores debe corresponder al del "blockCount") |     No      |
+|      **12**       | **blockStarts** | Lista de valores separados por comas correspondientes a las coordenadas de inicio de los bloques, coordenadas calculadas en relación a las presentes en la columna chromStart (el número de valores debe corresponder al de "blockCount") |     No      |
+
+Fuente: https://en.wikipedia.org/wiki/BED_(file_format)
 
 - **2.3.5**Genepop (Daniela)
 
