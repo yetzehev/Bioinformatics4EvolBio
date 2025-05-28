@@ -1,0 +1,93 @@
+---
+title: "Metadata maices"
+author: "Idalia Rojas"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(kableExtra)
+library(tidyr)
+library(dplyr)
+```
+
+# Tablas de metadatos y construccion de subconjunto de datos 
+
+### Cargar archivos en Rstudio
+En este caso emplearemos dato publicos de un estudio publicado en 2019, que empleo datos genmicos de razasa de maiz para evaluar la evoluvion de este cultivo en Mexico, donde se encuentra el centr de origen y diversidad para este cultivo. 
+
+El articulo *Contemporary evolution of maize landraces and their wild relatives influenced by gene flow with modern maize varieties* puede ser consultado en este [enlace](https://www.pnas.org/doi/full/10.1073/pnas.1817664116) y los datos genomicos y metados estan disponibles en el repositorio de datos de [OSF](https://osf.io/pqvt4/)
+
+```{r tablas}
+genotipos <-read.delim("./metadata_385_taxa_Rojas_etal_2019.txt", sep = "\t")
+
+accesiones <- read.delim( "./Samples_and_Accessions.csv", sep = ",",skip = 6)
+
+kable(head(genotipos, 3), align = "c") %>%
+  kable_styling(full_width = FALSE)
+
+kable(head(accesiones, 3), align = "c") %>%
+  kable_styling(full_width = FALSE)
+
+```
+
+### Editar las tablas de datos 
+Extracción de los IDs para armar un subconjunto de datos con los maíces, excluyendo a los parientes silvestres. Es posible emplear los comandos de Bash dentro de un script de R. Para ello debemos usar el comando **`system`** y escribir el comando de Bash entre comillas.
+
+```{r lisa_IDs}
+#Usar un comando de bash en R
+system("bcftools query -l ./../data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.recode.vcf > ../meta/genotypes_vcf.txt")
+
+#Cargar el set de datos extraído del archivo VCF y asignar nombres a las columnas
+IDs<- read.delim("../meta/genotypes_vcf.txt", sep = "_", header = FALSE)
+colnames(IDs) <- c("Genotipo", "Grupo")
+
+#Extraer la información contenida en la columna de Grupo
+extract <- IDs %>% separate(Grupo,
+                       into = c("Raza", "Cultivar", "Anio_colecta"),
+                       sep = c(2,4,8))
+#Merge our new information 
+IDs<- merge(IDs, extract, by = "Genotipo")
+
+
+```
+
+Una vez extraída la información hagamos un subconjunto unicamento con los genotipos de maíces. La abreviatura  **`Na`** en la columna **`Cultivar`** hace referencia a maices nativos.
+
+```{r subsets}
+maices <- IDs[IDs$Cultivar == "Na",]
+
+#Verifica cuantas razas de maiz tenemos en el set de datos
+razas <- levels(factor(maices$Raza))
+nrazas <- nlevels(factor(maices$Raza))
+print(paste("Nuestro conjunto de datos contiene los genotipos para", nrazas, "razas:", toString(razas)))
+```
+Ahora vamos a sustituir los nombres breviados de las razas por los nombres en extenso con la siguiente clave:
+
+
+```{r pressure, echo=FALSE}
+#Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+# Your data
+df <- data.frame(
+  Abreviatura = c("Bo", "Ch", "Ms", "Pp", "Tb", "Va", "Zm"),
+  `Nombre en extenso` = c("Bonito", "Chalqueno", "Mushito", "Pepitilla", "Tabloncillo", "Vandeno", "Zamorano")
+)
+
+# Print centered table
+kable(df, align = "c") %>%
+  kable_styling(full_width = FALSE)
+```
+Crea la columna **`Extenso`** y sustituye las abreviaturas con los nombres dados en la tabla anterior.
+```{r editarDF}
+maices$Extenso <- maices$Raza
+
+#Sustituir los valores
+maices$Extenso <- recode(maices$Extenso, Bo = "Bonito", Ch = "Chalqueno",
+                         Ms = "Mushito", Pp= "Pepitilla", Tb = "Tabloncillo",
+                         Va = "Vandeno", Zm = "Zamorano")
+
+
+```
+
