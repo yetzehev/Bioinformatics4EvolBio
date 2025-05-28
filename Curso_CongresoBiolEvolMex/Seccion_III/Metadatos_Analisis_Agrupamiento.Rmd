@@ -21,9 +21,9 @@ En este caso emplearemos dato publicos de un estudio publicado en 2019, que empl
 El articulo *Contemporary evolution of maize landraces and their wild relatives influenced by gene flow with modern maize varieties* puede ser consultado en este [enlace](https://www.pnas.org/doi/full/10.1073/pnas.1817664116) y los datos genomicos y metados estan disponibles en el repositorio de datos de [OSF](https://osf.io/pqvt4/)
 
 ```{r tablas}
-genotipos <-read.delim("./metadata_385_taxa_Rojas_etal_2019.txt", sep = "\t")
+genotipos <-read.delim("./meta/metadata_385_taxa_Rojas_etal_2019.txt", sep = "\t")
 
-accesiones <- read.delim( "./Samples_and_Accessions.csv", sep = ",",skip = 6)
+accesiones <- read.delim( "./meta/Samples_and_Accessions.csv", sep = ",",skip = 6)
 
 kable(head(genotipos, 3), align = "c") %>%
   kable_styling(full_width = FALSE)
@@ -38,10 +38,10 @@ Extracción de los IDs para armar un subconjunto de datos con los maíces, exclu
 
 ```{r lisa_IDs}
 #Usar un comando de bash en R
-system("bcftools query -l ./../data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.recode.vcf > ../meta/genotypes_vcf.txt")
+system("bcftools query -l ./data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.recode.vcf > ../meta/genotypes_vcf.txt")
 
 #Cargar el set de datos extraído del archivo VCF y asignar nombres a las columnas
-IDs<- read.delim("../meta/genotypes_vcf.txt", sep = "_", header = FALSE)
+IDs<- read.delim("./meta/genotypes_vcf.txt", sep = "_", header = FALSE)
 colnames(IDs) <- c("Genotipo", "Grupo")
 
 #Extraer la información contenida en la columna de Grupo
