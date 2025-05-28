@@ -1,2 +1,4 @@
 *.vcf
 data/*
+.Rproj.user
+Curso_CongresoBiolEvolMex/Seccion_III/meta/
