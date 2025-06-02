@@ -35,7 +35,7 @@ help.search("plot")
 
 
 #### Aritmética básica y asignación de objetos
--
+
 ```R
 # Vamos a asignar el valor 3 a el objeto 'x'
 x <- 3
@@ -70,11 +70,10 @@ z <- x + y
 z
 ```
 
-```R
-#--------------------------------------------------
-# Trabajando con vectores y datos estructurados
-#--------------------------------------------------
 
+### Trabajando con vectores y datos estructurados
+
+```R
 # Vamos a crear un vector con cuatro elementos numéricos
 x <- c(1, 5, 7, 14)
 ```
