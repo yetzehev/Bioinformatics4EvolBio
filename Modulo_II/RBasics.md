@@ -1,9 +1,11 @@
 # Básicos en R
 
+
+Primeros pasos en R
+Aquí hay algunas líneas de código para comenzar a familiarizarnos con R
+
 ```R
-#Primeros pasos en R
-#Aquí hay algunas líneas de código para comenzar a familiarizarnos con R
-#Cualquier cosa que incluya un "#" se convertirá en un comentario
+# Cualquier cosa que incluya un "#" se convertirá en un comentario
 ```
 
 ```R
