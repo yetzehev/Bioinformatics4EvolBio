@@ -34,12 +34,12 @@ martillo_zyg.ind <- read.genepop ("SZ56_final.gen", ncode=3L)
 
 Dado que `ggplot2` no puede utilizar directamente nuestro objeto `Genind`, debemos convertilo en un archivo `genlight` 
 ```R
-sin_outs.light <- gi2gl(sin_outs.ind, parallel = FALSE, verbose = NULL)
+martillo_zyg.light <- gi2gl(martillo_zyg.ind, parallel = FALSE, verbose = NULL)
 ```
 
 ```R
 # ----- Eigenvalues: cuál es el porcentaje de varianza explicada por los datos
-sin_out.pca <- glPca(sin_outs.light, nf = 3)
+sin_out.pca <- glPca(martillo_zyg.light, nf = 3)
 barplot(100*sin_out.pca$eig/sum(sin_out.pca$eig),
         col = heat.colors(50), main="PCA Eigenvalues")
 title(ylab="Percent of variance\nexplained", line = 2)
@@ -48,7 +48,7 @@ title(xlab="Eigenvalues", line = 1)
 sin_out.pca
 # === PCA of genlight object ===
 #   Class: list of type glPca
-# Call ($call):glPca(x = sin_outs.light, nf = 3)
+# Call ($call):glPca(x = martillo_zyg.light, nf = 3)
 # 
 # Eigenvalues ($eig):
 #   1.661 1.603 1.537 1.475 1.422 1.392 ...
@@ -63,12 +63,12 @@ sin_out.pca
 ```R
 #---------------- PCA
 
-sin_out.pca.scores <- as.data.frame(sin_out.pca$scores)
-sin_out.pca.scores$pop <- pop(sin_outs.light)
+martillo_zyg.pca.scores <- as.data.frame(martillo_zyg.pca$scores)
+martillo_zyg.pca.scores$pop <- pop(martillo_zyg.light)
 
 library(ggplot2)
 set.seed(9)
-pn <- ggplot(sin_out.pca.scores, aes(x=PC1, y=PC2, colour=pop)) +
+pn <- ggplot(martillo_zyg.pca.scores, aes(x=PC1, y=PC2, colour=pop)) +
   geom_point(size=2) +
   stat_ellipse(level = 0.95, size = 1) +
   scale_color_manual(values = cols) +
@@ -84,15 +84,15 @@ pn
 ```R
 #------ DAPC neutral
 
-pnw.dapc_neu <- dapc(sin_outs.light, n.pca = 3, n.da = 2)
+martillo_zyg.dapc <- dapc(martillo_zyg.light, n.pca = 3, n.da = 2)
 
-scatter.dapc(pnw.dapc_neu, col = cols, cex = 2, legend = TRUE, clabel = F,
+scatter.dapc(martillo_zyg.dapc, col = cols, cex = 2, legend = TRUE, clabel = F,
              posi.leg = "bottomleft", scree.pca = TRUE,
              posi.pca = "topleft", cleg = 0.75)
 
 
-compoplot(pnw.dapc_neu,col = function(x) cols, posi = 'top')
-compoplot(pnw.dapc_neu,col = cols, posi = 'top')
+compoplot(martillo_zyg.dapc,col = function(x) cols, posi = 'top')
+compoplot(martillo_zyg.dapc,col = cols, posi = 'top')
 
 ```
 ![Image](https://github.com/user-attachments/assets/be5c2e42-fb63-4830-9133-2b84ea4bcf81)
@@ -101,14 +101,14 @@ compoplot(pnw.dapc_neu,col = cols, posi = 'top')
 ```R
 #------ DAPC
 
-pnw.dapc <- dapc(outliers.light, n.pca = 3, n.da = 2)
+martillo_zyg.dapc <- dapc(martillo_zyg.light, n.pca = 3, n.da = 2)
 
-scatter.dapc(pnw.dapc, col = cols, cex = 2, legend = TRUE, clabel = F,
+scatter.dapc(martillo_zyg.dapc, col = cols, cex = 2, legend = TRUE, clabel = F,
         posi.leg = "bottomleft", scree.pca = TRUE,
         posi.pca = "topleft", cleg = 0.75)
 
 
-compoplot(pnw.dapc,col = function(x) cols, posi = 'top')
-compoplot(pnw.dapc,col = cols, posi = 'top')
+compoplot(martillo_zyg.dapc,col = function(x) cols, posi = 'top')
+compoplot(martillo_zyg.dapc,col = cols, posi = 'top')
 ```
 ![Image](https://github.com/user-attachments/assets/8025f4bf-3751-4d66-a112-d93cec4e6437)
