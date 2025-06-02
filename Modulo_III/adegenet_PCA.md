@@ -87,3 +87,19 @@ compoplot(pnw.dapc_neu,col = cols, posi = 'top')
 
 ```
 ![Image](https://github.com/user-attachments/assets/be5c2e42-fb63-4830-9133-2b84ea4bcf81)
+
+
+```
+#------ DAPC
+
+pnw.dapc <- dapc(outliers.light, n.pca = 3, n.da = 2)
+
+scatter.dapc(pnw.dapc, col = cols, cex = 2, legend = TRUE, clabel = F,
+        posi.leg = "bottomleft", scree.pca = TRUE,
+        posi.pca = "topleft", cleg = 0.75)
+
+
+compoplot(pnw.dapc,col = function(x) cols, posi = 'top')
+compoplot(pnw.dapc,col = cols, posi = 'top')
+```
+![Image](https://github.com/user-attachments/assets/8025f4bf-3751-4d66-a112-d93cec4e6437)
