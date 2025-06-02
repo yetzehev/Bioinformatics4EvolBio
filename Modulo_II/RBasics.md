@@ -92,7 +92,7 @@ rx
 Si queremos ver las funciones de `rep()` y ver cómo se usa, podemos escribir en la consola `?rep()` para mostrar la documentación del mismo
 
 ```R
-# Generar un vector con 4 números aleatorios a partir de una distribución normalGenerate a vector of 4 random numbers from a normal distribution
+# Generar un vector con 4 números aleatorios a partir de una distribución normal
 y <- rnorm(4)
 ```
 
