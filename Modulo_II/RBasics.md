@@ -100,8 +100,6 @@ y <- rnorm(4)
 z <- cbind(x, y)
 z
 ```
-> Cuál es la dimensión de nuestra matriz?
-****** incluir opciones
 
 ```R
 # Crear nombres de renglones usando las primeras 4 letras minúsculas (a-d)
@@ -109,46 +107,41 @@ species <- letters[1:4]
 ```
 
 ```R
-# Set the row names of matrix z to the species letters
+# Establezca los nombres de fila de la matriz z en las letras de la especie
 row.names(z) <- species
 ```
 
 ```R
-# View the matrix with row names
+# Ver la matriz con nombres de filas
 z
 ```
 
-```R
-#-----------------------------------------
-# Understanding object structure
-#-----------------------------------------
+### Entendiendo la estructura de los objetos
 
-# What type of object is x?
+Qué tipo de objeto es 'x'?
+
+```R
 class(x)
 ```
 
+Dimensiones del objeto 'x' (será `NULL` para un vector)
 ```R
-# Dimensions of object x (will be NULL for a vector)
 dim(x)
 ```
+> Cuál es la dimensión de nuestra matriz 'z'?
+****** incluir opciones
 
+Longitud/tamaño de 'x' (número de elementos en un vector)
 ```R
-# Length of x (number of elements in a vector)
 length(x)
 ```
 
+Clase/tipo de 'z'
 ```R
-# Dimensions of z (number of rows and columns)
-dim(z)
-```
-
-```R
-# Class/type of z
-
 class(z)
 ```
 
+Atributos de z (como dimensiones, nombres, etc.)
 ```R
-# Atributos de z (como dimensiones, nombres, etc.)
 attributes(z)
 ```
