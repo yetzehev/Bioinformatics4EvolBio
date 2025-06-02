@@ -69,5 +69,21 @@ pn <- ggplot(sin_out.pca.scores, aes(x=PC1, y=PC2, colour=pop)) +
 pn
 
 
-```
+```R
 ![Image](https://github.com/user-attachments/assets/b11e9f11-24a3-4b7a-87d0-0e67fd799020)
+
+```
+#------ DAPC neutral
+
+pnw.dapc_neu <- dapc(sin_outs.light, n.pca = 3, n.da = 2)
+
+scatter.dapc(pnw.dapc_neu, col = cols, cex = 2, legend = TRUE, clabel = F,
+             posi.leg = "bottomleft", scree.pca = TRUE,
+             posi.pca = "topleft", cleg = 0.75)
+
+
+compoplot(pnw.dapc_neu,col = function(x) cols, posi = 'top')
+compoplot(pnw.dapc_neu,col = cols, posi = 'top')
+
+```
+![Image](https://github.com/user-attachments/assets/be5c2e42-fb63-4830-9133-2b84ea4bcf81)
