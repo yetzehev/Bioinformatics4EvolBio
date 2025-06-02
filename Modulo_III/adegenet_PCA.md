@@ -119,16 +119,8 @@ compoplot(martillo_zyg.dapc,col = cols, posi = 'top')
 ![Image](https://github.com/user-attachments/assets/be5c2e42-fb63-4830-9133-2b84ea4bcf81)
 
 
+### Gráfico de densidad en `adegenet`
 ```R
-#------ DAPC
-
-martillo_zyg.dapc <- dapc(martillo_zyg.light, n.pca = 3, n.da = 2)
-
-scatter.dapc(martillo_zyg.dapc, col = cols, cex = 2, legend = TRUE, clabel = F,
-        posi.leg = "bottomleft", scree.pca = TRUE,
-        posi.pca = "topleft", cleg = 0.75)
-
-
 compoplot(martillo_zyg.dapc,col = function(x) cols, posi = 'top')
 compoplot(martillo_zyg.dapc,col = cols, posi = 'top')
 ```
