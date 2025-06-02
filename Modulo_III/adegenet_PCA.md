@@ -15,13 +15,16 @@ library(ggplot2)
 Les recomendamos que le echen vistazo a todo tipo de gráficos que se pueden hacer en la paquetería [ggplot2](https://r-graph-gallery.com/ggplot2-package.html)
 
 Vamos a seleccionar el folder donde tenemos guardados nuestros archivos
-> Si trabajamos con distintos sets de datos de distintos proyectos, podemos crear un proyecto específico. Esto nos permitirá guardar nuestros avances, tener las librerías y carpetas cargadas sin necesidad de estar buscando cada archivo de R a la vez.
+
 
 ```
 setwd("analysis_R/curso_rembe")
 ```
-Se recomienda evitar los espacios en los nombres de carpetas para evitar errores de carga.
+> Si trabajamos con distintos sets de datos de distintos proyectos, podemos crear un proyecto específico. Esto nos permitirá guardar nuestros avances, tener las librerías y carpetas cargadas sin necesidad de estar buscando cada archivo de R a la vez.
+> Se recomienda evitar los espacios en los nombres de carpetas para evitar errores de carga.
 
+
+En este caso, vamos a utilizar un archivo `Genepop`, por lo que tenemos que especificar la configuración de nuestros loci (`ncode`), si corresponden a 2 dígitos (`2L`) o 3 dígitos por alelo (`3L`)
 ```
 martillo_zyg.ind <- read.genepop ("SZ56_final.gen", ncode=3L)
 ```
