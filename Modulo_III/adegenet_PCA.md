@@ -7,10 +7,12 @@ install.packages("adegenet")
 install.packages("ggplot2")
 ```
 
+Vamos a cargar las librerías
 ```
 library(adegenet)
 library(ggplot2)
 ```
+Les recomendamos que le echen vistazo a todo tipo de gráficos que se pueden hacer en la paquetería [ggplot2](https://r-graph-gallery.com/ggplot2-package.html)
 
 Vamos a seleccionar el folder donde tenemos guardados nuestros archivos
 > Si trabajamos con distintos sets de datos de distintos proyectos, podemos crear un proyecto específico. Esto nos permitirá guardar nuestros avances, tener las librerías y carpetas cargadas sin necesidad de estar buscando cada archivo de R a la vez.
