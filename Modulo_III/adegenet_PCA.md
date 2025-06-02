@@ -5,7 +5,7 @@ En esta sección utilizaremos la base de datos de XXX, que corresponde a XXX esp
 Instalación de las paqueterías a utilizar:
 
 ```R
-install.packages("adegenet")
+install.packages("adegenet", dep=TRUE)
 install.packages("ggplot2")
 ```
 
@@ -19,6 +19,10 @@ Les recomendamos que le echen vistazo a todo tipo de gráficos que se pueden hac
 
 Vamos a seleccionar el folder donde tenemos guardados nuestros archivos
 
+PUEDO UTILIZAR ESTOS DATOS PERO YA ESTAN EN ARCHIVO GENIND, AUNQUE LOS PUEDO CONVERTIR A GENEPOP Y LUEGO A GENIND
+```R
+data(nancycats)
+```
 
 ```R
 setwd("analysis_R/curso_rembe")
