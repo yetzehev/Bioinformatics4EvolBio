@@ -1,8 +1,10 @@
 # Adegenet
 
-Instalación de `adegenet`:
+Instalación de las paqueterías a utilizar:
+
 ```R
 install.packages("adegenet")
+install.packages("ggplot2")
 ```
 
 ```
