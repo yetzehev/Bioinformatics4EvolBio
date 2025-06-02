@@ -15,86 +15,96 @@ help.start()
 ```
 
 ```R
-# Brings up documentation for the function 'mean'
+# VAmos a mostrar la documentación con la función 'mean'
 ?mean
 ```
 
 ```R
-# Same as above, alternative syntax
+# Otra manera de hacerlo es a través de la función `help`
 help(mean)
 ```
 
 ```R
-# Searches documentation for anything related to "plot"
+# Buscar la documentación para cualquiera relacionado con la función 'plot'
 help.search("plot")
 ```
 
+Ahora vamos a crear objetos en R y a asignarles valores
 ```R
-#-----------------------------------------
-# Basic arithmetic and object assignment
-#-----------------------------------------
+#--------------------------------------------
+# Aritmética básica y asignación de objetos
+#--------------------------------------------
 
-# Assigns the value 3 to the object 'x'
+# Vamos a asignar el valor 3 a el objeto 'x'
 x <- 3
 ```
 
 ```R
-# Assigns the value 4 to the object 'y'
+# Ahora asignaremos el valor 4 al objeto 'y'
 y <- 4
 ```
 
 ```R
-# Prints the value of 'x'
+# Vamos a mostrar el valor de 'x'
 x
 ``` 
 
 ```R
-# Prints the value of 'y'
+# Mostrar el valor de 'y'
 y
 ```
 
+Como ahora hemos asignado valores a nuestros objetos, podemos hacer operaciones aritméticas con ellos, por ejemplo:
+
 ```R
-# Adds x and y but does not store the result
+# Esto nos arrojará el valor de x e y pero no guardará el resultado
 x + y
 ```
 
+Si queremos guardar el resultado, debemos crear otro objeto, por ejemplo:
 ```R
-# Adds x and y, stores the result in 'z'
+# Agrega x e y, almacenando el resultado en 'z'
 z <- x + y
+z
 ```
 
 ```R
-#-----------------------------------------
-# Working with vectors and data structures
-#-----------------------------------------
+#--------------------------------------------------
+# Trabajando con vectores y datos estructurados
+#--------------------------------------------------
 
-# Create a vector with four numeric elements
+# Vamos a crear un vector con cuatro elementos numéricos
 x <- c(1, 5, 7, 14)
 ```
 
 ```R
-# Display the contents of vector x
+# Mostrar el contenido dentro del vector x 
 x
 ```
+> Es importante recordar que, 'x' anteriormente tenía un valor, dado que volvimos a correr 'x' con otros valores, el objeto 'x' se sobreescribirá.
 
 ```R
-# Repeat the contents of vector x twice
+# Repetir el contenido del vector dos veces
 rx <- rep(x, times = 2)
 rx
 ```
+Si queremos ver las funciones de `rep()` y ver cómo se usa, podemos escribir en la consola `?rep()` para mostrar la documentación del mismo
 
 ```R
-# Generate a vector of 4 random numbers from a normal distribution
+# Generar un vector con 4 números aleatorios a partir de una distribución normalGenerate a vector of 4 random numbers from a normal distribution
 y <- rnorm(4)
 ```
 
 ```R
-# Combine vectors x and y into a matrix, column-wise
+# Combinar los vectores x e y en una matriz, por columna
 z <- cbind(x, y)
+z
 ```
+> Cuál es la dimensión de nuestra matriz?
+****** incluir opciones
 
 ```R
-# Create row names from the first four lowercase letters (a-d)
+# Crear nombres de renglones usando las primeras 4 letras minúsculas (a-d)
 species <- letters[1:4]
 ```
 
