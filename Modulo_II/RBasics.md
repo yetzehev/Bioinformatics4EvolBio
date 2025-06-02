@@ -9,6 +9,8 @@ Aquí hay algunas líneas de código para comenzar a familiarizarnos con R
 # Cualquier cosa que incluya un "#" se convertirá en un comentario
 ```
 
+### Ayuda en R
+
 ```R
 # Lanzar el manual de auida en tu buscador
 help.start()
@@ -29,12 +31,12 @@ help(mean)
 help.search("plot")
 ```
 
-Ahora vamos a crear objetos en R y a asignarles valores
-```R
-#--------------------------------------------
-# Aritmética básica y asignación de objetos
-#--------------------------------------------
+### Crear objetos en R y a asignarles valores
 
+
+#### Aritmética básica y asignación de objetos
+-
+```R
 # Vamos a asignar el valor 3 a el objeto 'x'
 x <- 3
 ```
