@@ -8,7 +8,7 @@ install.packages("ggplot2")
 ```
 
 Vamos a cargar las librerías
-```
+```R
 library(adegenet)
 library(ggplot2)
 ```
@@ -17,7 +17,7 @@ Les recomendamos que le echen vistazo a todo tipo de gráficos que se pueden hac
 Vamos a seleccionar el folder donde tenemos guardados nuestros archivos
 
 
-```
+```R
 setwd("analysis_R/curso_rembe")
 ```
 > Si trabajamos con distintos sets de datos de distintos proyectos, podemos crear un proyecto específico. Esto nos permitirá guardar nuestros avances, tener las librerías y carpetas cargadas sin necesidad de estar buscando cada archivo de R a la vez.
@@ -25,16 +25,16 @@ setwd("analysis_R/curso_rembe")
 
 
 En este caso, vamos a utilizar un archivo `Genepop`, por lo que tenemos que especificar la configuración de nuestros loci (`ncode`), si corresponden a 2 dígitos (`2L`) o 3 dígitos por alelo (`3L`)
-```
+```R
 martillo_zyg.ind <- read.genepop ("SZ56_final.gen", ncode=3L)
 ```
 
 
-```
+```R
 sin_outs.light <- gi2gl(sin_outs.ind, parallel = FALSE, verbose = NULL)
 ```
 
-```
+```R
 # ----- Eigenvalues: cuál es el porcentaje de varianza explicada por los datos
 sin_out.pca <- glPca(sin_outs.light, nf = 3)
 barplot(100*sin_out.pca$eig/sum(sin_out.pca$eig),
@@ -57,7 +57,7 @@ sin_out.pca
 #   matrix with 1450 rows (SNPs) and 3 columns (axes) 
 ```
 
-```
+```R
 #---------------- PCA
 
 sin_out.pca.scores <- as.data.frame(sin_out.pca$scores)
@@ -74,13 +74,11 @@ pn <- ggplot(sin_out.pca.scores, aes(x=PC1, y=PC2, colour=pop)) +
   theme_bw()
 
 pn
-
-
 ```
 
 ![Image](https://github.com/user-attachments/assets/b11e9f11-24a3-4b7a-87d0-0e67fd799020)
 
-```
+```R
 #------ DAPC neutral
 
 pnw.dapc_neu <- dapc(sin_outs.light, n.pca = 3, n.da = 2)
@@ -97,7 +95,7 @@ compoplot(pnw.dapc_neu,col = cols, posi = 'top')
 ![Image](https://github.com/user-attachments/assets/be5c2e42-fb63-4830-9133-2b84ea4bcf81)
 
 
-```
+```R
 #------ DAPC
 
 pnw.dapc <- dapc(outliers.light, n.pca = 3, n.da = 2)
