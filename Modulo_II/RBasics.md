@@ -2,6 +2,7 @@
 
 
 Primeros pasos en R
+
 Aquí hay algunas líneas de código para comenzar a familiarizarnos con R
 
 ```R
