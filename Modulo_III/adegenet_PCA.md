@@ -1,5 +1,7 @@
 # Adegenet
 
+En esta sección utilizaremos la base de datos de XXX, que corresponde a XXX especie.
+
 Instalación de las paqueterías a utilizar:
 
 ```R
@@ -11,6 +13,7 @@ Vamos a cargar las librerías
 ```R
 library(adegenet)
 library(ggplot2)
+library(dartR) # previamente instalada
 ```
 Les recomendamos que le echen vistazo a todo tipo de gráficos que se pueden hacer en la paquetería [ggplot2](https://r-graph-gallery.com/ggplot2-package.html)
 
@@ -29,7 +32,7 @@ En este caso, vamos a utilizar un archivo `Genepop`, por lo que tenemos que espe
 martillo_zyg.ind <- read.genepop ("SZ56_final.gen", ncode=3L)
 ```
 
-
+Dado que `ggplot2` no puede utilizar directamente nuestro objeto `Genind`, debemos convertilo en un archivo `genlight` 
 ```R
 sin_outs.light <- gi2gl(sin_outs.ind, parallel = FALSE, verbose = NULL)
 ```
