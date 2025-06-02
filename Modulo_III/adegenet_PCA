@@ -69,4 +69,4 @@ pn <- ggplot(sin_out.pca.scores, aes(x=PC1, y=PC2, colour=pop)) +
 pn
 
 ```
-![image](https://user-images.githubusercontent.com/45276981/158803117-2dd6fab8-96fb-42ef-a819-37284edc2788.png)
+![Image](https://github.com/user-attachments/assets/b11e9f11-24a3-4b7a-87d0-0e67fd799020)
