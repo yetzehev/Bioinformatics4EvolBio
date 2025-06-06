@@ -88,6 +88,13 @@ maices$Extenso <- recode(maices$Extenso, Bo = "Bonito", Ch = "Chalqueno",
                          Ms = "Mushito", Pp= "Pepitilla", Tb = "Tabloncillo",
                          Va = "Vandeno", Zm = "Zamorano")
 
-
+subset_maices <- paste(maices$Genotipo, maices$Grupo, sep = "_")
+write.table(subset_maices, "./meta/subset_maices.txt",quote = FALSE, row.names = FALSE, col.names = FALSE)
 ```
 
+El siguiente paso es  transformar los archivs VCF en archivos plink
+
+```{r transformacion}
+#Filtrado de SNPs
+system("~/bin/plink/plink --vcf ./data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.recode.vcf --keep ./meta/subset_maices_2cols.txt --double-id --allow-extra-chr --set-missing-var-ids @:# --indep-pairwise 50 10 0.1 --out maices")
+```
