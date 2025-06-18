@@ -3,8 +3,6 @@ Autoras:
 
 - Idalia C. Rojas Barrera 
 
--  Laura Figueroa Corona
-
 - Daniela Felix
 
   
@@ -73,7 +71,7 @@ Autoras:
 
 - 3.3.1 Poppr package  (Daniela)
 - 3.3.2 Adegenet package(Daniela)
-- 3.3.3 Hierfstat  package (Laura)
+- 3.3.3 Hierfstat  package ()
 
 
 
@@ -83,8 +81,8 @@ Autoras:
 - 3.2.2 Gradient Forest Test (Laura nos pasa los scripts)  
 
 3.3  Seleccion tests (Idalia)
--	3.3.1 PCAdapt (Idalia/ Lau)
--	3.3.2 RDA (Nancy y Daniela)
+-	3.3.1 PCAdapt (Idalia/ )
+-	3.3.2 RDA ( Daniela)
 -	3.3. 3 LFMM (Daniela)
 
 
