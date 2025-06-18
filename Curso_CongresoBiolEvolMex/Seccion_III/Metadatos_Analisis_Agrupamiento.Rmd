@@ -11,14 +11,21 @@ library(knitr)
 library(kableExtra)
 library(tidyr)
 library(dplyr)
+library(tidyverse)
 ```
 
 # Tablas de metadatos y construccion de subconjunto de datos 
+Dependencias en bash:
+vcftools
+plink 
+tabix
+
+Si los directorioa no existen en tu directorio de trabajo, crea los directorios: **`meta`** **`subset`**
 
 ### Cargar archivos en Rstudio
-En este caso emplearemos dato publicos de un estudio publicado en 2019, que empleo datos genmicos de razasa de maiz para evaluar la evoluvion de este cultivo en Mexico, donde se encuentra el centr de origen y diversidad para este cultivo. 
+En este caso, emplearemos **datos** públicos de un estudio publicado en 2019, que empleó datos genómicos de **razas** de **maíz** para evaluar la evolución de este cultivo en México, donde se encuentra el centro de origen y diversidad para este cultivo.  
 
-El articulo *Contemporary evolution of maize landraces and their wild relatives influenced by gene flow with modern maize varieties* puede ser consultado en este [enlace](https://www.pnas.org/doi/full/10.1073/pnas.1817664116) y los datos genomicos y metados estan disponibles en el repositorio de datos de [OSF](https://osf.io/pqvt4/)
+El artículo *[Contemporary evolution of maize landraces and their wild relatives influenced by gene flow with modern maize varieties](https://www.pnas.org/doi/full/10.1073/pnas.1817664116)* puede ser consultado en este [enlace](https://www.pnas.org/doi/full/10.1073/pnas.1817664116), y los datos genómicos y metadatos están disponibles en el repositorio de [OSF](https://osf.io/pqvt4/).
 
 ```{r tablas}
 genotipos <-read.delim("./meta/metadata_385_taxa_Rojas_etal_2019.txt", sep = "\t")
@@ -36,12 +43,21 @@ kable(head(accesiones, 3), align = "c") %>%
 ### Editar las tablas de datos 
 Extracción de los IDs para armar un subconjunto de datos con los maíces, excluyendo a los parientes silvestres. Es posible emplear los comandos de Bash dentro de un script de R. Para ello debemos usar el comando **`system`** y escribir el comando de Bash entre comillas.
 
-```{r lisa_IDs}
+```{r lista_IDs}
 #Usar un comando de bash en R
-system("bcftools query -l ./data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.recode.vcf > ../meta/genotypes_vcf.txt")
+system("bcftools query -l ./data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.recode.vcf > ./meta/genotypes_vcf.txt")
 
 #Cargar el set de datos extraído del archivo VCF y asignar nombres a las columnas
 IDs<- read.delim("./meta/genotypes_vcf.txt", sep = "_", header = FALSE)
+kable(head(IDs, 5), align = "c") %>% 
+  kable_styling(full_width = FALSE)
+```
+
+Esta es la manera en que lucen los IDs de los genotipos extraidos de un archivo VCF. En este caso la columna 1 repesenta el ID-unico del genotipo y la columna 2 el nombre de la accesion a la que esta asignado ese genotipo. 
+
+Ahora asignaremos nombres a las columnas de los IDs extraidos: **`Genotipo`** y **`Grupo`**
+
+```{r VCF}
 colnames(IDs) <- c("Genotipo", "Grupo")
 
 #Extraer la información contenida en la columna de Grupo
@@ -50,7 +66,6 @@ extract <- IDs %>% separate(Grupo,
                        sep = c(2,4,8))
 #Merge our new information 
 IDs<- merge(IDs, extract, by = "Genotipo")
-
 
 ```
 
@@ -88,13 +103,114 @@ maices$Extenso <- recode(maices$Extenso, Bo = "Bonito", Ch = "Chalqueno",
                          Ms = "Mushito", Pp= "Pepitilla", Tb = "Tabloncillo",
                          Va = "Vandeno", Zm = "Zamorano")
 
-subset_maices <- paste(maices$Genotipo, maices$Grupo, sep = "_")
-write.table(subset_maices, "./meta/subset_maices.txt",quote = FALSE, row.names = FALSE, col.names = FALSE)
+```
+El subset de datos con maíces esta integrado por 186 genotipos, para reducir el tiempo de computo y el tamano de los archivos generaremos una lista con 50 genotipos, para ello usaremos la funcion de R **`sample`**
+```{r subset_maices}
+set.seed(123)  # For reproducibility
+maices_slice <- maices[sample(nrow(maices), 50), ]
+
 ```
 
-El siguiente paso es  transformar los archivs VCF en archivos plink
+Ahora generaremos la lista de genotipos para hacer el subconjunto de genotipos del archivo vcf y plink. El archivo para hacer el subset del archivo VCF solo requiere una columna con la lista de genotipos, el archivo para hacer el subset del archivo plink requiere dos columnas, una representa el genotipo y  la otra la familia. 
 
+```{R plink_subset}
+
+subset_vcf<- paste(maices_slice$Genotipo, maices_slice$Grupo, sep = "_")
+
+subset_plink <- maices_slice %>% 
+  transmute(
+    ID = paste(Genotipo, Grupo, sep = "_"),  # Creates a new column
+    Family = paste(Genotipo, Grupo, sep = "_")  # Optional: same as ID
+  )
+
+write.table(subset_vcf, "./meta/subset_maices_vcf.txt",quote = FALSE, row.names = FALSE, col.names = FALSE)
+write.table(subset_plink, "./meta/subset_maices_plink.txt",quote = FALSE, row.names = FALSE, col.names = FALSE)
+```
+
+
+El siguiente paso es  transformar los archivos VCF en archivos plink
+
+La compresion del archivo requiere **`tabix`**
+```{r}
+system("vcftools --vcf data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.recode.vcf --keep ./meta/subset_maices_vcf.txt --recode --out ./subset/maices_subset50")
+system("bgzip -c ./subset/maices_subset50.recode.vcf > ./subset/maices_subset50.vcf.gz")
+```
+
+Filtra los SNPs empleando plink
 ```{r transformacion}
 #Filtrado de SNPs
-system("~/bin/plink/plink --vcf ./data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.recode.vcf --keep ./meta/subset_maices_2cols.txt --double-id --allow-extra-chr --set-missing-var-ids @:# --indep-pairwise 50 10 0.1 --out maices")
+system("~/bin/plink/plink --vcf ./subset/maices_subset50.recode.vcf --keep ./meta/subset_maices_plink.txt --double-id --allow-extra-chr --set-missing-var-ids @:# --indep-pairwise 50 10 0.1 --out ./subset/maices_subset50")
 ```
+
+Realizar el PCA
+```{R PCA}
+# prune and create pca
+system("~/bin/plink/plink  --vcf  ./subset/maices_subset50.recode.vcf --keep ./meta/subset_maices_plink.txt --double-id --allow-extra-chr --set-missing-var-ids @:# --extract maices_subset50.prune.in --make-bed --pca --out ./subset/maices_subset50")
+```
+
+Cargar el resultado del PCA
+```{r graficar}
+# read in data
+pca <- read.delim("./subset/maices_subset50.eigenvec", sep = " ", header = FALSE)
+eigenval <- scan("./subset/maices_subset50.eigenval")
+```
+Asignar los nombres a los genotipo
+
+```{r IND_PCA}
+
+# sort out the pca data
+# remover la columna extra con los IDs
+pca <- pca[,-1]
+# set names
+names(pca)[1] <- "ind"
+names(pca)[2:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-1))
+```
+Agregar los nombres en extenso de las razas
+
+```{r IDs_razas}
+# sort out the individual species and pops
+# spp
+razas <- rep(NA, length(pca$ind))
+razas[grep("ChNa", pca$ind)] <- "Chalqueno"
+razas[grep("BoNa", pca$ind)] <- "Bonito"
+razas[grep("MsNa", pca$ind)] <- "Mushito"
+razas[grep("PpNa", pca$ind)] <- "Pepitilla"
+razas[grep("TbNa", pca$ind)] <- "Tabloncillo"
+razas[grep("VaNa", pca$ind)] <- "Vandeno"
+razas[grep("ZmNa", pca$ind)] <- "Zamorano"
+
+pca <- data.frame(pca, razas)
+
+
+```
+
+Graficar los eigenvectores
+
+```{r eigenv}
+# first convert to percentage variance explained
+pve <- data.frame(PC = 1:20, pve = eigenval/sum(eigenval)*100)
+```
+Grafica la propocion de variacion que explica cada eigenvector
+```{r eigenv_plot}
+# make plot
+a <- ggplot(pve, aes(PC, pve)) + geom_bar(stat = "identity")
+a + ylab("Percentage variance explained") + theme_light()
+```
+
+
+```{r eigenv_cumm}
+# calculate the cumulative sum of the percentage variance explained
+cumsum(pve$pve)
+```
+Plot PCA
+
+```{r }
+
+# plot pca
+b <- ggplot(pca, aes(PC1, PC2, col = razas)) + geom_point(size = 3)
+
+b <- b + coord_equal() + theme_light()
+b + xlab(paste0("PC1 (", signif(pve$pve[1], 3), "%)")) + ylab(paste0("PC2 (", signif(pve$pve[2], 3), "%)"))
+
+```
+
