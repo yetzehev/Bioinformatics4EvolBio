@@ -34,21 +34,33 @@ Call libraries
 library(maps)
 library(tess3r)
 library(LEA)
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+
 ```
 
 ## Indices de ancestria
 
-Los indices de ancestria son un analisis de agrupamiento no supervisado que emplea el metodo de K-means. En este tutorial emplearemos la paqueteria de R `Tess3` <https://bcm-uga.github.io/TESS3_encho_sen/articles/main-vignette.html>
+Los índices de ancestría son un análisis de agrupamiento no supervisado que emplea el método de K-medias para agrupar genotipos en diferentes grupos. En este tutorial utilizaremos el paquete de R `Tess3`: <https://bcm-uga.github.io/TESS3_encho_sen/articles/main-vignette.html>
 
-Transformar nuestro archiv en el archivo de genotipos que emplea tss3
+Transformar nuestro archivo en el archivo de genotipos que emplea tss3.
 
-```{r formato}
+1.  Convertir de vcf a ped, para ello emplearemos vcftools:
 
+```{r vcf2ped}
+system("vcftools --vcf ./subset/maices_subset50.recode.vcf --plink --out ./subset/maices_subset50")
 ```
 
-## Including Plots
+2.  Se recomienda partir del formato ped a lfmm
 
-You can also embed plots, for example:
+```{r formato}
+input.file = "./subset/maices_subset50.ped"
+output.file ="./subset/maices_subset50.geno"
+maices.geno <- ped2geno(input.file, output.file, force = TRUE)
+head(maices.geno)
+```
+
+## Calcular ancestria 
+La ejecución de la función principal tess3 requiere dos archivos: 1) un archivo que codifique genotipos individuales, y 2) un archivo con coordenadas geográficas individuales. 
 
 ```{r pressure, echo=FALSE}
 plot(pressure)
