@@ -20,7 +20,18 @@ vcftools
 plink 
 tabix
 
-Si los directorioa no existen en tu directorio de trabajo, crea los directorios: **`meta`** **`subset`**
+Librerias en R:
+- kniitr
+- kableExtra
+- tidyr
+- dplyr
+- tidyverse
+
+Si los directorios  **`meta`** **`subset`** no existen en tu directorio de trabajo, crealos con el siguiente comando:
+```{r mkdir}
+system('mkdir ./meta')
+system('mkdir ./subset')
+```
 
 ### Cargar archivos en Rstudio
 En este caso, emplearemos **datos** públicos de un estudio publicado en 2019, que empleó datos genómicos de **razas** de **maíz** para evaluar la evolución de este cultivo en México, donde se encuentra el centro de origen y diversidad para este cultivo.  
