@@ -9,12 +9,41 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Indices de ancestria 
+## Requerimentos
 
-Los indices de ancestria son un analisis de agrupamiento no supervisado que emplea el metodo de K-means. 
+-   tess3
+-   tydiverse
+-   devtools
+-   maps
+-   LEA
 
-```{r cars}
-summary(cars)
+```{r installation}
+# install.packages("devtools")
+#devtools::install_github("bcm-uga/TESS3_encho_sen")
+#install.packages("maps")
+#if (!require("BiocManager", quietly = TRUE))
+  
+#    install.packages("BiocManager")
+
+#BiocManager::install("LEA")
+```
+
+Call libraries
+
+```{r libraries}
+library(maps)
+library(tess3r)
+library(LEA)
+```
+
+## Indices de ancestria
+
+Los indices de ancestria son un analisis de agrupamiento no supervisado que emplea el metodo de K-means. En este tutorial emplearemos la paqueteria de R `Tess3` <https://bcm-uga.github.io/TESS3_encho_sen/articles/main-vignette.html>
+
+Transformar nuestro archiv en el archivo de genotipos que emplea tss3
+
+```{r formato}
+
 ```
 
 ## Including Plots
