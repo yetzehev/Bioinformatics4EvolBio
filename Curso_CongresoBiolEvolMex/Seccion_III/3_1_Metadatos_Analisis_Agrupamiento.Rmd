@@ -69,7 +69,7 @@ de Bash dentro de un script de R. Para ello debemos usar el comando
 
 ```{r lista_IDs}
 #Usar un comando de bash en R
-system("bcftools query -l ../data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.recode.vcf > ./meta/genotypes_vcf.txt")
+system("bcftools query -l ../../data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.recode.vcf > ./meta/genotypes_vcf.txt")
 
 #Cargar el set de datos extraído del archivo VCF y asignar nombres a las columnas
 IDs<- read.delim("./meta/genotypes_vcf.txt", sep = "_", header = FALSE)
@@ -174,22 +174,22 @@ El siguiente paso es transformar los archivos VCF en archivos plink
 La compresion del archivo requiere **`tabix`**
 
 ```{r}
-system("vcftools --vcf data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.recode.vcf --keep ./meta/subset_maices_vcf.txt --recode --out ./subset/maices_subset50")
-system("bgzip -c ./subset/maices_subset50.recode.vcf > ./subset/maices_subset50.vcf.gz")
+#system("vcftools --vcf data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.recode.vcf --keep ./meta/subset_maices_vcf.txt --recode --out ./subset/maices_subset50")
+#system("bgzip -c ./subset/maices_subset50.recode.vcf > ./subset/maices_subset50.vcf.gz")
 ```
 
 Filtra los SNPs empleando plink
 
 ```{r transformacion}
 #Filtrado de SNPs
-system("~/bin/plink/plink --vcf ./subset/maices_subset50.recode.vcf --keep ./meta/subset_maices_plink.txt --double-id --allow-extra-chr --set-missing-var-ids @:# --indep-pairwise 50 10 0.1 --out ./subset/maices_subset50")
+#system("~/bin/plink/plink --vcf ./subset/maices_subset50.recode.vcf --keep ./meta/subset_maices_plink.txt --double-id --allow-extra-chr --set-missing-var-ids @:# --indep-pairwise 50 10 0.1 --out ./subset/maices_subset50")
 ```
 
 Realizar el PCA
 
 ```{R PCA}
 # prune and create pca
-system("~/bin/plink/plink  --vcf  ./subset/maices_subset50.recode.vcf --keep ./meta/subset_maices_plink.txt --double-id --allow-extra-chr --set-missing-var-ids @:# --extract maices_subset50.prune.in --make-bed --pca --out ./subset/maices_subset50")
+#system("~/bin/plink/plink  --vcf  ./subset/maices_subset50.recode.vcf --keep ./meta/subset_maices_plink.txt --double-id --allow-extra-chr --set-missing-var-ids @:# --extract maices_subset50.prune.in --make-bed --pca --out ./subset/maices_subset50")
 ```
 
 Cargar el resultado del PCA
