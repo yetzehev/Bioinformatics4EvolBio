@@ -45,7 +45,7 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
 
   
 
-### 1.3 Formatos de Datos en Bioinformática (D&R)
+### 1.3 Formatos de Datos en Bioinformática (D&I)
 
 - **Explicación visual**: Mostrar ejemplos de cada formato:
 
@@ -65,7 +65,7 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
 
     
 
-- ### 1.4 Transformación de Formatos (D&R)
+- ### 1.4 Transformación de Formatos (D&I)
 
 - **Flujo de trabajo**: Diagrama de conversión entre formatos (Idalia)
 
@@ -83,7 +83,7 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
 
 ### 2.1 Tidyverse 
 
-### Introducción a la paqueteria: `tidyverse`  (Idalia)
+### Introducción a la paqueteria: `tidyverse`  (Daniela)
 
 - **Pipe operator** (`%>%`): Transformación intuitiva ([Referencia](https://rpubs.com/paraneda/tidyverse))
 
@@ -97,9 +97,22 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
   
 - **Ejercicio guiado**: Limpiar un conjunto de datos
 
-  Objetivo: Dejar listas las tablas de datos para grafcar al inicio de l segunda sesión.
+  Objetivo: Dejar listas las tablas de datos para grafcar al inicio de la segunda sesión.
+  
+### 2.3 Integración de Metadatos
 
-### 2.3 Visualización de Estadísticos (1 h) (Daniela?)
+  - Conjunto de datos curados e integración de los metadatos para realizar  visualizaciones (Idalia)
+
+  - **Ejemplo práctico**: Combinar datos genéticos con información geográfica
+  - **Importancia**: Color por población, forma por región, especie, variedad, etc.
+
+
+
+------
+
+## Sección 3: Visualización (2h)
+
+### 3.1 Visualización de Estadísticos (1 h) (Idalia)
 
 - **HierFstat demo**: Frecuencias alélicas 
 
@@ -107,24 +120,15 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
 
 **PAUSA (15 min)**
 
-------
-
-## Sección 3: Visualización (2h)
-
-### 3.1 Integración de MetadatosConjunto de datos curados e integración de los metadatos para realizar  visualizaciones
-
-- **Ejemplo práctico**: Combinar datos genéticos con información geográfica
-- **Importancia**: Color por población, forma por región, especie, variedad, etc.
-
 ### 3.2 PCA con SNPs (Daniela)
 
 Flujo de trabajo con `adegenet`
 
 ### 3.3 Graficar en Rstudio los índices de ancestría  (Idalia)
 
-K-means calculado con `ADMIXTURE`).
+K-means calculado con tess3r`ADMIXTURE`).
 
-### **3.4** Visualizacion de arbles en R (Idalia)
+### **3.4** Visualizacion de arboles en R (Idalia)
 
-  Filogenias (genes, SNPs): Demostracion con `ape
+  Filogenias (SNPs): Demostracion con `ape`
 
