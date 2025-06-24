@@ -11,7 +11,7 @@
 
 <meta name="author" content="Idalia Rojas" />
 
-<meta name="date" content="2025-06-23" />
+<meta name="date" content="2025-06-24" />
 
 <title>Metadata maices</title>
 
@@ -576,7 +576,7 @@ display: none;
 
 <h1 class="title toc-ignore">Metadata maices</h1>
 <h4 class="author">Idalia Rojas</h4>
-<h4 class="date">2025-06-23</h4>
+<h4 class="date">2025-06-24</h4>
 
 </div>
 
@@ -605,7 +605,7 @@ y los datos genómicos y metadatos están disponibles en el repositorio de
 <a href="https://osf.io/pqvt4/">OSF</a>.</p>
 <pre class="r"><code>genotipos &lt;-read.delim(&quot;./meta/metadata_385_taxa_Rojas_etal_2019.txt&quot;, sep = &quot;\t&quot;)
 
-accesiones &lt;- read.delim( &quot;./meta/Samples_and_Accessions.csv&quot;, sep = &quot;,&quot;,skip = 6)
+accesiones &lt;- read.delim( &quot;./meta/Samples_and_Accessions.csv&quot;, sep = &quot;\t&quot;,skip = 6)
 
 kable(head(genotipos, 3), align = &quot;c&quot;) %&gt;%
   kable_styling(full_width = FALSE)</code></pre>
@@ -712,9 +712,6 @@ Altitude_masl
 <th style="text-align:center;">
 N
 </th>
-<th style="text-align:center;">
-X
-</th>
 </tr>
 </thead>
 <tbody>
@@ -743,9 +740,6 @@ Zea mays ssp. parviglumis allopatric 2015
 <td style="text-align:center;">
 5
 </td>
-<td style="text-align:center;">
-NA
-</td>
 </tr>
 <tr>
 <td style="text-align:center;">
@@ -772,9 +766,6 @@ Modern Variety
 <td style="text-align:center;">
 5
 </td>
-<td style="text-align:center;">
-NA
-</td>
 </tr>
 <tr>
 <td style="text-align:center;">
@@ -800,9 +791,6 @@ Bolita 1943 (CIMMYT 2267)
 </td>
 <td style="text-align:center;">
 6
-</td>
-<td style="text-align:center;">
-NA
 </td>
 </tr>
 </tbody>
@@ -882,16 +870,126 @@ genotipo y la columna 2 el nombre de la accesion a la que esta asignado
 ese genotipo.</p>
 <p>Ahora asignaremos nombres a las columnas de los IDs extraidos:
 <strong><code>Genotipo</code></strong> y
-<strong><code>Grupo</code></strong></p>
-<pre class="r"><code>colnames(IDs) &lt;- c(&quot;Genotipo&quot;, &quot;Grupo&quot;)
+<strong><code>Accesion_ID</code></strong></p>
+<pre class="r"><code>colnames(IDs) &lt;- c(&quot;Genotipo&quot;, &quot;Accesion_ID&quot;)
 
-#Extraer la información contenida en la columna de Grupo
-extract &lt;- IDs %&gt;% separate(Grupo,
+#Extraer la información contenida en la columna de Accesion_ID
+extract &lt;- IDs %&gt;% separate(Accesion_ID,
                        into = c(&quot;Raza&quot;, &quot;Cultivar&quot;, &quot;Anio_colecta&quot;),
                        sep = c(2,4,8))
 #Merge our new information 
-IDs&lt;- merge(IDs, extract, by = &quot;Genotipo&quot;)</code></pre>
-<p>Una vez extraída la información hagamos un subconjunto unicamento con
+IDs&lt;- merge(IDs, extract, by = &quot;Genotipo&quot;)
+kable(head(IDs, 5), align = &quot;c&quot;) %&gt;% 
+  kable_styling(full_width = FALSE)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Genotipo
+</th>
+<th style="text-align:center;">
+Accesion_ID
+</th>
+<th style="text-align:center;">
+Raza
+</th>
+<th style="text-align:center;">
+Cultivar
+</th>
+<th style="text-align:center;">
+Anio_colecta
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+AmTp201501
+</td>
+<td style="text-align:center;">
+AmTp2015
+</td>
+<td style="text-align:center;">
+Am
+</td>
+<td style="text-align:center;">
+Tp
+</td>
+<td style="text-align:center;">
+2015
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+AmTp201503
+</td>
+<td style="text-align:center;">
+AmTp2015
+</td>
+<td style="text-align:center;">
+Am
+</td>
+<td style="text-align:center;">
+Tp
+</td>
+<td style="text-align:center;">
+2015
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+AmTp201504
+</td>
+<td style="text-align:center;">
+AmTp2015
+</td>
+<td style="text-align:center;">
+Am
+</td>
+<td style="text-align:center;">
+Tp
+</td>
+<td style="text-align:center;">
+2015
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+AmTp201505
+</td>
+<td style="text-align:center;">
+AmTp2015
+</td>
+<td style="text-align:center;">
+Am
+</td>
+<td style="text-align:center;">
+Tp
+</td>
+<td style="text-align:center;">
+2015
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+AmTp20152b
+</td>
+<td style="text-align:center;">
+AmTp2015
+</td>
+<td style="text-align:center;">
+Am
+</td>
+<td style="text-align:center;">
+Tp
+</td>
+<td style="text-align:center;">
+2015
+</td>
+</tr>
+</tbody>
+</table>
+<p>Una vez extraída la información hagamos un subconjunto unicamente con
 los genotipos de maíces. La abreviatura <strong><code>Na</code></strong>
 en la columna <strong><code>Cultivar</code></strong> hace referencia a
 maices nativos.</p>
@@ -902,8 +1000,135 @@ razas &lt;- levels(factor(maices$Raza))
 nrazas &lt;- nlevels(factor(maices$Raza))
 print(paste(&quot;Nuestro conjunto de datos contiene los genotipos para&quot;, nrazas, &quot;razas:&quot;, toString(razas)))</code></pre>
 <pre><code>## [1] &quot;Nuestro conjunto de datos contiene los genotipos para 7 razas: Bo, Ch, Ms, Pp, Tb, Va, Zm&quot;</code></pre>
-<p>Ahora vamos a sustituir los nombres breviados de las razas por los
-nombres en extenso con la siguiente clave:</p>
+<pre class="r"><code>kable(head(maices, 5), align = &quot;c&quot;) %&gt;% 
+  kable_styling(full_width = FALSE)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+Genotipo
+</th>
+<th style="text-align:center;">
+Accesion_ID
+</th>
+<th style="text-align:center;">
+Raza
+</th>
+<th style="text-align:center;">
+Cultivar
+</th>
+<th style="text-align:center;">
+Anio_colecta
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+11
+</td>
+<td style="text-align:center;">
+BoNa194301
+</td>
+<td style="text-align:center;">
+BoNa1943
+</td>
+<td style="text-align:center;">
+Bo
+</td>
+<td style="text-align:center;">
+Na
+</td>
+<td style="text-align:center;">
+1943
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+12
+</td>
+<td style="text-align:center;">
+BoNa194302
+</td>
+<td style="text-align:center;">
+BoNa1943
+</td>
+<td style="text-align:center;">
+Bo
+</td>
+<td style="text-align:center;">
+Na
+</td>
+<td style="text-align:center;">
+1943
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+13
+</td>
+<td style="text-align:center;">
+BoNa194303
+</td>
+<td style="text-align:center;">
+BoNa1943
+</td>
+<td style="text-align:center;">
+Bo
+</td>
+<td style="text-align:center;">
+Na
+</td>
+<td style="text-align:center;">
+1943
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+14
+</td>
+<td style="text-align:center;">
+BoNa194304
+</td>
+<td style="text-align:center;">
+BoNa1943
+</td>
+<td style="text-align:center;">
+Bo
+</td>
+<td style="text-align:center;">
+Na
+</td>
+<td style="text-align:center;">
+1943
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+15
+</td>
+<td style="text-align:center;">
+BoNa194305
+</td>
+<td style="text-align:center;">
+BoNa1943
+</td>
+<td style="text-align:center;">
+Bo
+</td>
+<td style="text-align:center;">
+Na
+</td>
+<td style="text-align:center;">
+1943
+</td>
+</tr>
+</tbody>
+</table>
+<p>Ahora vamos a sustituir los nombres abreviados de las razas por los
+nombres en extenso empleando la siguiente clave:</p>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -982,23 +1207,444 @@ abreviaturas con los nombres dados en la tabla anterior.</p>
 maices$Extenso &lt;- recode(maices$Extenso, Bo = &quot;Bonito&quot;, Ch = &quot;Chalqueno&quot;,
                          Ms = &quot;Mushito&quot;, Pp= &quot;Pepitilla&quot;, Tb = &quot;Tabloncillo&quot;,
                          Va = &quot;Vandeno&quot;, Zm = &quot;Zamorano&quot;)</code></pre>
+</div>
+<div id="subconjunto-de-datos-con-50-genotipos" class="section level3">
+<h3>Subconjunto de datos con 50 genotipos</h3>
 <p>El subset de datos con maíces esta integrado por 186 genotipos, para
-reducir el tiempo de computo y el tamano de los archivos generaremos una
-lista con 50 genotipos, para ello usaremos la funcion de R
-<strong><code>sample</code></strong></p>
+reducir el tiempo de computo y el tamaño de los archivos generaremos una
+<strong>lista con 50 genotipos</strong>, para ello usaremos la función
+de R <strong><code>sample.</code></strong></p>
 <pre class="r"><code>set.seed(123)  # For reproducibility
-maices_slice &lt;- maices[sample(nrow(maices), 50), ]</code></pre>
+maices_slice &lt;- maices[sample(nrow(maices), 50), ]
+kable(head(maices_slice,5), align = &quot;c&quot;) %&gt;%
+  kable_styling(full_width = FALSE)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+Genotipo
+</th>
+<th style="text-align:center;">
+Accesion_ID
+</th>
+<th style="text-align:center;">
+Raza
+</th>
+<th style="text-align:center;">
+Cultivar
+</th>
+<th style="text-align:center;">
+Anio_colecta
+</th>
+<th style="text-align:center;">
+Extenso
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+310
+</td>
+<td style="text-align:center;">
+VaNa201505
+</td>
+<td style="text-align:center;">
+VaNa2015
+</td>
+<td style="text-align:center;">
+Va
+</td>
+<td style="text-align:center;">
+Na
+</td>
+<td style="text-align:center;">
+2015
+</td>
+<td style="text-align:center;">
+Vandeno
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+353
+</td>
+<td style="text-align:center;">
+ZmNa201403
+</td>
+<td style="text-align:center;">
+ZmNa2014
+</td>
+<td style="text-align:center;">
+Zm
+</td>
+<td style="text-align:center;">
+Na
+</td>
+<td style="text-align:center;">
+2014
+</td>
+<td style="text-align:center;">
+Zamorano
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+24
+</td>
+<td style="text-align:center;">
+BoNa200303
+</td>
+<td style="text-align:center;">
+BoNa2003
+</td>
+<td style="text-align:center;">
+Bo
+</td>
+<td style="text-align:center;">
+Na
+</td>
+<td style="text-align:center;">
+2003
+</td>
+<td style="text-align:center;">
+Bonito
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+344
+</td>
+<td style="text-align:center;">
+ZmNa197902
+</td>
+<td style="text-align:center;">
+ZmNa1979
+</td>
+<td style="text-align:center;">
+Zm
+</td>
+<td style="text-align:center;">
+Na
+</td>
+<td style="text-align:center;">
+1979
+</td>
+<td style="text-align:center;">
+Zamorano
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+76
+</td>
+<td style="text-align:center;">
+ChNa201504
+</td>
+<td style="text-align:center;">
+ChNa2015
+</td>
+<td style="text-align:center;">
+Ch
+</td>
+<td style="text-align:center;">
+Na
+</td>
+<td style="text-align:center;">
+2015
+</td>
+<td style="text-align:center;">
+Chalqueno
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="agregar-metadatos-coordenadas-y-altitud" class="section level3">
+<h3>Agregar metadatos: coordenadas y altitud</h3>
+<p>El archivo <strong>accessiones</strong> contiene la informacion de
+las coordenadas y altitud de cada accession. Usando como referencia la
+columna <strong><code>Accesio_ID</code></strong>, fusionaremos la tabla
+<code>maices_slice</code> y <code>accesiones</code>.</p>
+<pre class="r"><code>maices_meta &lt;- merge(maices_slice, accesiones, by = &quot;Accesion_ID&quot;, all.x = TRUE)
+kable(head(maices_meta,5), align = &quot;c&quot;) %&gt;% 
+  kable_styling(full_width = FALSE)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:center;">
+Accesion_ID
+</th>
+<th style="text-align:center;">
+Genotipo
+</th>
+<th style="text-align:center;">
+Raza
+</th>
+<th style="text-align:center;">
+Cultivar
+</th>
+<th style="text-align:center;">
+Anio_colecta
+</th>
+<th style="text-align:center;">
+Extenso
+</th>
+<th style="text-align:center;">
+Locality
+</th>
+<th style="text-align:center;">
+State
+</th>
+<th style="text-align:center;">
+Accesion_Germplasm_Bank_ID
+</th>
+<th style="text-align:center;">
+Longitude
+</th>
+<th style="text-align:center;">
+Latitude
+</th>
+<th style="text-align:center;">
+Altitude_masl
+</th>
+<th style="text-align:center;">
+N
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+BoNa1970
+</td>
+<td style="text-align:center;">
+BoNa197001
+</td>
+<td style="text-align:center;">
+Bo
+</td>
+<td style="text-align:center;">
+Na
+</td>
+<td style="text-align:center;">
+1970
+</td>
+<td style="text-align:center;">
+Bonito
+</td>
+<td style="text-align:center;">
+Ejutla &amp; Agua de Sol
+</td>
+<td style="text-align:center;">
+Oaxaca
+</td>
+<td style="text-align:center;">
+Bolita 1970 (CIMMYT 6019)
+</td>
+<td style="text-align:center;">
+-96.73333
+</td>
+<td style="text-align:center;">
+16.46667
+</td>
+<td style="text-align:center;">
+1471
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+BoNa2003
+</td>
+<td style="text-align:center;">
+BoNa200303
+</td>
+<td style="text-align:center;">
+Bo
+</td>
+<td style="text-align:center;">
+Na
+</td>
+<td style="text-align:center;">
+2003
+</td>
+<td style="text-align:center;">
+Bonito
+</td>
+<td style="text-align:center;">
+San Cristobal Honduras
+</td>
+<td style="text-align:center;">
+Oaxaca
+</td>
+<td style="text-align:center;">
+Bolita 2003 (CUCBA, JSG-RMM-LCL-484)
+</td>
+<td style="text-align:center;">
+-97.02194
+</td>
+<td style="text-align:center;">
+16.32361
+</td>
+<td style="text-align:center;">
+1320
+</td>
+<td style="text-align:center;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+BoNa2015
+</td>
+<td style="text-align:center;">
+BoNa201505
+</td>
+<td style="text-align:center;">
+Bo
+</td>
+<td style="text-align:center;">
+Na
+</td>
+<td style="text-align:center;">
+2015
+</td>
+<td style="text-align:center;">
+Bonito
+</td>
+<td style="text-align:center;">
+San Cristobal Honduras
+</td>
+<td style="text-align:center;">
+Oaxaca
+</td>
+<td style="text-align:center;">
+Bolita 2015
+</td>
+<td style="text-align:center;">
+-97.02734
+</td>
+<td style="text-align:center;">
+16.32723
+</td>
+<td style="text-align:center;">
+1280
+</td>
+<td style="text-align:center;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+BoNa2015
+</td>
+<td style="text-align:center;">
+BoNa201508
+</td>
+<td style="text-align:center;">
+Bo
+</td>
+<td style="text-align:center;">
+Na
+</td>
+<td style="text-align:center;">
+2015
+</td>
+<td style="text-align:center;">
+Bonito
+</td>
+<td style="text-align:center;">
+San Cristobal Honduras
+</td>
+<td style="text-align:center;">
+Oaxaca
+</td>
+<td style="text-align:center;">
+Bolita 2015
+</td>
+<td style="text-align:center;">
+-97.02734
+</td>
+<td style="text-align:center;">
+16.32723
+</td>
+<td style="text-align:center;">
+1280
+</td>
+<td style="text-align:center;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+BoNa2015
+</td>
+<td style="text-align:center;">
+BoNa201503
+</td>
+<td style="text-align:center;">
+Bo
+</td>
+<td style="text-align:center;">
+Na
+</td>
+<td style="text-align:center;">
+2015
+</td>
+<td style="text-align:center;">
+Bonito
+</td>
+<td style="text-align:center;">
+San Cristobal Honduras
+</td>
+<td style="text-align:center;">
+Oaxaca
+</td>
+<td style="text-align:center;">
+Bolita 2015
+</td>
+<td style="text-align:center;">
+-97.02734
+</td>
+<td style="text-align:center;">
+16.32723
+</td>
+<td style="text-align:center;">
+1280
+</td>
+<td style="text-align:center;">
+6
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>write.table(maices_meta, &quot;./meta/maices_subset50_metadata.txt&quot;,
+            sep = &quot;\t&quot;, row.names = FALSE, quote = FALSE)</code></pre>
+</div>
+<div id="extracción-de-un-un-subconjunto-de-genotipos-de-los-archivos-vcf-y-plink" class="section level3">
+<h3>Extracción de un un subconjunto de genotipos de los archivos VCF y
+plink</h3>
 <p>Ahora generaremos la lista de genotipos para hacer el subconjunto de
-genotipos del archivo vcf y plink. El archivo para hacer el subset del
-archivo VCF solo requiere una columna con la lista de genotipos, el
-archivo para hacer el subset del archivo plink requiere dos columnas,
-una representa el genotipo y la otra la familia.</p>
+genotipos del archivo vcf y plink.</p>
+<ol style="list-style-type: decimal">
+<li>El archivo para crear el subset del archivo
+<strong><em>VCF</em></strong> solo requiere
+<em><strong>unacolumna</strong> con la lista de genotipos</em>.</li>
+<li>El archivo para hacer el subset del archivo
+<em><strong>plink</strong> requiere <strong>dos columnas</strong>,</em>
+<em>una representa el genotipo y la otra la familia</em>.</li>
+</ol>
 <pre class="r"><code>subset_vcf&lt;- paste(maices_slice$Genotipo, maices_slice$Grupo, sep = &quot;_&quot;)
 
 subset_plink &lt;- maices_slice %&gt;% 
   transmute(
-    ID = paste(Genotipo, Grupo, sep = &quot;_&quot;),  # Creates a new column
-    Family = paste(Genotipo, Grupo, sep = &quot;_&quot;)  # Optional: same as ID
+    ID = paste(Genotipo, Accesion_ID, sep = &quot;_&quot;),  # Creates a new column
+    Family = paste(Genotipo, Accesion_ID, sep = &quot;_&quot;)  # Optional: same as ID
   )
 
 write.table(subset_vcf, &quot;./meta/subset_maices_vcf.txt&quot;,quote = FALSE, row.names = FALSE, col.names = FALSE)

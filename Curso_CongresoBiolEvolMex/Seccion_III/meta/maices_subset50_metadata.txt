@@ -1,0 +1,51 @@
+Accesion_ID	Genotipo	Raza	Cultivar	Anio_colecta	Extenso	Locality	State	Accesion_Germplasm_Bank_ID	Longitude	Latitude	Altitude_masl	N
+BoNa1970	BoNa197001	Bo	Na	1970	Bonito	Ejutla & Agua de Sol	Oaxaca	Bolita 1970 (CIMMYT 6019)	-96.73333333	16.46666667	1471	5
+BoNa2003	BoNa200303	Bo	Na	2003	Bonito	San Cristobal Honduras	Oaxaca	Bolita 2003 (CUCBA, JSG-RMM-LCL-484)	-97.02194444	16.3236111	1320	7
+BoNa2015	BoNa201505	Bo	Na	2015	Bonito	San Cristobal Honduras	Oaxaca	Bolita 2015	-97.02734	16.32723	1280	6
+BoNa2015	BoNa201508	Bo	Na	2015	Bonito	San Cristobal Honduras	Oaxaca	Bolita 2015	-97.02734	16.32723	1280	6
+BoNa2015	BoNa201503	Bo	Na	2015	Bonito	San Cristobal Honduras	Oaxaca	Bolita 2015	-97.02734	16.32723	1280	6
+ChNa1958	ChNa195805	Ch	Na	1958	Chalqueno	Chalco	Estado de México	Chalqueño 1958 (CIMMYT 2235)	-98.8833	19.25	2247	9
+ChNa1958	ChNa195809	Ch	Na	1958	Chalqueno	Chalco	Estado de México	Chalqueño 1958 (CIMMYT 2235)	-98.8833	19.25	2247	9
+ChNa1958	ChNa195803	Ch	Na	1958	Chalqueno	Chalco	Estado de México	Chalqueño 1958 (CIMMYT 2235)	-98.8833	19.25	2247	9
+ChNa1972	ChNa197203	Ch	Na	1972	Chalqueno	Ozumba de Alzate	Estado de México	Chalqueño 1972 (INIFAP 4013-MEX-612)	-98.79361	19.03917	2300	3
+ChNa2003	ChNa200302	Ch	Na	2003	Chalqueno	San Pedro Nexapa	Estado de México	Chalqueño 2003 (CUCBA JSG-RMM-LCL-478)	-98.72694444	19.08277778	2705	5
+ChNa2015	ChNa201507	Ch	Na	2015	Chalqueno	San Pedro Nexapa	Estado de México	Chalqueño 2015	-98.7273	19.08338	2702	3
+ChNa2015	ChNa201504	Ch	Na	2015	Chalqueno	San Pedro Nexapa	Estado de México	Chalqueño 2015	-98.7273	19.08338	2702	3
+MsNa1970	MsNa197003	Ms	Na	1970	Mushito	Lomas de Irapeo	Michoacán	Mushito 1970 (CIMMYT 5567)	-103.497012	19.716303	1517	5
+MsNa1979	MsNa197901	Ms	Na	1979	Mushito	Huandacareo	Michoacán	Mushito 1979 (INIFAP 9217-MICH-497)	-101.2666667	20	1800	4
+MsNa2004	MsNa200406	Ms	Na	2004	Mushito	Batuecas	Michoacán	Mushito 2004 (JSG-LCL-563)	-101.4702778	20.03611111	2180	6
+MsNa2004	MsNa200403	Ms	Na	2004	Mushito	Batuecas	Michoacán	Mushito 2004 (JSG-LCL-563)	-101.4702778	20.03611111	2180	6
+MsNa2014	MsNa201402	Ms	Na	2014	Mushito	San Agustín del maíz	Michoacán	Mushito 2014	-101.15015	19.9068	1825	5
+MsNa2014	MsNa201404	Ms	Na	2014	Mushito	San Agustín del maíz	Michoacán	Mushito 2014	-101.15015	19.9068	1825	5
+MsNa2015	MsNa201504	Ms	Na	2015	Mushito	San Agustín del maíz	Michoacán	Mushito 2015	-101.1692	19.8958	1840	6
+MsNa2015	MsNa201501	Ms	Na	2015	Mushito	San Agustín del maíz	Michoacán	Mushito 2015	-101.1692	19.8958	1840	6
+PpNa1960	PpNa196004	Pp	Na	1960	Pepitilla	Huitzuco	Guerrero	Pepitilla 1960 (CIMMYT 54)	-99.330802	18.290454	982	6
+PpNa1960	PpNa196003	Pp	Na	1960	Pepitilla	Huitzuco	Guerrero	Pepitilla 1960 (CIMMYT 54)	-99.330802	18.290454	982	6
+PpNa1960	PpNa196002	Pp	Na	1960	Pepitilla	Huitzuco	Guerrero	Pepitilla 1960 (CIMMYT 54)	-99.330802	18.290454	982	6
+PpNa1973	PpNa197303	Pp	Na	1973	Pepitilla	Ixcateopán	Guerrero	Pepitilla 1973 (INIFAP 2359-GRO-280)	-99.73139	18.40833	2201	3
+PpNa2003a	PpNa2003a2	Pp	Na	2003	Pepitilla	NA	NA	NA	NA	NA	NA	NA
+PpNa2003a	PpNa2003a6	Pp	Na	2003	Pepitilla	NA	NA	NA	NA	NA	NA	NA
+PpNa2003b	PpNa2003b4	Pp	Na	2003	Pepitilla	NA	NA	NA	NA	NA	NA	NA
+TbNa1946a	TbNa1946a7	Tb	Na	1946	Tabloncillo	El Grullo	Jalisco	Tabloncillo 1946 (CIMMYT 313)	-104.2	19.8	870	8
+TbNa1946a	TbNa1946a6	Tb	Na	1946	Tabloncillo	El Grullo	Jalisco	Tabloncillo 1946 (CIMMYT 313)	-104.2	19.8	870	8
+TbNa2003	TbNa200305	Tb	Na	2003	Tabloncillo	San Lorenzo	Jalisco	Tabloncillo 2003 (RMM-15)	-103.9952778	19.94333333	982	5
+TbNa2014	TbNa201402	Tb	Na	2014	Tabloncillo	San Lorenzo	Jalisco	Tabloncillo 2014	-103.99635	19.94355	982	3
+TbNa2015	TbNa201505	Tb	Na	2015	Tabloncillo	San Lorenzo	Jalisco	Tabloncillo 2015	-103.9885	19.9614	1071	5
+TbNa2015	TbNa201503	Tb	Na	2015	Tabloncillo	San Lorenzo	Jalisco	Tabloncillo 2015	-103.9885	19.9614	1071	5
+VaNa2003	VaNa200304	Va	Na	2003	Vandeno	Huetamo	Michoacán	Vandeño 2003 (JSG-RMM-LCL-521)	-100.9161111	18.82055556	672	5
+VaNa2003	VaNa200303	Va	Na	2003	Vandeno	Huetamo	Michoacán	Vandeño 2003 (JSG-RMM-LCL-521)	-100.9161111	18.82055556	672	5
+VaNa2015	VaNa201505	Va	Na	2015	Vandeno	Huetamo	Michoacán	Vandeño 2015 (Probably recyfled MV seeds)	-100.8998	18.8339	721	7
+VaNa2015	VaNa201506	Va	Na	2015	Vandeno	Huetamo	Michoacán	Vandeño 2015 (Probably recyfled MV seeds)	-100.8998	18.8339	721	7
+ZmNa1944	ZmNa194407	Zm	Na	1944	Zamorano	Penjamillo	Michoacán	Zamorano 1944 (INIFAP 4191-MICH-66)	-101.95	20.1	1645	7
+ZmNa1944	ZmNa19441b	Zm	Na	1944	Zamorano	Penjamillo	Michoacán	Zamorano 1944 (INIFAP 4191-MICH-66)	-101.95	20.1	1645	7
+ZmNa1944	ZmNa194404	Zm	Na	1944	Zamorano	Penjamillo	Michoacán	Zamorano 1944 (INIFAP 4191-MICH-66)	-101.95	20.1	1645	7
+ZmNa1979	ZmNa197902	Zm	Na	1979	Zamorano	Chilchota	Michoacán	Zamorano 1979 (INIFAP 9203-MICH-483 )	-102.1166667	19.85	1720	3
+ZmNa2004	ZmNa200404	Zm	Na	2004	Zamorano	Churintzio	Michoacán	Zamorano 2004 (JSG-LCL-561)	-102.060833	20.078333	1910	5
+ZmNa2004	ZmNa200403	Zm	Na	2004	Zamorano	Churintzio	Michoacán	Zamorano 2004 (JSG-LCL-561)	-102.060833	20.078333	1910	5
+ZmNa2004	ZmNa200401	Zm	Na	2004	Zamorano	Churintzio	Michoacán	Zamorano 2004 (JSG-LCL-561)	-102.060833	20.078333	1910	5
+ZmNa2004	ZmNa200405	Zm	Na	2004	Zamorano	Churintzio	Michoacán	Zamorano 2004 (JSG-LCL-561)	-102.060833	20.078333	1910	5
+ZmNa2014	ZmNa201405	Zm	Na	2014	Zamorano	Churintzio	Michoacán	Zamorano 2014	-102.06897	20.15188	1834	5
+ZmNa2014	ZmNa201404	Zm	Na	2014	Zamorano	Churintzio	Michoacán	Zamorano 2014	-102.06897	20.15188	1834	5
+ZmNa2014	ZmNa201403	Zm	Na	2014	Zamorano	Churintzio	Michoacán	Zamorano 2014	-102.06897	20.15188	1834	5
+ZmNa2015	ZmNa201502	Zm	Na	2015	Zamorano	Churintzio	Michoacán	Zamorano 2015	-102.07424	20.1503	1848	5
+ZmNa2015	ZmNa201503	Zm	Na	2015	Zamorano	Churintzio	Michoacán	Zamorano 2015	-102.07424	20.1503	1848	5

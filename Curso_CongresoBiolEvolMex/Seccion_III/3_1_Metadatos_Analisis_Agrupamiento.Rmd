@@ -50,7 +50,7 @@ datos genómicos y metadatos están disponibles en el repositorio de
 ```{r tablas}
 genotipos <-read.delim("./meta/metadata_385_taxa_Rojas_etal_2019.txt", sep = "\t")
 
-accesiones <- read.delim( "./meta/Samples_and_Accessions.csv", sep = ",",skip = 6)
+accesiones <- read.delim( "./meta/Samples_and_Accessions.csv", sep = "\t",skip = 6)
 
 kable(head(genotipos, 3), align = "c") %>%
   kable_styling(full_width = FALSE)
@@ -83,21 +83,23 @@ genotipo y la columna 2 el nombre de la accesion a la que esta asignado
 ese genotipo.
 
 Ahora asignaremos nombres a las columnas de los IDs extraidos:
-**`Genotipo`** y **`Grupo`**
+**`Genotipo`** y **`Accesion_ID`**
 
 ```{r VCF}
-colnames(IDs) <- c("Genotipo", "Grupo")
+colnames(IDs) <- c("Genotipo", "Accesion_ID")
 
-#Extraer la información contenida en la columna de Grupo
-extract <- IDs %>% separate(Grupo,
+#Extraer la información contenida en la columna de Accesion_ID
+extract <- IDs %>% separate(Accesion_ID,
                        into = c("Raza", "Cultivar", "Anio_colecta"),
                        sep = c(2,4,8))
 #Merge our new information 
 IDs<- merge(IDs, extract, by = "Genotipo")
+kable(head(IDs, 5), align = "c") %>% 
+  kable_styling(full_width = FALSE)
 
 ```
 
-Una vez extraída la información hagamos un subconjunto unicamento con
+Una vez extraída la información hagamos un subconjunto unicamente con
 los genotipos de maíces. La abreviatura **`Na`** en la columna
 **`Cultivar`** hace referencia a maices nativos.
 
@@ -108,10 +110,12 @@ maices <- IDs[IDs$Cultivar == "Na",]
 razas <- levels(factor(maices$Raza))
 nrazas <- nlevels(factor(maices$Raza))
 print(paste("Nuestro conjunto de datos contiene los genotipos para", nrazas, "razas:", toString(razas)))
+kable(head(maices, 5), align = "c") %>% 
+  kable_styling(full_width = FALSE)
 ```
 
-Ahora vamos a sustituir los nombres breviados de las razas por los
-nombres en extenso con la siguiente clave:
+Ahora vamos a sustituir los nombres abreviados de las razas por los
+nombres en extenso empleando la siguiente clave:
 
 ```{r pressure, echo=FALSE}
 #Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
@@ -139,21 +143,43 @@ maices$Extenso <- recode(maices$Extenso, Bo = "Bonito", Ch = "Chalqueno",
 
 ```
 
+### Subconjunto de datos con 50 genotipos
+
 El subset de datos con maíces esta integrado por 186 genotipos, para
-reducir el tiempo de computo y el tamano de los archivos generaremos una
-lista con 50 genotipos, para ello usaremos la funcion de R **`sample`**
+reducir el tiempo de computo y el tamaño de los archivos generaremos una
+**lista con 50 genotipos**, para ello usaremos la función de R
+**`sample.`**
 
 ```{r subset_maices}
 set.seed(123)  # For reproducibility
 maices_slice <- maices[sample(nrow(maices), 50), ]
+kable(head(maices_slice,5), align = "c") %>%
+  kable_styling(full_width = FALSE)
 
 ```
 
+### Agregar metadatos: coordenadas y altitud
+El archivo **accessiones** contiene la informacion de las coordenadas y altitud de cada accession. Usando como referencia la columna **`Accesio_ID`**, fusionaremos la tabla `maices_slice` y `accesiones`.
+
+```{r add.coord}
+maices_meta <- merge(maices_slice, accesiones, by = "Accesion_ID", all.x = TRUE)
+kable(head(maices_meta,5), align = "c") %>% 
+  kable_styling(full_width = FALSE)
+
+write.table(maices_meta, "./meta/maices_subset50_metadata.txt",
+            sep = "\t", row.names = FALSE, quote = FALSE)
+```
+
+### Extracción de un un subconjunto de genotipos de los archivos VCF y plink
+
 Ahora generaremos la lista de genotipos para hacer el subconjunto de
-genotipos del archivo vcf y plink. El archivo para hacer el subset del
-archivo VCF solo requiere una columna con la lista de genotipos, el
-archivo para hacer el subset del archivo plink requiere dos columnas,
-una representa el genotipo y la otra la familia.
+genotipos del archivo vcf y plink.
+
+1.  El archivo para crear el subset del archivo ***VCF*** solo requiere
+    ***unacolumna** con la lista de genotipos*.
+2.  El archivo para hacer el subset del archivo ***plink** requiere
+    **dos columnas**,* *una representa el genotipo y la otra la
+    familia*.
 
 ```{R plink_subset}
 
@@ -161,8 +187,8 @@ subset_vcf<- paste(maices_slice$Genotipo, maices_slice$Grupo, sep = "_")
 
 subset_plink <- maices_slice %>% 
   transmute(
-    ID = paste(Genotipo, Grupo, sep = "_"),  # Creates a new column
-    Family = paste(Genotipo, Grupo, sep = "_")  # Optional: same as ID
+    ID = paste(Genotipo, Accesion_ID, sep = "_"),  # Creates a new column
+    Family = paste(Genotipo, Accesion_ID, sep = "_")  # Optional: same as ID
   )
 
 write.table(subset_vcf, "./meta/subset_maices_vcf.txt",quote = FALSE, row.names = FALSE, col.names = FALSE)
