@@ -6,9 +6,9 @@
 
 - Idalia C. Rojas Barrera
 - Daniela Félix
-###**Descripción**
+### **Descripción**
 
-El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStudio ** es un extracto del **Módulo II** del curso de **Genómica de Poblaciones**, desarrollado por los integrantes de la **ReMBE**. El curso ha sido adaptado para cubrir el manejo de datos y su visualización, utilizando paquetes y librerías disponibles en **RStudio**.
+El curso de precongreso de ** Manejo de Tablas y Visualización de Datos Genéticos en RStudio ** es un extracto del **Módulo II** del curso de **Genómica de Poblaciones**, desarrollado por integrantes de la **ReMBE**. El curso ha sido adaptado para cubrir el manejo de datos y su visualización, utilizando paquetes y librerías disponibles en **RStudio**.
 
 **Fechas: ** 10 y 11 de noviembre de 2025
 **Duracion: ** 2 sesiones de 4 horas cada una
@@ -41,8 +41,6 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
 
 - **Ejercicio práctico**: Crear objetos de cada tipo
 
-  
-
 ### 1.3 Formatos de Datos en Bioinformática 
 
 - **Explicación visual**: Mostrar ejemplos de cada formato:
@@ -54,18 +52,13 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
 - **Comparativa**: Tabla con columnas "Formato", "Estructura", "Casos de uso"
 - **Ejercicio práctico**: Cargar un VCF pequeño en R (`vcfR` package)
 
-
-
 - ### 1.4 Transformación de Formatos 
 
 - **Flujo de trabajo**: Diagrama de conversión entre formatos
 - **Demostración en PGD Spider**
 - **Alternativas en R**
 
-**PAUSA (15 min)**
-
 ------
-
 ## Sección 2: Manipulación de Tablas 
 
 ### 2.1 Tidyverse 
@@ -83,24 +76,22 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
   - Unir tablas
 - **Ejercicio guiado**: Limpiar un conjunto de datos
 
-- 2.3 Visualización de Estadísticos (45 min)
+### 2.3 Integración de Metadatos
+- **Conjunto de datos curados e integración de los metadatos para realizar  visualizaciones**
 
-  - **HierFstat demo**: Frecuencias alélicas 
+- **Ejemplo práctico**: Combinar datos genéticos con información geográfica
+- **Importancia**: Color por población, forma por región, especie, variedad, etc.
 
-  - **SFS**: Cálculo y visualización del Site Frequency Spectrum (SFS)
-
-  
-
-**PAUSA (15 min)**
 
 ------
 
 ## Sección 3: Visualización 
 
-### 3.1 Integración de MetadatosConjunto de datos curados e integración de los metadatos para realizar  visualizaciones
+### 3.1 Visualización de Estadísticos (45 min)
 
-- **Ejemplo práctico**: Combinar datos genéticos con información geográfica
-- **Importancia**: Color por población, forma por región, especie, variedad, etc.
+  - **HierFstat demo**: Frecuencias alélicas 
+
+  - **SFS**: Cálculo y visualización del Site Frequency Spectrum (SFS)
 
 ### 3.2 PCA con SNPs 
 
@@ -110,5 +101,5 @@ Flujo de trabajo con `adegenet`
 K-means calculado con `ADMIXTURE`).
 
 ### **3.4** Visualizacion de arbles en R 
-  Filogenias (genes, SNPs): Demostracion con `ape`
+  Filogenias (SNPs): Demostracion con `ape`
 
