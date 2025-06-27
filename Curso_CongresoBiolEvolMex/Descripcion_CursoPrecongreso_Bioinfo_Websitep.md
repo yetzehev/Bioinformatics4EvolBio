@@ -1,5 +1,3 @@
-- 
-
 # Bioinformática para genética de poblaciones
 
 ### **Responsables:**
@@ -87,7 +85,7 @@ El curso de precongreso de ** Manejo de Tablas y Visualización de Datos Genéti
 
 ## Sección 3: Visualización 
 
-### 3.1 Visualización de Estadísticos (45 min)
+### 3.1 Visualización de Estadísticos
 
   - **HierFstat demo**: Frecuencias alélicas 
 
