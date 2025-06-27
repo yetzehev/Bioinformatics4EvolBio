@@ -6,10 +6,10 @@
 - Daniela Félix
 ### **Descripción**
 
-El curso de precongreso de ** Manejo de Tablas y Visualización de Datos Genéticos en RStudio ** es un extracto del **Módulo II** del curso de **Genómica de Poblaciones**, desarrollado por integrantes de la **ReMBE**. El curso ha sido adaptado para cubrir el manejo de datos y su visualización, utilizando paquetes y librerías disponibles en **RStudio**.
+El curso de precongreso de **Manejo de Tablas y Visualización de Datos Genéticos en RStudio** es un extracto del **Módulo II** del curso de **Genómica de Poblaciones**, desarrollado por integrantes de la **ReMBE**. El curso ha sido adaptado para cubrir el manejo de datos y su visualización, utilizando paquetes y librerías disponibles en **RStudio**.
 
-**Fechas: ** 10 y 11 de noviembre de 2025
-**Duracion: ** 2 sesiones de 4 horas cada una
+**Fechas:** 10 y 11 de noviembre de 2025
+**Duracion:** 2 sesiones de 4 horas cada una
 **Institución que expedir las constancias:** Red Mexicana de Biologia Evolutiva
 **Valor curricular:** NA
 **Costos:** Incluido en el costo de inscripcion al Primer Congreso Mexicano de Biologia Evolutiva
@@ -96,8 +96,7 @@ El curso de precongreso de ** Manejo de Tablas y Visualización de Datos Genéti
 Flujo de trabajo con `adegenet`
 
 ### 3.3 Graficar en Rstudio los índices de ancestría  
-K-means calculado con `ADMIXTURE`).
+K-means calculado con `tess3r`).
 
 ### **3.4** Visualizacion de arbles en R 
   Filogenias (SNPs): Demostracion con `ape`
-
