@@ -96,7 +96,7 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos Genétic
 Flujo de trabajo con `adegenet`
 
 ### 3.3 Graficar en Rstudio los índices de ancestría  
-K-means calculado con `tess3r`).
+K-means calculado con `tess3r`
 
 ### **3.4** Visualizacion de arbles en R 
   Filogenias (SNPs): Demostracion con `ape`
