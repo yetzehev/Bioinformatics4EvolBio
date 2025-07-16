@@ -10,14 +10,13 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Requerimentos
-
 -   tess3
 -   tydiverse
 -   devtools
 -   maps
 -   LEA
 
-```{r installation}
+```{r installation, echo = FALSE}
 # install.packages("devtools")
 #devtools::install_github("bcm-uga/TESS3_encho_sen")
 #install.packages("maps")
@@ -34,7 +33,9 @@ Call libraries
 library(maps)
 library(tess3r)
 library(LEA)
+library(tidyverse)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+
 
 ```
 
@@ -46,24 +47,71 @@ Transformar nuestro archivo en el archivo de genotipos que emplea tss3.
 
 1.  Convertir de vcf a ped, para ello emplearemos vcftools:
 
-```{r vcf2ped}
+```{r vcf2ped, echo=FALSE}
+#system("bcftools query -l ./subset/maices_subset50.recode.vcf > ./subset/maices_subset50_vcfOrder.txt")
 system("vcftools --vcf ./subset/maices_subset50.recode.vcf --plink --out ./subset/maices_subset50")
 ```
 
 2.  Se recomienda partir del formato ped a lfmm
 
 ```{r formato}
-input.file = "./subset/maices_subset50.ped"
-output.file ="./subset/maices_subset50.geno"
-maices.geno <- ped2geno(input.file, output.file, force = TRUE)
+maices.geno <- ped2lfmm(input.file = "./subset/maices_subset50.ped", output.file = "./subset/maices_subset50.lfmm", force = TRUE)
 head(maices.geno)
+class(maices.geno)
 ```
 
-## Calcular ancestria 
+## Generar archivo con las coordenadas
 La ejecución de la función principal tess3 requiere dos archivos: 1) un archivo que codifique genotipos individuales, y 2) un archivo con coordenadas geográficas individuales. 
 
+Es importante notar que en el archivo *geno*, los IDs de las muestras no estan presentes. Las columnas representan a los individuos y las filas las variantes.
+
+Cargaremos los metadatos con las coordenadas y los ordenaremos de acuerdo al orden del archivo vcf
+
 ```{r pressure, echo=FALSE}
-plot(pressure)
+sorted.IDs <- read.delim("./subset/maices_subset50_vcfOrder.txt", header = FALSE, sep = "\t")
+colnames(sorted.IDs) <- "vcf_format_ID"
+sorted.IDs <- sorted.IDs %>%  separate(vcf_format_ID,
+                                 into = c("Individual", "Accession"),
+                                 sep = "_")
+
+```
+El formato *.geno* difiere del formato vcf, que es equivalente a *Individual_Individual*. El orden del archivo plink se empleo para ordenar los metadatos. La longitud (°E) y la latitud (°N) deben codificarse en formato decimal sin enbezados.
+
+```{r}
+
+order_geno <- as.vector(sorted.IDs$Individual)
+
+coordenadas <- read.delim("./meta/maices_subset50_metadata.txt", head = TRUE, sep = "\t")
+coordenadas <- coordenadas[match(order_geno, coordenadas$Genotipo),]
+coordenadas$geno_format <- paste(sorted.IDs$Individual, sorted.IDs$Individual, sep = "_" )
+
+geno_coordenadas <- coordenadas[, c("Longitude", "Latitude")]
+colnames(geno_coordenadas) <- NULL
+geno_coordenadas <- as.matrix(geno_coordenadas)
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+
+genotypes <- read.lfmm("./subset/maices_subset50.lfmm")
+dim(genotypes)
+genotypes[genotypes > 2] <- NA
+
+tess3.obj <- tess3(X = genotypes, coord = geno_coordenadas, K = 1:15, 
+                   method = "projected.ls", ploidy = 2, openMP.core.num = 4) 
+```
+Plot ancestry values
+```{r k-means}
+plot(tess3.obj, pch = 19, col = "blue",
+     xlab = "Number of ancestral populations",
+     ylab = "Cross-validation score")
+```
+Graficar ancestria para el K-value con el CVS mas bajo.
+
+```{r Ancestry}
+q.matrix <- qmatrix(tess3.obj, K = 5)
+# STRUCTURE-like barplot for the Q-matrix 
+barplot(q.matrix, border = NA, space = 0, 
+        xlab = "Individuals", ylab = "Ancestry proportions", 
+        main = "Ancestry matrix") -> bp
+```
