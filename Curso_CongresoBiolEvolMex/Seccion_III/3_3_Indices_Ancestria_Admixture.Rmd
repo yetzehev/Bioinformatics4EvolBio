@@ -1,0 +1,51 @@
+---
+title: "3_3_Ancestria_Admixture"
+author: "Idalia Rojas"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Call libraries
+```{r set_environment}
+
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+
+```
+## 1. Requerimentos
+
+-   vcftools 
+-   bcftools
+-   ADMIXTURE
+
+## 2. Generar achivos de entrada
+```{r input.file}
+system( "/home/irojas/bin/plink/plink --vcf ./subset/maices_subset.recode.vcf --make-bed --allow-extra-chr --out ./subset/maices_subset ")
+
+# ADMIXTURE does not accept chromosome names that are not human chromosomes. We will thus just exchange the first column by 0
+system("awk '{$1=\"0\";print $0}' ./subset/maices_subset.bim > ./subset/maices_subset.bim.tmp")
+system("mv ./subset/maices_subset.bim.tmp ./subset/maices_subset.bim")
+
+system("bash -c 'for K in {1..7}; do ~/bin/admixture_linux-1.3.0/admixture -s time --cv=10 -j4 ./subset/maices_subset.bed $K | tee ./results/maices_subset5_${K}.out; done'")
+
+
+```
+
+```{r plot.CV}
+system("grep 'CV' ./results/maices_subset5_*.out | sed -E 's/.*K=([0-9]+).*: ([0-9.]+).*/\\1\\t\\2/' > ./results/maices_clean.CV")
+CVE <- read.delim("./results/maices_clean.CV", sep = "\t", header = F)
+colnames(CVE) <- c("K", "CVE")
+plot(CVE)
+
+```
+
+## 2. Archivos de entrada
+
+1.  Convertir de vcf a archivo plink  (bim, bam , bed), para ello emplearemos vcftools:
+```{r pressure, echo=FALSE}
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

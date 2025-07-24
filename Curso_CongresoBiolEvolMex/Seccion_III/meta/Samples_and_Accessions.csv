@@ -3,7 +3,8 @@
 #"However	 there is not definitive subspecies classification for this population."						
 #(2) The Malinalco population has higuer proportion of Zea mays ssp. parviglumis ancestry.							
 #" However	 there is not definitive subspecies classification for this population."						
-#"(3)This individuals were classified as Bolita landrace	 but them were not included in the gene flow test."						
+#"(3)This individuals were classified as Bolita landrace	 but them were not included in the gene flow test."
+#"(4)VaNa1946 is labeled in VFC as VaNa1943, and the metadata was modified in this table to match the IDs"					
 Accesion_ID	Locality	State	Accesion_Germplasm_Bank_ID	Longitude	Latitude	Altitude_masl	N
 AmTp2015(1)	Amatlán de Quetzalcóatl	Morelos	Zea mays ssp. parviglumis allopatric 2015	-99.034083	18.982028	1678	5
 BoH12015	San Cristobal Honduras	Oaxaca	Modern Variety	-97.02734	16.32723	1280	5
@@ -64,7 +65,7 @@ TbTp1983	El palmar	Jalisco	Zea mays ssp. parviglumis (INIFAP 10036-JSG-LOS-73)	-
 TbTp2003	San Lorenzo	Jalisco	Zea mays ssp. parviglumis (RMM-13)	-103.9952778	19.94333333	982	5
 TbTp2014	San Lorenzo	Jalisco	Zea mays ssp. parviglumis 	-103.99635	19.94355	982	3
 TbTp2015	San Lorenzo	Jalisco	Zea mays ssp. parviglumis 	-103.9885	19.9614	1071	5
-VaNa1946	Huetamo	Michoacán	Vandeño 1946 (CIMMYT 5332)	18.615695	-100.901771	298	6
+VaNa1943	Huetamo	Michoacán	Vandeño 1943 (CIMMYT 5332)	-100.901771	18.615695		298	6
 VaNa2003	Huetamo	Michoacán	Vandeño 2003 (JSG-RMM-LCL-521)	-100.9161111	18.82055556	672	5
 VaNa2015	Huetamo	Michoacán	Vandeño 2015 (Probably recyfled MV seeds)	-100.8998	18.8339	721	7
 VaTp2003	Huetamo	Michoacán	Zea mays ssp. parviglumis ( JSG-RMM-457-2002)	-100.9161111	18.82055556	672	3

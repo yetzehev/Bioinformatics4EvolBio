@@ -50,7 +50,7 @@ datos genómicos y metadatos están disponibles en el repositorio de
 ```{r tablas}
 genotipos <-read.delim("./meta/metadata_385_taxa_Rojas_etal_2019.txt", sep = "\t")
 
-accesiones <- read.delim( "./meta/Samples_and_Accessions.csv", sep = "\t",skip = 6)
+accesiones <- read.delim( "./meta/Samples_and_Accessions.csv", sep = "\t", skip = 7)
 
 kable(head(genotipos, 3), align = "c") %>%
   kable_styling(full_width = FALSE)
@@ -143,16 +143,20 @@ maices$Extenso <- recode(maices$Extenso, Bo = "Bonito", Ch = "Chalqueno",
 
 ```
 
-### Subconjunto de datos con 50 genotipos
+### Subconjunto de datos con un subset de genotipos
 
 El subset de datos con maíces esta integrado por 186 genotipos, para
 reducir el tiempo de computo y el tamaño de los archivos generaremos una
-**lista con 50 genotipos**, para ello usaremos la función de R
-**`sample.`**
+**lista con 72 genotipos**.
 
-```{r subset_maices}
-set.seed(123)  # For reproducibility
-maices_slice <- maices[sample(nrow(maices), 50), ]
+```{r subset_maices, echo= FALSE}
+
+maices_subset <- read.delim("./meta/maices_subset.txt", header = FALSE, sep = "_")
+colnames(maices_subset) <- c("Genotipo", "Accession_ID")
+maices_slice <- maices[maices$Genotipo %in% maices_subset$Genotipo,]
+
+#set.seed(123)  # For reproducibility
+#maices_slice <- maices[sample(nrow(maices), 50), ]
 kable(head(maices_slice,5), align = "c") %>%
   kable_styling(full_width = FALSE)
 
@@ -166,7 +170,7 @@ maices_meta <- merge(maices_slice, accesiones, by = "Accesion_ID", all.x = TRUE)
 kable(head(maices_meta,5), align = "c") %>% 
   kable_styling(full_width = FALSE)
 
-write.table(maices_meta, "./meta/maices_subset50_metadata.txt",
+write.table(maices_meta, "./meta/maices_subset_metadata.txt",
             sep = "\t", row.names = FALSE, quote = FALSE)
 ```
 
@@ -176,14 +180,14 @@ Ahora generaremos la lista de genotipos para hacer el subconjunto de
 genotipos del archivo vcf y plink.
 
 1.  El archivo para crear el subset del archivo ***VCF*** solo requiere
-    ***unacolumna** con la lista de genotipos*.
+    ***una columna** con la lista de genotipos*.
 2.  El archivo para hacer el subset del archivo ***plink** requiere
     **dos columnas**,* *una representa el genotipo y la otra la
     familia*.
 
 ```{R plink_subset}
 
-subset_vcf<- paste(maices_slice$Genotipo, maices_slice$Grupo, sep = "_")
+subset_vcf<- paste(maices_slice$Genotipo, maices_slice$Accesion_ID, sep = "_")
 
 subset_plink <- maices_slice %>% 
   transmute(
@@ -200,30 +204,30 @@ El siguiente paso es transformar los archivos VCF en archivos plink
 La compresion del archivo requiere **`tabix`**
 
 ```{r}
-#system("vcftools --vcf data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.recode.vcf --keep ./meta/subset_maices_vcf.txt --recode --out ./subset/maices_subset50")
-#system("bgzip -c ./subset/maices_subset50.recode.vcf > ./subset/maices_subset50.vcf.gz")
+system("vcftools --vcf ./../../data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.recode.vcf --keep ./meta/subset_maices_vcf.txt --recode --out ./subset/maices_subset")
+system("bgzip -c ./subset/maices_subset.recode.vcf > ./subset/maices_subset.vcf.gz")
 ```
 
 Filtra los SNPs empleando plink
 
 ```{r transformacion}
 #Filtrado de SNPs
-#system("~/bin/plink/plink --vcf ./subset/maices_subset50.recode.vcf --keep ./meta/subset_maices_plink.txt --double-id --allow-extra-chr --set-missing-var-ids @:# --indep-pairwise 50 10 0.1 --out ./subset/maices_subset50")
+system("~/bin/plink/plink --vcf ./subset/maices_subset.recode.vcf --keep ./meta/subset_maices_plink.txt --double-id --allow-extra-chr --set-missing-var-ids @:# --indep-pairwise 50 10 0.1 --out ./subset/maices_subset")
 ```
 
 Realizar el PCA
 
 ```{R PCA}
 # prune and create pca
-#system("~/bin/plink/plink  --vcf  ./subset/maices_subset50.recode.vcf --keep ./meta/subset_maices_plink.txt --double-id --allow-extra-chr --set-missing-var-ids @:# --extract maices_subset50.prune.in --make-bed --pca --out ./subset/maices_subset50")
+system("~/bin/plink/plink  --vcf  ./subset/maices_subset.recode.vcf --keep ./meta/subset_maices_plink.txt --double-id --allow-extra-chr --set-missing-var-ids @:# --extract ./subset/maices_subset.prune.in --make-bed --pca --out ./subset/maices_subset")
 ```
 
 Cargar el resultado del PCA
 
 ```{r graficar}
 # read in data
-pca <- read.delim("./subset/maices_subset50.eigenvec", sep = " ", header = FALSE)
-eigenval <- scan("./subset/maices_subset50.eigenval")
+pca <- read.delim("./subset/maices_subset.eigenvec", sep = " ", header = FALSE)
+eigenval <- scan("./subset/maices_subset.eigenval")
 ```
 
 Asignar los nombres a los genotipo

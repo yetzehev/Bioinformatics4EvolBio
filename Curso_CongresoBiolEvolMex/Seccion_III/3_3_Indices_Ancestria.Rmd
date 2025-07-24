@@ -1,5 +1,5 @@
 ---
-title: "3_3_Indices_Ancestria"
+title: "3_3_Indices_Ancestria_tssr3"
 author: "Idalia Rojas"
 date: "`r Sys.Date()`"
 output: html_document
@@ -15,6 +15,9 @@ knitr::opts_chunk$set(echo = TRUE)
 -   devtools
 -   maps
 -   LEA
+-   vcftools 
+-   bcftools
+-   ADMIXTUEE
 
 ```{r installation, echo = FALSE}
 # install.packages("devtools")
@@ -45,17 +48,17 @@ Los índices de ancestría son un análisis de agrupamiento no supervisado que e
 
 Transformar nuestro archivo en el archivo de genotipos que emplea tss3.
 
-1.  Convertir de vcf a ped, para ello emplearemos vcftools:
+1.  Convertir de vcf a archivo plink (map, ped), para ello emplearemos vcftools:
 
 ```{r vcf2ped, echo=FALSE}
-#system("bcftools query -l ./subset/maices_subset50.recode.vcf > ./subset/maices_subset50_vcfOrder.txt")
-system("vcftools --vcf ./subset/maices_subset50.recode.vcf --plink --out ./subset/maices_subset50")
+system("bcftools query -l ./subset/maices_subset.recode.vcf > ./subset/maices_subset_vcfOrder.txt")
+system("vcftools --vcf ./subset/maices_subset.recode.vcf --plink --out ./subset/maices_subset")
 ```
 
 2.  Se recomienda partir del formato ped a lfmm
 
 ```{r formato}
-maices.geno <- ped2lfmm(input.file = "./subset/maices_subset50.ped", output.file = "./subset/maices_subset50.lfmm", force = TRUE)
+maices.geno <- ped2lfmm(input.file = "./subset/maices_subset.ped", output.file = "./subset/maices_subset.lfmm", force = TRUE)
 head(maices.geno)
 class(maices.geno)
 ```
@@ -68,7 +71,7 @@ Es importante notar que en el archivo *geno*, los IDs de las muestras no estan p
 Cargaremos los metadatos con las coordenadas y los ordenaremos de acuerdo al orden del archivo vcf
 
 ```{r pressure, echo=FALSE}
-sorted.IDs <- read.delim("./subset/maices_subset50_vcfOrder.txt", header = FALSE, sep = "\t")
+sorted.IDs <- read.delim("./subset/maices_subset_vcfOrder.txt", header = FALSE, sep = "\t")
 colnames(sorted.IDs) <- "vcf_format_ID"
 sorted.IDs <- sorted.IDs %>%  separate(vcf_format_ID,
                                  into = c("Individual", "Accession"),
@@ -81,7 +84,7 @@ El formato *.geno* difiere del formato vcf, que es equivalente a *Individual_Ind
 
 order_geno <- as.vector(sorted.IDs$Individual)
 
-coordenadas <- read.delim("./meta/maices_subset50_metadata.txt", head = TRUE, sep = "\t")
+coordenadas <- read.delim("./meta/maices_subset_metadata.txt", head = TRUE, sep = "\t")
 coordenadas <- coordenadas[match(order_geno, coordenadas$Genotipo),]
 coordenadas$geno_format <- paste(sorted.IDs$Individual, sorted.IDs$Individual, sep = "_" )
 
@@ -93,11 +96,11 @@ geno_coordenadas <- as.matrix(geno_coordenadas)
 
 ```{r}
 
-genotypes <- read.lfmm("./subset/maices_subset50.lfmm")
+genotypes <- read.lfmm("./subset/maices_subset.lfmm")
 dim(genotypes)
 genotypes[genotypes > 2] <- NA
 
-tess3.obj <- tess3(X = genotypes, coord = geno_coordenadas, K = 1:15, 
+tess3.obj <- tess3(X = genotypes, coord = geno_coordenadas, K = 1:10, 
                    method = "projected.ls", ploidy = 2, openMP.core.num = 4) 
 ```
 Plot ancestry values
@@ -109,9 +112,31 @@ plot(tess3.obj, pch = 19, col = "blue",
 Graficar ancestria para el K-value con el CVS mas bajo.
 
 ```{r Ancestry}
-q.matrix <- qmatrix(tess3.obj, K = 5)
+q.matrix <- qmatrix(tess3.obj, K = 4)
 # STRUCTURE-like barplot for the Q-matrix 
 barplot(q.matrix, border = NA, space = 0, 
         xlab = "Individuals", ylab = "Ancestry proportions", 
         main = "Ancestry matrix") -> bp
+axis(1, at = 1:nrow(q.matrix), labels = bp$order, las = 3, cex.axis = .4) 
+```
+Graficar el mapa
+
+```{r}
+
+my.colors <- c("tomato", "orange", "lightblue", "wheat","olivedrab")
+my.palette <- CreatePalette(my.colors, 9)
+barplot(q.matrix, border = NA, space = 0, 
+        main = "Ancestry matrix", 
+        xlab = "Individuals", ylab = "Ancestry proportions", 
+        col.palette = my.palette) -> bp
+axis(1, at = 1:nrow(q.matrix), labels = bp$order, las = 3, cex.axis = .4) 
+
+
+###
+
+plot(q.matrix,  geno_coordenadas, method = "map.max", interpol = FieldsKrigModel(10),  
+     main = "Ancestry coefficients",
+     xlab = "Longitude", ylab = "Latitude", 
+     resolution = c(300,300), cex = .4, 
+     col.palette = my.palette)
 ```

@@ -1,0 +1,4 @@
+./results/maices_subset50_2.out:CV error (K=2): 0.28835
+./results/maices_subset50_3.out:CV error (K=3): 0.31950
+./results/maices_subset50_4.out:CV error (K=4): 0.35696
+./results/maices_subset50_5}.out:CV error (K=5): 0.39032
