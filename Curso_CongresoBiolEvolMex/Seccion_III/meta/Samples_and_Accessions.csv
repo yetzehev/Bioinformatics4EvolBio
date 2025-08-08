@@ -44,19 +44,19 @@ PpNa1973	Ixcateopán	Guerrero	Pepitilla 1973 (INIFAP 2359-GRO-280)	-99.73139	18.
 PpNa2003a	Huitzuco	Guerrero	Pepitilla 2003 (JSG-RMM-LCL-508)	-99.19083333	18.24888889	1205	8
 PpNa2003b	Ixcateopán	Guerrero	Pepitilla 2003 (JSG-RMM-LCL-496)	-99.78444444	18.50472222	1890	6
 PpTp1978	Teloloapán	Guerrero	Zea mays ssp. parviglumis (INIFAP 10002-C-10-78)	-99.9	18.4	1450	1
-PpTp1978	Ixcateopán	Guerrero	Zea mays ssp. parviglumis (INIFAP 10000-C-8-78)	-99.8	18.5	1920	1
+PpTp1978b	Ixcateopán	Guerrero	Zea mays ssp. parviglumis (INIFAP 10000-C-8-78)	-99.8	18.5	1920	1
 PpTp1984a	Teloloapán	Guerrero	Zea mays ssp. parviglumis (INIFAP 10062-JSG-LOS-117)	-99.9	18.4	1465	4
 PpTp1984b	Ixcateopán	Guerrero	Zea mays ssp. parviglumis (INIFAP 10058-JSG-LOS-111)	-99.78333333	18.5	1795	1
-PpTp2003a 	Huitzuco	Guerrero	Zea mays ssp. parviglumis (JSG-RMM-LCL-504)	-99.19083333	18.24888889	1205	3
+PpTp2003a	Huitzuco	Guerrero	Zea mays ssp. parviglumis (JSG-RMM-LCL-504)	-99.19083333	18.24888889	1205	3
 PpTp2003b	Ixcateopán	Guerrero	Zea mays ssp. parviglumis (JSG-RMM-LCL-495)	-99.78444444	18.50472222	1890	6
-PpTp2010 	Huitzuco	Guerrero	Zea mays ssp. parviglumis	-99.218	18.23769	1101	3
+PpTp2010	Huitzuco	Guerrero	Zea mays ssp. parviglumis	-99.218	18.23769	1101	3
 PpTp2011	Teloloapán	Guerrero	Zea mays ssp. parviglumis	-99.90842	18.411	1439	5
 SJH12015	San Jeronimo Ayotlán	Jalisco	Zea mays ssp. mexicana allopatric 2015	-102.356356	20.418405	1577	5
 SJTm2002	San Jeronimo Ayotlán	Jalisco	Zea mays ssp. mexicana allopatric 2002	-102.3333333	20.41666667	1597	6
 SJTm2015	San Jeronimo Ayotlán	Jalisco	Zea mays ssp. mexicana allopatric 2015	-102.356356	20.418405	1577	5
 TbH12015	San Lorenzo	Jalisco	Modern Variety	-103.9885	19.9614	1071	6
 TbNa1946a	El Grullo	Jalisco	Tabloncillo 1946 (CIMMYT 313)	-104.2	19.8	870	8
-TbNa1946b (Cd.Guzmán)	Ciudad Guzmán	Jalisco	Tabloncillo 1946 (CIMMYT 598)	-103.497012	19.716303	1517	5
+TbNa1946b	Ciudad Guzmán	Jalisco	Tabloncillo 1946 (CIMMYT 598)	-103.497012	19.716303	1517	5
 TbNa1960	Ciudad Guzmán	Jalisco	Tabloncillo 1960 (CIMMYT 347)	-103.497012	19.716303	1517	6
 TbNa2003	San Lorenzo	Jalisco	Tabloncillo 2003 (RMM-15)	-103.9952778	19.94333333	982	5
 TbNa2014	San Lorenzo	Jalisco	Tabloncillo 2014	-103.99635	19.94355	982	3
@@ -65,7 +65,7 @@ TbTp1983	El palmar	Jalisco	Zea mays ssp. parviglumis (INIFAP 10036-JSG-LOS-73)	-
 TbTp2003	San Lorenzo	Jalisco	Zea mays ssp. parviglumis (RMM-13)	-103.9952778	19.94333333	982	5
 TbTp2014	San Lorenzo	Jalisco	Zea mays ssp. parviglumis 	-103.99635	19.94355	982	3
 TbTp2015	San Lorenzo	Jalisco	Zea mays ssp. parviglumis 	-103.9885	19.9614	1071	5
-VaNa1943	Huetamo	Michoacán	Vandeño 1943 (CIMMYT 5332)	-100.901771	18.615695		298	6
+VaNa1943	Huetamo	Michoacán	Vandeño 1943 (CIMMYT 5332)	-100.901771	18.615695	98	6
 VaNa2003	Huetamo	Michoacán	Vandeño 2003 (JSG-RMM-LCL-521)	-100.9161111	18.82055556	672	5
 VaNa2015	Huetamo	Michoacán	Vandeño 2015 (Probably recyfled MV seeds)	-100.8998	18.8339	721	7
 VaTp2003	Huetamo	Michoacán	Zea mays ssp. parviglumis ( JSG-RMM-457-2002)	-100.9161111	18.82055556	672	3
@@ -82,6 +82,6 @@ ZmTm1983	Churintzio	Michoacán	Zea mays ssp. mexicana (INIFAP 10026-JSG-LOS-48)	
 ZmTm2004	Churintzio	Michoacán	Zea mays ssp. mexicana (JSG-RMM-438-04)	-102.060833	20.078333	1910	6
 ZmTm2014	Churintzio	Michoacán	Zea mays ssp. mexicana	-102.06897	20.15188	1834	3
 ZmTm2015	Churintzio	Michoacán	Zea mays ssp. mexicana	-102.075	20.1666	1820	5
-ZmTm2015	Churintzio	Michoacán	Zea mays ssp. mexicana	-102.0742333	20.1503	1820	6
+ZmTm2015b	Churintzio	Michoacán	Zea mays ssp. mexicana	-102.0742333	20.1503	1820	6
 JaZd1978	Cuautitlán	Jalisco	Zea diploperennis (CIMMYT10003)	19.53333333	-104.2166667	2250	7
 JaZdJSG2003	Cuautitlán	Jalisco	Zea diploperennis (JSG-RMM-LCL-551)	19.59055556	-104.2780556	1870	5

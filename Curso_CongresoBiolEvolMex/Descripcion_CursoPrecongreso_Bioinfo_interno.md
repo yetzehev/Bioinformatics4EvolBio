@@ -87,9 +87,11 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
 
 - **Pipe operator** (`%>%`): Transformación intuitiva ([Referencia](https://rpubs.com/paraneda/tidyverse))
 
-### 2.2 Filtrado y Edición  (Daniela)
+### 2.2 Filtrado y Edición  (Daniela & Idalia)
 
-- **Casos comunes**: (Sugerencia, esta seccion puede ser modificada)
+Empleareamos un conjunto de datos publicos  para  extraer  e integrar los metadatos  con los datos geneticos. 
+
+- **Casos comunes**: 
   
   - Eliminar NAs
   - Reordenar columnas
@@ -97,7 +99,7 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
   
 - **Ejercicio guiado**: Limpiar un conjunto de datos
 
-  Objetivo: Dejar listas las tablas de datos para grafcar al inicio de la segunda sesión.
+  Objetivo: Dejar listas las tablas de datos para graficar al inicio de la segunda sesión.
   
 ### 2.3 Integración de Metadatos
 
@@ -120,15 +122,22 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
 
 **PAUSA (15 min)**
 
-### 3.2 PCA con SNPs (Daniela)
+### 3.2 PCA/DAPC con SNPs (Daniela)
 
 Flujo de trabajo con `adegenet`
 
 ### 3.3 Graficar en Rstudio los índices de ancestría  (Idalia)
 
-K-means calculado con tess3r`ADMIXTURE`).
+Diagrama de flujo: Formular hipótesis sobre estructura genética y herramientas para evaluarlas (https://www.data-to-viz.com/)
+
+K-means calculado con `tess3r` y`ADMIXTURE` (Dos conjuntos de datos  y dos herramientas)
 
 ### **3.4** Visualizacion de arboles en R (Idalia)
 
-  Filogenias (SNPs): Demostracion con `ape`
 
+
+- FastTree (SNPs)  & IQtree (SNPs?)
+
+- Conjunto de datos: Tres subespecies de Zea mays 
+
+  Visualizacion de  Filogenias (SNPs): Demostracion con `ape`.

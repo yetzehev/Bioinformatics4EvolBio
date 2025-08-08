@@ -10,8 +10,10 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 ## Call libraries
 ```{r set_environment}
-
+library(wesanderson)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+
+system("mkdir ./out")
 
 ```
 ## 1. Requerimentos
@@ -22,29 +24,65 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 ## 2. Generar achivos de entrada
 ```{r input.file}
-system( "/home/irojas/bin/plink/plink --vcf ./subset/maices_subset.recode.vcf --make-bed --allow-extra-chr --out ./subset/maices_subset ")
+system( "/home/irojas/bin/plink/plink --vcf ./subset/teosintes_subset.recode.vcf --make-bed --allow-extra-chr --out ./subset/teosintes_subset ")
 
 # ADMIXTURE does not accept chromosome names that are not human chromosomes. We will thus just exchange the first column by 0
-system("awk '{$1=\"0\";print $0}' ./subset/maices_subset.bim > ./subset/maices_subset.bim.tmp")
-system("mv ./subset/maices_subset.bim.tmp ./subset/maices_subset.bim")
+system("awk '{$1=\"0\";print $0}' ./subset/teosintes_subset.bim > ./subset/teosintes_subset.bim.tmp")
+system("mv ./subset/teosintes_subset.bim.tmp ./subset/teosintes_subset.bim")
 
-system("bash -c 'for K in {1..7}; do ~/bin/admixture_linux-1.3.0/admixture -s time --cv=10 -j4 ./subset/maices_subset.bed $K | tee ./results/maices_subset5_${K}.out; done'")
+#system("bash -c 'for K in {1..7}; do ~/bin/admixture_linux-1.3.0/admixture -s time --cv=10 -j4 ./subset/teosintes_subset.bed $K | tee ./results/teosintes_subset5_${K}.out; done'")
 
 
 ```
 
 ```{r plot.CV}
-system("grep 'CV' ./results/maices_subset5_*.out | sed -E 's/.*K=([0-9]+).*: ([0-9.]+).*/\\1\\t\\2/' > ./results/maices_clean.CV")
-CVE <- read.delim("./results/maices_clean.CV", sep = "\t", header = F)
+system("grep 'CV' ./results/teosintes_subset5_*.out | sed -E 's/.*K=([0-9]+).*: ([0-9.]+).*/\\1\\t\\2/' > ./results/teosintes_clean.CV")
+CVE <- read.delim("./results/teosintes_clean.CV", sep = "\t", header = F)
 colnames(CVE) <- c("K", "CVE")
 plot(CVE)
 
 ```
 
-## 2. Archivos de entrada
+## 2. Graficar indices de ancestria
+El siguiente paso es graficar el numero de cluster con el Error de Validacion Cruzada mas bajo, que en este caso es K=4.
 
-1.  Convertir de vcf a archivo plink  (bim, bam , bed), para ello emplearemos vcftools:
-```{r pressure, echo=FALSE}
+```{r pressure, echo=TRUE}
+IDs <- read.delim("./subset/teosintes_subset.fam", header = FALSE, sep = ' ')
+colnames(IDs) <- c("Individuo", "Accesion")
+
+
+
+
+# Read the data
+K4 <- read.delim("./teosintes_subset.4.Q", header = FALSE, sep = " ")
+rownames(K4) <- IDs$Individuo
+
+# Sort K4 by the values in the first column
+K4 <- K4[order( K4[,4],  K4[,2],  K4[,3]), ]
+
+# Transpose for barplot
+K4_t <- t(K4)
+
+# Set color palette from Wes Anderson
+colors <- wes_palette("Zissou1", n = nrow(K4_t), type = "continuous")
+
+#png("./out/ancestry_matrix.png", width = 1200, height = 800, res = 150)
+# Plot barplot
+barplot(K4_t,
+        col = colors,
+        border = NA,
+        space = 0,
+        ylab = "Ancestry proportions",
+        main = "Ancestry matrix", 
+         xaxt = "n") -> bp
+
+# Add x-axis labels rotated vertically
+axis(1,
+     at = bp,
+     labels = rownames(K4),
+     las = 2,            # Vertical text
+     cex.axis = 0.4)     # Smaller text to avoid overlap
+#dev.off()
 
 ```
 
