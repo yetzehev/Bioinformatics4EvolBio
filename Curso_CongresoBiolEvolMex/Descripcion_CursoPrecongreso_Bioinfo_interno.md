@@ -136,7 +136,7 @@ K-means calculado con `tess3r` y`ADMIXTURE` (Dos conjuntos de datos  y dos herra
 
 
 
-- FastTree (SNPs)  & IQtree (SNPs?)
+- `FastTree` (SNPs)  & `IQtree` (SNPs?)
 
 - Conjunto de datos: Tres subespecies de Zea mays 
 
