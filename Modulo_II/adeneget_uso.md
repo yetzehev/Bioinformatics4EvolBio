@@ -7,6 +7,9 @@ install.packages("adegenet")
 
 ```
 library(adegenet)
+library(ggplot2)
+library(dartR)
+library(vcfR)
 ```
 
 Vamos a seleccionar el folder donde tenemos guardados nuestros archivos
