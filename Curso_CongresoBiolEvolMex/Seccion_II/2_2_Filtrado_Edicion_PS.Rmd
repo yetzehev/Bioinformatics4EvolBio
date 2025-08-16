@@ -1,0 +1,282 @@
+---
+title: "Metadata Parientes Silvestres de Maiz"
+author: "Idalia Rojas"
+date: "`r Sys.Date()`"
+output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(kableExtra)
+library(tidyr)
+library(dplyr)
+library(tidyverse)
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+```
+
+# Tablas de metadatos y construcción de subconjunto de datos
+
+Dependencias en bash: - vcftools - plink - tabix
+
+Librerias en R: - kniitr - kableExtra - tidyr - dplyr - tidyverse
+
+Si los directorios **`meta`** **`subset`** no existen en tu directorio
+de trabajo, crealos con el siguiente comando:
+
+```{r mkdir}
+#system('mkdir ./meta')
+#system('mkdir ./subset')
+```
+
+### Cargar archivos en Rstudio
+
+En este caso, emplearemos **datos** públicos de un estudio publicado en
+2019, que empleó datos genómicos de **razas de maiz** y sus **parientes silvestres** para evaluar
+la evolución de este cultivo en México, donde se encuentra el centro de
+origen y diversidad para este cultivo.
+
+El artículo [*Contemporary evolution of maize landraces and their wild
+relatives influenced by gene flow with modern maize
+varieties*](https://www.pnas.org/doi/full/10.1073/pnas.1817664116) puede
+ser consultado en este
+[enlace](https://www.pnas.org/doi/full/10.1073/pnas.1817664116), y los
+datos genómicos y metadatos están disponibles en el repositorio de
+[OSF](https://osf.io/pqvt4/).
+
+```{r tablas}
+genotipos <-read.delim("./meta/metadata_385_taxa_Rojas_etal_2019.txt", sep = "\t")
+
+accesiones <- read.delim( "./meta/Samples_and_Accessions.csv", sep = "\t", skip = 7)
+
+kable(head(genotipos, 3), align = "c") %>%
+  kable_styling(full_width = FALSE)
+
+kable(head(accesiones, 3), align = "c") %>%
+  kable_styling(full_width = FALSE)
+
+```
+
+### Editar las tablas de datos
+
+Extracción de los IDs para armar un subconjunto de datos con los maíces,
+excluyendo a los parientes silvestres. Es posible emplear los comandos
+de Bash dentro de un script de R. Para ello debemos usar el comando
+**`system`** y escribir el comando de Bash entre comillas.
+
+```{r lista_IDs}
+#Usar un comando de bash en R
+system("bcftools query -l ../../data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.recode.vcf > ./meta/genotypes_vcf.txt")
+
+#Cargar el set de datos extraído del archivo VCF y asignar nombres a las columnas
+IDs<- read.delim("./meta/genotypes_vcf.txt", sep = "_", header = FALSE)
+colnames(IDs) <- c("Genotipo", "Accesion_ID")
+
+kable(head(IDs, 5), align = "c") %>% 
+  kable_styling(full_width = FALSE)
+
+
+```
+
+Esta es la manera en que lucen los IDs de los genotipos extraidos de un
+archivo VCF. En este caso en específico, la columna 1 repesenta el ID-unico del
+genotipo y la columna 2 el nombre de la accesion a la que esta asignado
+ese genotipo.
+
+Ahora asignaremos nombres a las columnas de los IDs extraidos:
+**`Genotipo`** y **`Accesion_ID`**
+
+```{r VCF}
+
+
+#Extraer la información contenida en la columna de Accesion_ID
+extract <- IDs %>% separate(Accesion_ID,
+                       into = c("Raza", "Cultivar", "Anio_colecta"),
+                       sep = c(2,4,8))
+#Merge our new information 
+IDs<- merge(IDs, extract, by = "Genotipo")
+kable(head(IDs, 5), align = "c") %>% 
+  kable_styling(full_width = FALSE)
+
+```
+
+Una vez extraída la información hagamos un subconjunto unicamente con
+los genotipos de los parientes silvestres (teocintles)  que estan agrupados en dos subespecies: 
+*Zea mays* ssp. *mexicana* y *Zea mays* ssp. *parviglumis*. Las abreviaturas **`Tm y Tp`** en la columna
+**`Cultivar`** hacen referencia a los teocintles.
+
+```{r subsets}
+teocintles <- IDs[IDs$Cultivar %in% c("Tp", "Tm"),]
+
+kable(head(teocintles, 5), align = "c") %>% 
+  kable_styling(full_width = FALSE)
+```
+
+Ahora vamos a sustituir los nombres abreviados de las teocintles por los
+nombres en extenso empleando la siguiente clave:
+
+```{r pressure, echo=FALSE}
+#Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+# Your data
+df <- data.frame(
+  Abreviatura = c("Tm","Tp","Bo", "Ch", "Ms", "Pp", "Tb", "Va", "Zm", "Hn"),
+  `Nombre en extenso` = c("Zea mays ssp. mexicana","Zea mays ssp. parviglumis","Bonito", "Chalqueno", "Mushito", "Pepitilla", "Tabloncillo", "Vandeno", "Zamorano", "Hibrido")
+)
+
+# Print centered table
+kable(df, align = "c") %>%
+  kable_styling(full_width = FALSE)
+```
+
+Crea la columna **`Extenso`** y sustituye las abreviaturas con los
+nombres dados en la tabla anterior.
+
+```{r editarDF}
+teocintles$Extenso <- teocintles$Cultivar
+
+#Sustituir los valores
+#Recode la columna Extenso
+teocintles$Extenso <- recode(teocintles$Extenso, 
+                                Tp = "Zea mays ssp. parviglumis", Tm = "Zea mays ssp. mexicana")
+
+
+```
+
+### Subconjunto de datos con un subset de genotipos
+
+El subset de datos con maíces esta integrado por 386 genotipos, para
+reducir el tiempo de computo y el tamaño de los archivos generaremos una
+**lista con 118 genotipos**.
+
+```{r subset_maices, echo= FALSE}
+
+teocintles_subset <- read.delim("./meta/teosintes_subset.txt", header = FALSE, sep = "_")
+colnames(teocintles_subset) <- c("Genotipo", "Accession_ID")
+teocintles_slice <- teocintles[teocintles$Genotipo %in% teocintles_subset$Genotipo,]
+
+kable(head(teocintles_slice,5), align = "c") %>%
+  kable_styling(full_width = FALSE)
+
+```
+
+### Agregar metadatos: coordenadas y altitud
+El archivo **accessiones** contiene la informacion de las coordenadas y altitud de cada accession. Usando como referencia la columna **`Accesio_ID`**, fusionaremos la tabla `teocintles_slice` y `accesiones`.
+
+```{r add.coord}
+teocintles_meta <- merge(teocintles_slice, accesiones, by = "Accesion_ID", all.x = TRUE)
+kable(head(teocintles_meta,5), align = "c") %>% 
+  kable_styling(full_width = FALSE)
+
+write.table(teocintles_meta, "./meta/teocintles_subset_metadata.txt",
+            sep = "\t", row.names = FALSE, quote = FALSE)
+```
+
+### Extracción de un un subconjunto de genotipos de los archivos VCF y plink
+
+Ahora generaremos la lista de genotipos para hacer el subconjunto de
+genotipos del plink.
+
+1.  El archivo para hacer el subset del archivo ***plink** requiere
+    **dos columnas**,* *una representa el genotipo y la otra la
+    familia*.
+
+```{R plink_subset}
+
+subset_plink <- teocintles_slice %>% 
+  transmute(
+    ID = paste(Genotipo, Accesion_ID, sep = "_"),  # Creates a new column
+    Family = paste(Genotipo, Accesion_ID, sep = "_")  # Optional: same as ID
+  )
+
+write.table(subset_plink, "./meta/subset_teosintes_plink.txt",quote = FALSE, row.names = FALSE, col.names = FALSE)
+```
+
+El siguiente paso es transformar los archivos VCF en archivos plink.
+La compresion del archivo requiere **`tabix`**. Plink funciona como un `standalone package` en un enterno bash. El filtrado se realizara empleando el comando system, que nos permite usar plink sin salir de Rstudio.
+
+```{r}
+system("vcftools --vcf ./../../data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.recode.vcf --keep ./meta/teosintes_subset.txt --recode --out ./subset/teosintes_subset")
+#system("bgzip -c ./subset/teosintes_subset.recode.vcf > ./subset/teosintes_subset.vcf.gz")
+```
+Filtra los SNPs empleando plink. 
+
+```{r transformacion}
+#Filtrado de SNPs
+system("~/bin/plink/plink --vcf ./subset/teosintes_subset.recode.vcf  --double-id --allow-extra-chr --set-missing-var-ids @:# --indep-pairwise 50 10 0.1 --out ./subset/teosintes_subset")
+```
+
+Realizar el PCA
+
+```{R PCA}
+# prune and create pca
+system("~/bin/plink/plink  --vcf  ./subset/teosintes_subset.recode.vcf --double-id --allow-extra-chr --set-missing-var-ids @:# --extract ./subset/teosintes_subset.prune.in --make-bed --pca --out ./subset/teosintes_subset")
+```
+
+Cargar el resultado del PCA
+
+```{r graficar}
+# read in data
+pca <- read.delim("./subset/teosintes_subset.eigenvec", sep = " ", header = FALSE)
+eigenval <- scan("./subset/teosintes_subset.eigenval")
+```
+
+Asignar los nombres a los genotipos
+
+```{r IND_PCA}
+
+# sort out the pca data
+# remover la columna extra con los IDs
+pca <- pca[,-1]
+# set names
+names(pca)[1] <- "ind"
+names(pca)[2:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-1))
+```
+
+Agregar los nombres en extenso de las sub
+
+```{r IDs_razas}
+# sort out the individual species and pops
+# spp
+subespecies <- rep(NA, length(pca$ind))
+subespecies[grep("Tm", pca$ind)] <- "Z.m. ssp. mexicana"
+subespecies[grep("Tp", pca$ind)] <- "Z.m. ssp. parviglumis"
+
+pca <- data.frame(pca, subespecies)
+
+
+```
+
+Graficar los eigenvectores
+
+```{r eigenv}
+# first convert to percentage variance explained
+pve <- data.frame(PC = 1:20, pve = eigenval/sum(eigenval)*100)
+```
+
+Grafica la propocion de variacion que explica cada eigenvector
+
+```{r eigenv_plot}
+# make plot
+a <- ggplot(pve, aes(PC, pve)) + geom_bar(stat = "identity")
+a + ylab("Percentage variance explained") + theme_light()
+```
+
+```{r eigenv_cumm}
+# calculate the cumulative sum of the percentage variance explained
+cumsum(pve$pve)
+```
+
+Plot PCA
+
+```{r }
+
+# plot pca
+b <- ggplot(pca, aes(PC1, PC2, col = subespecies)) + geom_point(size = 3)
+
+b <- b + coord_equal() + theme_light()
+b + xlab(paste0("PC1 (", signif(pve$pve[1], 3), "%)")) + ylab(paste0("PC2 (", signif(pve$pve[2], 3), "%)"))
+
+```
