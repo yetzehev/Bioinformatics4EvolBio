@@ -1,4 +1,4 @@
-Accesion_ID	Genotipo	Raza	Cultivar	Anio_colecta	Extenso	Locality	State	Accesion_Germplasm_Bank_ID	Longitude	Latitude	Altitude_masl	N
+Accesion_ID	Genotipo	Raza	Cultivar	Anio_colecta	Subespecie	Locality	State	Accesion_Germplasm_Bank_ID	Longitude	Latitude	Altitude_masl	N
 BoTp2003	BoTp200301	Bo	Tp	2003	Zea mays ssp. parviglumis	San Cristobal Honduras	Oaxaca	Zea mays ssp. parviglumis(CUCBA JSG-RMM-LCL-483)	-97.0325	16.3238889	1272	5
 BoTp2003	BoTp200302	Bo	Tp	2003	Zea mays ssp. parviglumis	San Cristobal Honduras	Oaxaca	Zea mays ssp. parviglumis(CUCBA JSG-RMM-LCL-483)	-97.0325	16.3238889	1272	5
 BoTp2003	BoTp200303	Bo	Tp	2003	Zea mays ssp. parviglumis	San Cristobal Honduras	Oaxaca	Zea mays ssp. parviglumis(CUCBA JSG-RMM-LCL-483)	-97.0325	16.3238889	1272	5
