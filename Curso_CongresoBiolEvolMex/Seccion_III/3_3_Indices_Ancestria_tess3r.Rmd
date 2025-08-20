@@ -81,7 +81,7 @@ sorted.IDs <- sorted.IDs %>%  separate(vcf_format_ID,
 ```
 El formato *.geno* difiere del formato vcf, que es equivalente a *Individual_Individual*. El orden del archivo plink se empleo para ordenar los metadatos. La longitud (°E) y la latitud (°N) deben codificarse en formato decimal sin enbezados.
 
-```{r}
+```{r coordenadas}
 
 order_geno <- as.vector(sorted.IDs$Individual)
 
@@ -95,7 +95,7 @@ geno_coordenadas <- as.matrix(geno_coordenadas)
 
 ```
 
-```{r}
+```{r tess3}
 
 genotypes <- read.lfmm("./subset/teosintes_subset.lfmm")
 dim(genotypes)
