@@ -1,5 +1,5 @@
 ---
-title: "Metadata maices"
+title: "Metadata Parientes Silvestres de Maiz"
 author: "Idalia Rojas"
 date: "`r Sys.Date()`"
 output: html_document
@@ -35,7 +35,7 @@ de trabajo, crealos con el siguiente comando:
 ### Cargar archivos en Rstudio
 
 En este caso, emplearemos **datos** públicos de un estudio publicado en
-2019, que empleó datos genómicos de **razas** de **maíz** para evaluar
+2019, que empleó datos genómicos de **razas de maiz** y sus **parientes silvestres** para evaluar
 la evolución de este cultivo en México, donde se encuentra el centro de
 origen y diversidad para este cultivo.
 
@@ -48,7 +48,7 @@ datos genómicos y metadatos están disponibles en el repositorio de
 [OSF](https://osf.io/pqvt4/).
 
 ```{r tablas}
-genotipos <-read.delim("./meta/metadata_385_taxa_Rojas_etal_2019.txt", sep = ",")
+genotipos <-read.delim("./meta/metadata_385_taxa_Rojas_etal_2019.txt", sep = "\t")
 
 accesiones <- read.delim( "./meta/Samples_and_Accessions.csv", sep = "\t", skip = 7)
 
@@ -73,12 +73,16 @@ system("bcftools query -l ../../data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.
 
 #Cargar el set de datos extraído del archivo VCF y asignar nombres a las columnas
 IDs<- read.delim("./meta/genotypes_vcf.txt", sep = "_", header = FALSE)
+colnames(IDs) <- c("Genotipo", "Accesion_ID")
+
 kable(head(IDs, 5), align = "c") %>% 
   kable_styling(full_width = FALSE)
+
+
 ```
 
 Esta es la manera en que lucen los IDs de los genotipos extraidos de un
-archivo VCF. En este caso la columna 1 repesenta el ID-unico del
+archivo VCF. En este caso en específico, la columna 1 repesenta el ID-unico del
 genotipo y la columna 2 el nombre de la accesion a la que esta asignado
 ese genotipo.
 
@@ -86,7 +90,7 @@ Ahora asignaremos nombres a las columnas de los IDs extraidos:
 **`Genotipo`** y **`Accesion_ID`**
 
 ```{r VCF}
-colnames(IDs) <- c("Genotipo", "Accesion_ID")
+
 
 #Extraer la información contenida en la columna de Accesion_ID
 extract <- IDs %>% separate(Accesion_ID,
@@ -100,29 +104,26 @@ kable(head(IDs, 5), align = "c") %>%
 ```
 
 Una vez extraída la información hagamos un subconjunto unicamente con
-los genotipos de maíces. La abreviatura **`Tm y Tp`** en la columna
-**`Cultivar`** hace referencia a teosintes.
+los genotipos de los parientes silvestres (teocintles)  que estan agrupados en dos subespecies: 
+*Zea mays* ssp. *mexicana* y *Zea mays* ssp. *parviglumis*. Las abreviaturas **`Tm y Tp`** en la columna
+**`Cultivar`** hacen referencia a los teocintles.
 
 ```{r subsets}
-Teosintes <- IDs[IDs$Cultivar %in% c("Tp", "Tm"),]
+teocintles <- IDs[IDs$Cultivar %in% c("Tp", "Tm"),]
 
-#Verifica cuantas razas de maiz tenemos en el set de datos
-razas_simpatricas <- levels(factor(Teosintes$Raza))
-nrazas <- nlevels(factor(Teosintes$Raza))
-print(paste("Nuestro conjunto de datos contiene los genotipos para", nrazas, "razas:", toString(razas_simpatricas)))
-kable(head(Teosintes, 5), align = "c") %>% 
+kable(head(teocintles, 5), align = "c") %>% 
   kable_styling(full_width = FALSE)
 ```
 
-Ahora vamos a sustituir los nombres abreviados de las razas por los
+Ahora vamos a sustituir los nombres abreviados de las teocintles por los
 nombres en extenso empleando la siguiente clave:
 
 ```{r pressure, echo=FALSE}
 #Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 # Your data
 df <- data.frame(
-  Abreviatura = c("Bo", "Ch", "Ms", "Pp", "Tb", "Va", "Zm", "Hn"),
-  `Nombre en extenso` = c("Bonito", "Chalqueno", "Mushito", "Pepitilla", "Tabloncillo", "Vandeno", "Zamorano", "Hibrido")
+  Abreviatura = c("Tm","Tp","Bo", "Ch", "Ms", "Pp", "Tb", "Va", "Zm", "Hn"),
+  `Nombre en extenso` = c("Zea mays ssp. mexicana","Zea mays ssp. parviglumis","Bonito", "Chalqueno", "Mushito", "Pepitilla", "Tabloncillo", "Vandeno", "Zamorano", "Hibrido")
 )
 
 # Print centered table
@@ -134,11 +135,11 @@ Crea la columna **`Extenso`** y sustituye las abreviaturas con los
 nombres dados en la tabla anterior.
 
 ```{r editarDF}
-Teosintes$Extenso <- Teosintes$Cultivar
+teocintles$Extenso <- teocintles$Cultivar
 
 #Sustituir los valores
 #Recode la columna Extenso
-Teosintes$Extenso <- recode(Teosintes$Extenso, 
+teocintles$Extenso <- recode(teocintles$Extenso, 
                                 Tp = "Zea mays ssp. parviglumis", Tm = "Zea mays ssp. mexicana")
 
 
@@ -148,68 +149,59 @@ Teosintes$Extenso <- recode(Teosintes$Extenso,
 
 El subset de datos con maíces esta integrado por 386 genotipos, para
 reducir el tiempo de computo y el tamaño de los archivos generaremos una
-**lista con 136 genotipos**.
+**lista con 118 genotipos**.
 
 ```{r subset_maices, echo= FALSE}
 
-teosintes_subset <- read.delim("./meta/teosintes_subset.txt", header = FALSE, sep = "_")
-colnames(teosintes_subset) <- c("Genotipo", "Accession_ID")
-teosintes_slice <- Teosintes[Teosintes$Genotipo %in% teosintes_subset$Genotipo,]
+teocintles_subset <- read.delim("./meta/teosintes_subset.txt", header = FALSE, sep = "_")
+colnames(teocintles_subset) <- c("Genotipo", "Accession_ID")
+teocintles_slice <- teocintles[teocintles$Genotipo %in% teocintles_subset$Genotipo,]
 
-#set.seed(123)  # For reproducibility
-#maices_slice <- maices[sample(nrow(maices), 50), ]
-kable(head(teosintes_slice,5), align = "c") %>%
+kable(head(teocintles_slice,5), align = "c") %>%
   kable_styling(full_width = FALSE)
 
 ```
 
 ### Agregar metadatos: coordenadas y altitud
-El archivo **accessiones** contiene la informacion de las coordenadas y altitud de cada accession. Usando como referencia la columna **`Accesio_ID`**, fusionaremos la tabla `maices_slice` y `accesiones`.
+El archivo **accessiones** contiene la informacion de las coordenadas y altitud de cada accession. Usando como referencia la columna **`Accesio_ID`**, fusionaremos la tabla `teocintles_slice` y `accesiones`.
 
 ```{r add.coord}
-teosintes_meta <- merge(teosintes_slice, accesiones, by = "Accesion_ID", all.x = TRUE)
-kable(head(teosintes_meta,5), align = "c") %>% 
+teocintles_meta <- merge(teocintles_slice, accesiones, by = "Accesion_ID", all.x = TRUE)
+kable(head(teocintles_meta,5), align = "c") %>% 
   kable_styling(full_width = FALSE)
 
-write.table(teosintes_meta, "./meta/teosintes_subset_metadata.txt",
+write.table(teocintles_meta, "./meta/teocintles_subset_metadata.txt",
             sep = "\t", row.names = FALSE, quote = FALSE)
 ```
 
 ### Extracción de un un subconjunto de genotipos de los archivos VCF y plink
 
 Ahora generaremos la lista de genotipos para hacer el subconjunto de
-genotipos del archivo vcf y plink.
+genotipos del plink.
 
-1.  El archivo para crear el subset del archivo ***VCF*** solo requiere
-    ***una columna** con la lista de genotipos*.
-2.  El archivo para hacer el subset del archivo ***plink** requiere
+1.  El archivo para hacer el subset del archivo ***plink** requiere
     **dos columnas**,* *una representa el genotipo y la otra la
     familia*.
 
 ```{R plink_subset}
 
-subset_vcf<- paste(teosintes_slice$Genotipo, teosintes_slice$Accesion_ID, sep = "_")
-
-subset_plink <- teosintes_slice %>% 
+subset_plink <- teocintles_slice %>% 
   transmute(
     ID = paste(Genotipo, Accesion_ID, sep = "_"),  # Creates a new column
     Family = paste(Genotipo, Accesion_ID, sep = "_")  # Optional: same as ID
   )
 
-write.table(subset_vcf, "./meta/subset_teosintes_vcf.txt",quote = FALSE, row.names = FALSE, col.names = FALSE)
 write.table(subset_plink, "./meta/subset_teosintes_plink.txt",quote = FALSE, row.names = FALSE, col.names = FALSE)
 ```
 
-El siguiente paso es transformar los archivos VCF en archivos plink
-
-La compresion del archivo requiere **`tabix`**
+El siguiente paso es transformar los archivos VCF en archivos plink.
+La compresion del archivo requiere **`tabix`**. Plink funciona como un `standalone package` en un enterno bash. El filtrado se realizara empleando el comando system, que nos permite usar plink sin salir de Rstudio.
 
 ```{r}
-system("vcftools --vcf ./../../data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.recode.vcf --keep ./meta/subset_teosintes_vcf.txt --recode --out ./subset/teosintes_subset")
+system("vcftools --vcf ./../../data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.recode.vcf --keep ./meta/teosintes_subset.txt --recode --out ./subset/teosintes_subset")
 #system("bgzip -c ./subset/teosintes_subset.recode.vcf > ./subset/teosintes_subset.vcf.gz")
 ```
-
-Filtra los SNPs empleando plink
+Filtra los SNPs empleando plink. 
 
 ```{r transformacion}
 #Filtrado de SNPs
@@ -231,7 +223,7 @@ pca <- read.delim("./subset/teosintes_subset.eigenvec", sep = " ", header = FALS
 eigenval <- scan("./subset/teosintes_subset.eigenval")
 ```
 
-Asignar los nombres a los genotipo
+Asignar los nombres a los genotipos
 
 ```{r IND_PCA}
 
@@ -243,7 +235,7 @@ names(pca)[1] <- "ind"
 names(pca)[2:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-1))
 ```
 
-Agregar los nombres en extenso de las razas
+Agregar los nombres en extenso de las sub
 
 ```{r IDs_razas}
 # sort out the individual species and pops
