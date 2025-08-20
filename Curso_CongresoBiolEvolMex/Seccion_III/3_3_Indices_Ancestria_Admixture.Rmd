@@ -1,5 +1,5 @@
 ---
-title: "3_3_Ancestria_Admixture"
+title: "3_3_Ancestria_Admixture_PS"
 author: "Idalia Rojas"
 date: "`r Sys.Date()`"
 output: html_document
@@ -12,8 +12,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r set_environment}
 library(wesanderson)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-
-system("mkdir ./out")
+getwd()
+#system("mkdir ./out")
 
 ```
 ## 1. Requerimentos
@@ -23,20 +23,22 @@ system("mkdir ./out")
 -   ADMIXTURE
 
 ## 2. Generar achivos de entrada
+Admixture emplea archivos binarios de plink para estimar el numero de grupos geneticos. Emplearemos **`plink`**
+
 ```{r input.file}
-system( "/home/irojas/bin/plink/plink --vcf ./subset/teosintes_subset.recode.vcf --make-bed --allow-extra-chr --out ./subset/teosintes_subset ")
+system( "/home/irojas/bin/plink/plink --vcf ./subset/teosintes_subset_prune_out.recode.vcf --make-bed --allow-extra-chr --out ./subset/teosintes_subset ")
 
 # ADMIXTURE does not accept chromosome names that are not human chromosomes. We will thus just exchange the first column by 0
 system("awk '{$1=\"0\";print $0}' ./subset/teosintes_subset.bim > ./subset/teosintes_subset.bim.tmp")
 system("mv ./subset/teosintes_subset.bim.tmp ./subset/teosintes_subset.bim")
-
-#system("bash -c 'for K in {1..7}; do ~/bin/admixture_linux-1.3.0/admixture -s time --cv=10 -j4 ./subset/teosintes_subset.bed $K | tee ./results/teosintes_subset5_${K}.out; done'")
+system("cd ./out")
+system("bash -c 'for K in {1..7}; do ~/bin/admixture_linux-1.3.0/admixture -s time --cv=10 -j4 ./subset/teosintes_subset.bed $K | tee ./results/teosintes_subset_${K}.out; done'")
 
 
 ```
 
 ```{r plot.CV}
-system("grep 'CV' ./results/teosintes_subset5_*.out | sed -E 's/.*K=([0-9]+).*: ([0-9.]+).*/\\1\\t\\2/' > ./results/teosintes_clean.CV")
+system("grep 'CV' ./results/teosintes_subset_*.out | sed -E 's/.*K=([0-9]+).*: ([0-9.]+).*/\\1\\t\\2/' > ./results/teosintes_clean.CV")
 CVE <- read.delim("./results/teosintes_clean.CV", sep = "\t", header = F)
 colnames(CVE) <- c("K", "CVE")
 plot(CVE)
@@ -44,7 +46,7 @@ plot(CVE)
 ```
 
 ## 2. Graficar indices de ancestria
-El siguiente paso es graficar el numero de cluster con el Error de Validacion Cruzada mas bajo, que en este caso es K=4.
+El siguiente paso es graficar el numero de cluster con el Error de Validacion Cruzada (CVE) mas bajo, que en este caso es K=4.
 
 ```{r pressure, echo=TRUE}
 IDs <- read.delim("./subset/teosintes_subset.fam", header = FALSE, sep = ' ')
