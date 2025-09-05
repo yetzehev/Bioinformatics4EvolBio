@@ -26,11 +26,6 @@ library(tess3r)
 library(maps)
 library(rworldmap)
 
-
-
-# stratum <- "SierraMadre_3num"
-# title <- "Tess3r"
-
 # genotype datafile
 fish.vcf <- read.vcfR("plectropomus_leopardus/radiator_data_20220330_1452.vcf")
 

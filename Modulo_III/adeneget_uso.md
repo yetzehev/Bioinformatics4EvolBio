@@ -13,7 +13,7 @@ Vamos a seleccionar el folder donde tenemos guardados nuestros archivos
 > Si trabajamos con distintos sets de datos de distintos proyectos, podemos crear un proyecto específico. Esto nos permitirá guardar nuestros avances, tener las librerías y carpetas cargadas sin necesidad de estar buscando cada archivo de R a la vez.
 
 ```
-setwd("analysis_R/curso_rembe")
+setwd("Curso_CongresoBiolEvolMex\Seccion_II\datos\plectropomus_leopardus")
 ```
 <sub>Se recomienda evitar los espacios en los nombres de carpetas para evitar errores de carga.</sub>
 
@@ -47,6 +47,7 @@ Para este análisis, contamos con las coordenadas de los sitios de muestreo y la
 | LihouEast            | \-17.357  | 151.9831  | Coral Sea |
 
 ### Agregar los metadatos al archivo genind
+
 ```R
 pop_info <- read.csv("plectropomus_leopardus/strata.filtered.tsv", sep = "\t", 
                      stringsAsFactors = FALSE)
@@ -61,7 +62,7 @@ Nuestros datos se encuentran de la siguiente forma
 | EP1A-D08    | CapricornBunkers |
 ...
 
-Tenemos que coordinar el orden de nuestro objeto Genind con los metadatos, para ello utilizaremos el siguiente código
+Con lo que aprendimos en el módulo de `tidyverse`, coordinaremos el orden de nuestro objeto Genind con los metadatos:
 ```R
 pop_info <- pop_info[match(indNames(fish.ind), pop_info$INDIVIDUALS), ]
 ```
