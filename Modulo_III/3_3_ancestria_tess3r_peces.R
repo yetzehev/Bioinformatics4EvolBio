@@ -7,6 +7,8 @@
 # devtools::install_github("bcm-uga/LEA")
 # install.packages("marmap")
 
+
+
 library(tidyverse)
 library(tess3r)
 library(maps)
@@ -25,6 +27,8 @@ library(vcfR)
 library(tess3r)
 library(maps)
 library(rworldmap)
+
+setwd("C:/Users/Daniela/OneDrive - The University of Manchester/Documentos/Courses/Course_ReMBE/course_november/Bioinformatics4EvolBio/Bioinformatics4EvolBio/Curso_CongresoBiolEvolMex/Modulo_III/plectropomus_leopardus")
 
 # genotype datafile
 fish.vcf <- read.vcfR("plectropomus_leopardus/radiator_data_20220330_1452.vcf")
