@@ -180,3 +180,51 @@ kable(head(teocintles_meta,5), align = "c") %>%
 write.table(teocintles_meta, "./meta/teocintles_subset_metadata.txt",
             sep = "\t", row.names = FALSE, quote = FALSE)
 ```
+
+## Ejercicio:
+
+Emplearemos los datos de distribucion geográfica para visualizar los genotipos en un mapa de México.
+
+**Paso 1:** Instal y carag las siguientes librerias en tu entorno.
+```{r install.librauries}
+#install.packages(c("ggplot2", "sf", "rnaturalearth", "rnaturalearthdata"))
+
+```
+
+Cargar librerias
+```{r load4Map}
+library(ggplot2)
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+```
+**Paso 2:**
+```{r map.PS, echo=TRUE}
+# Cargar mapa de México
+mexico <- ne_countries(scale = "medium", country = "Mexico", returnclass = "sf") #Mapa base
+```
+
+**Paso 3:**
+Genera un tabla con las columnas "Genotipo", "Subespecie", "Longitude","Latitude" a partir de la tabla `teocintles_meta`
+```{r, subset.teo, echo=FALSE}
+# Generar un tabla con las coordenadas
+datos <- teocintles_meta[, c("Genotipo", "Subespecie", "Longitude","Latitude")]
+
+```
+
+Convertir la tabla `datos` en un objeto espacial (sf) y graficar los puntos en el mapa.
+```{r graficar.Mapa, echo=TRUE}
+puntos <- st_as_sf(datos, coords = c("Longitude", "Latitude"), crs = 4326)
+
+#pallete
+palette.ps <- c("#B8860B", "#698B69")
+
+# ---- Graficar ----
+ggplot(data = mexico) +
+  geom_sf(fill = "white", color = "black") +                       
+  geom_sf(data = puntos, aes(color = Subespecie), size = 2) +      
+  scale_color_manual(values = palette.ps) +                      
+  theme_minimal() +
+  labs(title = "Distribución de Teocintles",
+       x = "Longitud", y = "Latitud", color = "Subespecie")
+```

@@ -100,14 +100,15 @@ Empleareamos un conjunto de datos publicos  para  extraer  e integrar los metada
   
 - **Ejercicio guiado**: Limpiar un conjunto de datos
 
-  Objetivo: Dejar listas las tablas de datos para graficar al inicio de la segunda sesión.
+  Objetivo: Dejar listas las tablas de datos`teocintles_meta` para graficar al inicio de la segunda sesión.
   
 ### 2.3 Integración de Metadatos (Idalia)
 
   - Conjunto de datos curados e integración de los metadatos para realizar  visualizaciones 
 
-  - **Ejemplo práctico**: Combinar datos genéticos con información geográfica y visualizar un mapa.
-  - **Importancia**: Color por población, forma por región, especie, variedad, etc.
+  - **Ejemplo práctico**: Visualizar los genotipos sobre un un mapa y asignar paleta de colores basados en la `Subespecie`.
+
+    
 
 
 
