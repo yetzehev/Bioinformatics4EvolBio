@@ -10,7 +10,7 @@ library(poppr)
 
 Continuando con nuestro objeto genind llamado `fish.ind`
 
-Primero obtendremos los counts por indivuo:
+Primero obtendremos los counts por individuo:
 ```R
 allele_counts <- tab(fish.ind, freq = FALSE)  # rows = individuals, cols = alleles
 ```
