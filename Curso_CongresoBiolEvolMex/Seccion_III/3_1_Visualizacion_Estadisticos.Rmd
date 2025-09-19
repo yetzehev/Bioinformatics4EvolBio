@@ -1,0 +1,248 @@
+---
+title: "3.1 Visualizacion de estadisticos con SNPs"
+author: "Idalia Rojas"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(kableExtra)
+library(tidyr)
+library(dplyr)
+library(tidyverse)
+library(vcfR)
+library(adegenet)
+library(hierfstat)
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+getwd()
+```
+
+# 3.1 Análisis  exploratorios de agrupamiento con SNPs: PCA & DAPC
+
+En la `Secccion II` editamos la tabla de los genotipos y agregamos los metadatos disponibles para cada gentipo. En esta seccion realizaremos un para de analisis exploratorios para visualizar los patrones de agrupamiento y calcularemos el indice de divergencia *F*st entre las dos subespecies de parientessilvestres
+
+#### Dependencias
+
+- Paqueterias en bash: vcftools, plink y tabix 
+- Librerias en R: - kniitr - kableExtra - tidyr - dplyr - tidyverse -vcfR -adegenet -hierfstat
+
+Si los directorios **`meta`** **`subset`** no existen en tu directorio de trabajo, crealos con el el comando **`mkdir`** en tu terminal. 
+
+```{r mkdir, include=FALSE}
+#system('mkdir ./meta')
+#system('mkdir ./subset')
+```
+
+#### Cargar archivos
+
+Para generar el subconjunto de datos solo con los teocintles, cargaremos el archivo de texto que contiene la lista con los IDS
+y posteriormente realizaremos el PCA con **plink**.
+
+```{r 1_load_data, include=TRUE}
+teocintles_subset <- read.delim("./meta/teosintes_subset.txt", header = FALSE, sep = "_")
+colnames(teocintles_subset) <- c("Genotipo", "Accesion_ID")
+```
+
+#### Extracción de un un subconjunto de genotipos de los archivos VCF y plink
+
+1.  El archivo para hacer el subset del archivo ***plink** requiere **dos columnas**,una representa el genotipo y la otra la familia.  Las columnas pueden ser idénticas o tener identificadores diferentes.
+
+Para generar el listado de plink, simplemente duplicaremos la columna que contiene los nombres del archivo VCF.
+
+```{r 2_subset_plink, include=TRUE}
+subset_plink <- teocintles_subset %>% 
+  transmute(
+    ID = paste(Genotipo, Accesion_ID, sep = "_"),  # Creates a new column
+    Family = paste(Genotipo, Accesion_ID, sep = "_")  # Optional: same as ID
+  )
+
+write.table(subset_plink, "./meta/subset_teosintes_plink.txt",quote = FALSE, row.names = FALSE, col.names = FALSE)
+
+kable(head(subset_plink,5), align = "c") %>%
+  kable_styling(full_width = FALSE)
+
+```
+
+El siguiente paso es generar el archivo VCF con el subconjunto de teocintles. La compresion del archivo requiere **`tabix`**. 
+```{r subset_teocintes, include=FALSE}
+#system("vcftools --vcf ./../../data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.recode.vcf --keep ./meta/teosintes_subset.txt --recode --out ./subset/teosintes_subset")
+
+```
+
+### Filtrado de los SNPs empleando plink.
+Plink funciona como un `standalone package` en un entorno bash. El filtrado se realizara empleando el comando system, que nos permite usar plink sin salir de Rstudio.
+
+Plink acepta archivos `vcf`  y permite realizar un filtrado por cromosoma,  establecer la proporción de datos faltantes y el número de SNP por un tamaño de ventana que sea especificado.
+
+`--chr` Numero de cromosomas que se incluyen en el subconjunto.
+`--geno` Proporcion de  datos faltantes por variante.
+`--indep-pairwise` Requiere tres parámetros: un tamaño de ventana en unidades de recuento de variantes o kilobases (si está presente el modificador «kb»), un número de variantes para desplazar la ventana al final de cada paso y el tercer parámetro es un umbral *r2* por pares de variantes: en cada paso, se anotan los pares de variantes de la ventana actual con una correlación cuadrada superior al umbral, y las variantes se eliminan de la ventana hasta que no quedan pares de este tipo.
+
+```{r transformacion, include=FALSE}
+#Filtrado de SNPs
+#system("~/bin/plink/plink --vcf ./subset/teosintes_subset.recode.vcf  --double-id --allow-extra-chr --chr 1,2,3,4,5,6,7,8,9,10 --geno 0.05 --set-missing-var-ids @:# --indep-pairwise 50 10  0.1 --out ./subset/teosintes_subset_50_10_r01_0.05")
+```
+
+### Realizar el PCA
+
+Una vez definido el conjunto de variantes que se conservará basado en los parámetros de filtrado, emplearemos el parámetro `*pca*` de plink para realizar el Análisis de Componentes Principales (PCA).
+
+```{R PCA, include=FALSE}
+# prune and create pca
+system("~/bin/plink/plink  --vcf  ./subset/teosintes_subset.recode.vcf --double-id --allow-extra-chr --set-missing-var-ids @:# --extract ./subset/teosintes_subset_50_10_r01_0.05.prune.in --make-bed --pca --out ./subset/teosintes_subset")
+```
+
+Los resultados del PCA han quedado guardados en los archivos `*eigenvec*` y `*eigenval*`. Los resultados se cargan en el entorno de Rstudio con los comandos: `*read.delim*` y `*scan*`.
+
+```{r graficar, include=TRUE}
+# read in data
+pca <- read.delim("./subset/teosintes_subset.eigenvec", sep = " ", header = FALSE)
+eigenval <- scan("./subset/teosintes_subset.eigenval")
+
+
+kable(head(pca,5), align = "c") %>%
+  kable_styling(full_width = FALSE)
+```
+
+Asignar los nombres a los genotipos
+
+```{r IND_PCA, include=TRUE}
+# sort out the pca data
+# remover la columna extra con los IDs
+pca <- pca[,-1]
+
+# set names
+names(pca)[1] <- "ind"
+names(pca)[2:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-1))
+kable(head(pca,5), align = "c") %>% 
+  kable_styling(full_width = TRUE)
+
+```
+
+Agregar los nombres en extenso de las subespecies de teocintles.
+
+```{r IDs_subespecies, include=TRUE}
+# sort out the individual species and pops
+# spp
+Subespecie <- rep(NA, length(pca$ind))
+Subespecie[grep("Tm", pca$ind)] <- "Z.m. ssp. mexicana"
+Subespecie[grep("Tp", pca$ind)] <- "Z.m. ssp. parviglumis"
+
+pca <- data.frame(pca, Subespecie)
+kable(head(pca, 5), align = "c") %>% 
+  kable_styling(full_width = TRUE)
+
+
+```
+
+Ahora graficaremos los eigenvectores, para visualizar la proporcion de variación que explica cada uno de ellos.
+
+```{r eigenv, include=TRUE, echo=FALSE}
+# first convert to percentage variance explained
+pve <- data.frame(PC = 1:20, pve = eigenval/sum(eigenval)*100)
+```
+
+Ahora graficaremos la propoción de la variacion que explica cada eigenvector.
+
+```{r eigenv_plot, include=TRUE, echo=FALSE}
+# make plot
+a <- ggplot(pve, aes(PC, pve)) + geom_bar(stat = "identity")
+a + ylab("Percentage variance explained") + theme_light()
+```
+
+```{r eigenv_cumm, include=TRUE, echo=FALSE}
+# calculate the cumulative sum of the percentage variance explained
+cumsum(pve$pve)
+```
+
+Finalmente graficaremos los primeros dos eigenvectores, coloreando los genotipos por subespecie.
+
+```{r plot_pca, include=TRUE, echo=TRUE}
+
+# plot pca
+palette <- c("#B8860B", "#698B69")
+b <- ggplot(pca, aes(PC1, PC2, col = Subespecie)) + 
+  geom_point(size = 3) +
+  scale_color_manual(values = palette)  # This line adds your custom palette
+
+b <- b + coord_equal() + theme_light()
+b + xlab(paste0("PC1 (", signif(pve$pve[1], 3), "%)")) + 
+  ylab(paste0("PC2 (", signif(pve$pve[2], 3), "%)"))
+
+
+```
+
+### Calculo y visualizacion de los estadistico de divergencia
+
+En el PCA es posible observar que la mayoria de los genotipos de *Z. m.* ssp. *mexicana* y *Z. m.* ssp. *parviglumis* se agurupan en diferentes clusters, aunque hay algunos genotipos que no cumplen ese patrón.
+
+El PCA es analisis exploratorio cualitativo, sin embargo no proporciona un valor numerico que refle la diferenciacion entre los grupos. Para evaluar, cuan divergentes son las poblaciones de las subespecies con las que estamos trabajando, calcularemos el indice Fst con la libreria de R `hierfstat`.
+
+`hierfstat` no acepta como archivo de entrada un archiv VCF, por tanto debemos de generar un archivo en formato *genelight* o *geneind*. **¿Qué herramienta emplearías para  pasar de un archivo VCF a un archivo geneind/genelight?**
+
+
+#### Generacion del archivo genelight
+
+
+El primer paso es cargar el archivo  `*vcf*` con el sunconjunto de teocintles y a partir de el generar un archivo `*genelight*` cons vcfR. Posterirmente, extraer la lista de IDs del VCF para ordenar los metadatos de acuerdo al vcf
+
+
+```{r pops}
+#system("bcftools query -l ./subset/teosintes_subset.recode.vcf > ./meta/teocintles_vcf.txt")
+pops <- read.delim("./meta/teocintles_vcf.txt", sep= "_", header = FALSE)
+colnames(pops) <- c("Genotipo", "Accesion_ID")
+
+kable(head(pops, 5),align = "c") %>% 
+  kable_styling(full_width = FALSE)
+```
+
+Ordenar los metadatos basado en el orden del archivo `*vcf*`
+```{r}
+teocintles_meta <- read.delim("./meta/teocintles_subset_metadata.txt", header = TRUE)
+head(teocintles_meta)
+
+
+pop_sort <- as.factor(pops$Genotipo)
+head(pop_sort)
+
+teocintles_meta_ordenado <- teocintles_meta[
+  order(match(teocintles_meta$Genotipo, pop_sort)),]
+
+kable(head(teocintles_meta_ordenado,5), align = "c") %>% 
+  kable_styling(full_width = FALSE)
+
+```
+
+
+Basado en los parametros de filtrado que empleamos en plink, filtraremos el archivo vcf que contiene los teocintles para  cargarlo en el entorno de Rstudio. 
+
+`system("~/bin/plink/plink --vcf ./subset/teosintes_subset.recode.vcf  --double-id --allow-extra-chr --chr 1,2,3,4,5,6,7,8,9,10 --geno 0.05 --set-missing-var-ids @:# --indep-pairwise 50 10  0.1 --out ./subset/teosintes_subset_50_10_r01_0.05")`
+
+`vcftools` requiere un archivo  separado por tabulador con el numero de cromosoma y el numero de variante a excluir. Para ello, editaremos el archivo de salida de plink con `sed -i` y ese archivo se empleara para realizar el filtrado con `vcftools`.
+```{r vfc_filtrado}
+#system("sed -i 's/:/\t/g' ./subset/teosintes_subset_50_10_r01_0.05.prune.in")
+#system("vcftools --vcf ./subset/teosintes_subset.recode.vcf --positions ./subset/teosintes_subset_50_10_r01_0.05.prune.in --recode --out ./subset/teosintes_subset_prune_out")
+
+```
+
+El archivo vcf filtrado, con 118 genotipos y 11907 variantes filtradas ahora puede cargarse en el entorno de Rstudio con el comando `vcfR`.
+
+```{r genelight, include=TRUE}
+ps.vcf <- read.vcfR("./subset/teosintes_subset_prune_out.recode.vcf")
+ps.light <- vcfR2genlight(ps.vcf)
+
+
+pop_data <- teocintles_meta_ordenado %>% 
+  transmute( ind_name = paste(Genotipo, Accesion_ID, sep = "_"),
+          pop = Subespecie)
+
+# Set the population based on the sorted order of the genlight object's indNames
+pop(ps.light) <- pop_data$pop[match(indNames(ps.light), pop_data$ind_name)]
+
+# ---- Step 2: Convert genlight -> genind -> hierfstat data.frame ----
+genind_obj <- gl2gi(ps.light)               # genlight → genind
+hf_data <- genind2hierfstat(genind_obj)  # genind → hierfstat format
+
+```

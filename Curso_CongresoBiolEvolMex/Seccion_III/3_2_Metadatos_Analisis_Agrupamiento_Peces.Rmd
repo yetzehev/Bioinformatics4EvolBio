@@ -1,5 +1,5 @@
 ---
-title: "Clutering Plectropomus"
+title: "Clustering Plectropomus"
 author: "Idalia Rojas"
 date: "`r Sys.Date()`"
 output: html_document
