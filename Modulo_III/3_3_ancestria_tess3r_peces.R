@@ -8,7 +8,6 @@
 # install.packages("marmap")
 
 
-
 library(tidyverse)
 library(tess3r)
 library(maps)
@@ -28,10 +27,13 @@ library(tess3r)
 library(maps)
 library(rworldmap)
 
-setwd("C:/Users/Daniela/OneDrive - The University of Manchester/Documentos/Courses/Course_ReMBE/course_november/Bioinformatics4EvolBio/Bioinformatics4EvolBio/Curso_CongresoBiolEvolMex/Modulo_III/plectropomus_leopardus")
+library(here)
+
+# Set working directory to project root (optional, if needed)
+# setwd(here::here())
 
 # genotype datafile
-fish.vcf <- read.vcfR("plectropomus_leopardus/radiator_data_20220330_1452.vcf")
+fish.vcf <- read.vcfR(here::here("plectropomus_leopardus", "radiator_data_20220330_1452.vcf"))
 
 # extract IDs
 ids <- getID(fish.vcf)
@@ -88,11 +90,11 @@ fish_geno <- round(fish_geno) # Convert to integers if needed
 #-------------------------------------
 
 # Load strata (assumed to have SampleID, Stratum columns)
-strata <- read.table("plectropomus_leopardus/strata.filtered.tsv", sep = "\t",
+strata <- read.table(here::here("plectropomus_leopardus", "strata.filtered.tsv"), sep = "\t",
                      header = TRUE)
 
 # Load coordinates (assumed to have Stratum, X, Y columns)
-coords <- read.csv("plectropomus_leopardus/coordinates.csv", header = TRUE)
+coords <- read.csv(here::here("plectropomus_leopardus", "coordinates.csv"), header = TRUE)
 
 # Merge to assign coordinates to each sample
 sample_coords <- merge(strata, coords, by = "STRATA")
