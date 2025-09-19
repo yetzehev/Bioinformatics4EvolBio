@@ -49,27 +49,28 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
 
 - **Explicación visual**: Mostrar ejemplos de cada formato:
 
+  - **1.3.3** BAM, SAM, BED (Idalia) 
   - **1.3.1** Variant Calling File (VCF) (Idalia)
   - **1.3.2** Plink (Idalia)
-  - **1.3.3** BAM, SAM, BED (Idalia)
   - **1.3.4** Genepop  (Daniela)
   - **1.3.5** Metadatos (Daniela)
+  - **1.3.6** Geneind/Genelight
 
 - **Comparativa**: Tabla con columnas "Formato", "Estructura", "Casos de uso"
 
-- **Ejercicio práctico**: 
+- 
 
-  - Cargar un VCF  en R (`vcfR` package) (Idalia)
-
-  - Extraer lista de genotipos (Idalia)
-
-    
+  
 
 - ### 1.4 Transformación de Formatos (D&I)
 
 - **Flujo de trabajo**: Diagrama de conversión entre formatos (Idalia)
 
-- **Demostración en PGD Spider ([Enlace](https://software.bioinformatics.unibe.ch/pgdspider/)) **  (Daniela)
+- **Ejercicio práctico**: Generar un archivo Geneligth (Daniel)
+
+  - Cargar un VCF  en R (`vcfR` package) (Idalia)
+
+  - Convertir el archivo con adegenet
 
 - **Alternativas en R** (Daniela)
 
@@ -108,9 +109,7 @@ Empleareamos un conjunto de datos publicos  para  extraer  e integrar los metada
 
   - **Ejemplo práctico**: Visualizar los genotipos sobre un un mapa y asignar paleta de colores basados en la `Subespecie`.
 
-    
-
-
+    s
 
 ------
 
