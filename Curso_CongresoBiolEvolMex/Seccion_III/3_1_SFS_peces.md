@@ -47,3 +47,8 @@ barplot(sfs,
         main = "Count-based Site Frequency Spectrum",
         col = "steelblue")
 ```
+
+
+Agregar preguntas complementarias relacionadas a conceptos clave:
+genlight integra los metadatos
+
