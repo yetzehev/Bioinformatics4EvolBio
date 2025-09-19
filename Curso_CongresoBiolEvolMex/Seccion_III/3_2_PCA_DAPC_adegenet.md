@@ -49,8 +49,7 @@ Para este análisis, contamos con las coordenadas de los sitios de muestreo y la
 ### Agregar los metadatos al archivo genind
 
 ```R
-pop_info <- read.csv("plectropomus_leopardus/strata.filtered.tsv", sep = "\t", 
-                     stringsAsFactors = FALSE)
+pop_info <- read.csv("plectropomus_leopardus/strata.filtered.tsv", sep = "\t", stringsAsFactors = FALSE)
 ```
 
 Nuestros datos se encuentran de la siguiente forma
