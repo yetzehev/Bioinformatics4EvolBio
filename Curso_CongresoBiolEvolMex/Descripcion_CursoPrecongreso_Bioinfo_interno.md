@@ -49,27 +49,28 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
 
 - **Explicación visual**: Mostrar ejemplos de cada formato:
 
+  - **1.3.3** BAM, SAM, BED (Idalia) 
   - **1.3.1** Variant Calling File (VCF) (Idalia)
   - **1.3.2** Plink (Idalia)
-  - **1.3.3** BAM, SAM, BED (Idalia)
   - **1.3.4** Genepop  (Daniela)
   - **1.3.5** Metadatos (Daniela)
+  - **1.3.6** Geneind/Genelight
 
 - **Comparativa**: Tabla con columnas "Formato", "Estructura", "Casos de uso"
 
-- **Ejercicio práctico**: 
+- 
 
-  - Cargar un VCF  en R (`vcfR` package) (Idalia)
-
-  - Extraer lista de genotipos (Idalia)
-
-    
+  
 
 - ### 1.4 Transformación de Formatos (D&I)
 
 - **Flujo de trabajo**: Diagrama de conversión entre formatos (Idalia)
 
-- **Demostración en PGD Spider ([Enlace](https://software.bioinformatics.unibe.ch/pgdspider/)) **  (Daniela)
+- **Ejercicio práctico**: Generar un archivo Geneligth (Daniel)
+
+  - Cargar un VCF  en R (`vcfR` package) (Idalia)
+
+  - Convertir el archivo con adegenet
 
 - **Alternativas en R** (Daniela)
 
@@ -86,8 +87,9 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
 ### Introducción a la paqueteria: `tidyverse`  (Daniela)
 
 - **Pipe operator** (`%>%`): Transformación intuitiva ([Referencia](https://rpubs.com/paraneda/tidyverse))
+- **Set de datos:** Plectopromus
 
-### 2.2 Filtrado y Edición  (Daniela & Idalia)
+### 2.2 Filtrado y Edición  (Idalia)
 
 Empleareamos un conjunto de datos publicos  para  extraer  e integrar los metadatos  con los datos geneticos. 
 
@@ -99,26 +101,25 @@ Empleareamos un conjunto de datos publicos  para  extraer  e integrar los metada
   
 - **Ejercicio guiado**: Limpiar un conjunto de datos
 
-  Objetivo: Dejar listas las tablas de datos para graficar al inicio de la segunda sesión.
+  Objetivo: Dejar listas las tablas de datos`teocintles_meta` para graficar al inicio de la segunda sesión.
   
-### 2.3 Integración de Metadatos
+### 2.3 Integración de Metadatos (Idalia)
 
-  - Conjunto de datos curados e integración de los metadatos para realizar  visualizaciones (Idalia)
+  - Conjunto de datos curados e integración de los metadatos para realizar  visualizaciones 
 
-  - **Ejemplo práctico**: Combinar datos genéticos con información geográfica
-  - **Importancia**: Color por población, forma por región, especie, variedad, etc.
+  - **Ejemplo práctico**: Visualizar los genotipos sobre un un mapa y asignar paleta de colores basados en la `Subespecie`.
 
-
+    s
 
 ------
 
 ## Sección 3: Visualización (2h)
 
-### 3.1 Visualización de Estadísticos (1 h) (Idalia)
+### 3.1 Visualización de Estadísticos (1 h) 
 
-- **HierFstat demo**: Frecuencias alélicas 
+- **HierFstat demo**: Frecuencias alélicas  (Idalia)
 
-- **SFS**: Cálculo y visualización del Site Frequency Spectrum (SFS)
+- **SFS**: Cálculo y visualización del Site Frequency Spectrum (SFS) (Daniela)
 
 **PAUSA (15 min)**
 

@@ -1,0 +1,144 @@
+---
+title: "3_3_Indices_Ancestria_tssr3"
+author: "Idalia Rojas"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Requerimentos
+-   tess3
+-   tydiverse
+-   devtools
+-   maps
+-   LEA
+-   vcftools 
+-   bcftools
+-   ADMIXTUEE
+
+```{r installation, echo = FALSE}
+# install.packages("devtools")
+#devtools::install_github("bcm-uga/TESS3_encho_sen")
+#install.packages("maps")
+#if (!require("BiocManager", quietly = TRUE))
+  
+#    install.packages("BiocManager")
+
+#BiocManager::install("LEA")
+```
+
+Call libraries
+
+```{r libraries}
+library(maps)
+library(tess3r)
+library(LEA)
+library(tidyverse)
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+getwd()
+
+
+```
+
+## Indices de ancestria
+
+Los índices de ancestría son un análisis de agrupamiento no supervisado que emplea el método de K-medias para agrupar genotipos en diferentes grupos. En este tutorial utilizaremos el paquete de R `Tess3`: <https://bcm-uga.github.io/TESS3_encho_sen/articles/main-vignette.html>
+
+Transformar nuestro archivo en el archivo de genotipos que emplea tss3.
+
+1.  Convertir de vcf a archivo plink (map, ped), para ello emplearemos vcftools:
+
+```{r vcf2ped, echo=FALSE}
+system("bcftools query -l ./subset/teosintes_subset.recode.vcf > ./subset/teosintes_subset_vcfOrder.txt")
+system("vcftools --vcf ./subset/teosintes_subset.recode.vcf --plink --out ./subset/teosintes_subset")
+```
+
+2.  Se recomienda partir del formato ped a lfmm
+
+```{r formato}
+teosintes.geno <- ped2lfmm(input.file = "./subset/teosintes_subset.ped", output.file = "./subset/teosintes_subset.lfmm", force = TRUE)
+head(teosintes.geno)
+class(teosintes.geno)
+```
+
+## Generar archivo con las coordenadas
+La ejecución de la función principal tess3 requiere dos archivos: 1) un archivo que codifique genotipos individuales, y 2) un archivo con coordenadas geográficas individuales. 
+
+Es importante notar que en el archivo *geno*, los IDs de las muestras no estan presentes. Las columnas representan a los individuos y las filas las variantes.
+
+Cargaremos los metadatos con las coordenadas y los ordenaremos de acuerdo al orden del archivo vcf
+
+```{r pressure, echo=FALSE}
+sorted.IDs <- read.delim("./subset/teosintes_subset_vcfOrder.txt", header = FALSE, sep = "\t")
+colnames(sorted.IDs) <- "vcf_format_ID"
+sorted.IDs <- sorted.IDs %>%  separate(vcf_format_ID,
+                                 into = c("Individual", "Accession"),
+                                 sep = "_")
+
+```
+El formato *.geno* difiere del formato vcf, que es equivalente a *Individual_Individual*. El orden del archivo plink se empleo para ordenar los metadatos. La longitud (°E) y la latitud (°N) deben codificarse en formato decimal sin enbezados.
+
+```{r coordenadas}
+
+order_geno <- as.vector(sorted.IDs$Individual)
+
+coordenadas <- read.delim("./meta/teosintes_subset_metadata.txt", head = TRUE, sep = "\t")
+coordenadas <- coordenadas[match(order_geno, coordenadas$Genotipo),]
+coordenadas$geno_format <- paste(sorted.IDs$Individual, sorted.IDs$Individual, sep = "_" )
+
+geno_coordenadas <- coordenadas[, c("Longitude", "Latitude")]
+colnames(geno_coordenadas) <- NULL
+geno_coordenadas <- as.matrix(geno_coordenadas)
+
+```
+
+```{r tess3}
+
+genotypes <- read.lfmm("./subset/teosintes_subset.lfmm")
+dim(genotypes)
+genotypes[genotypes > 2] <- NA
+
+tess3.obj <- tess3(X = genotypes, coord = geno_coordenadas, K = 1:10, 
+                   method = "projected.ls", ploidy = 2, openMP.core.num = 4) 
+```
+Plot ancestry values
+```{r k-means}
+plot(tess3.obj, pch = 19, col = "blue",
+     xlab = "Number of ancestral populations",
+     ylab = "Cross-validation score")
+```
+Graficar ancestria para el K-value con el CVS mas bajo.
+
+```{r Ancestry}
+q.matrix <- qmatrix(tess3.obj, K = 4)
+row.names(q.matrix) <- sorted.IDs$Individual
+# STRUCTURE-like barplot for the Q-matrix 
+barplot(q.matrix, border = NA, space = 0, 
+        xlab = "Individuals", ylab = "Ancestry proportions", 
+        main = "Ancestry matrix") -> bp
+axis(1, at = 1:nrow(q.matrix), labels = sorted.IDs$Individual, las = 3, cex.axis = .4) 
+```
+Graficar el mapa
+
+```{r}
+
+my.colors <- c("tomato", "orange", "lightblue", "wheat","olivedrab")
+my.palette <- CreatePalette(my.colors, 9)
+barplot(q.matrix, border = NA, space = 0, 
+        main = "Ancestry matrix", 
+        xlab = "Individuals", ylab = "Ancestry proportions", 
+        col.palette = my.palette) -> bp
+axis(1, at = 1:nrow(q.matrix), labels = bp$order, las = 3, cex.axis = .4) 
+
+
+###
+
+plot(q.matrix,  geno_coordenadas, method = "map.max", interpol = FieldsKrigModel(10),  
+     main = "Ancestry coefficients",
+     xlab = "Longitude", ylab = "Latitude", 
+     resolution = c(300,300), cex = .4, 
+     col.palette = my.palette)
+```

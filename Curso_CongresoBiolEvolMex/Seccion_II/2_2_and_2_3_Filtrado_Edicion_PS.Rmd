@@ -1,0 +1,230 @@
+---
+title: "Metadata  de los teocinles: Parientes silvestres de maiz"
+author: "Idalia Rojas"
+date: "`r Sys.Date()`"
+output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(kableExtra)
+library(tidyr)
+library(dplyr)
+library(tidyverse)
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+```
+# 2.2 Filtrado y Edición
+### Tablas de metadatos y construcción de subconjunto de datos
+
+Dependencias en bash: - vcftools - plink - tabix
+
+Librerias en R: - kniitr - kableExtra - tidyr - dplyr - tidyverse
+
+Si los directorios **`meta`** **`subset`** no existen en tu directorio
+de trabajo, crealos con el siguiente comando:
+
+```{r mkdir}
+#system('mkdir ./meta')
+#system('mkdir ./subset')
+```
+
+### Cargar archivos en Rstudio
+
+En este caso, emplearemos **datos** públicos de un estudio publicado en
+2019, que empleó datos genómicos de **razas de maiz** y sus **parientes silvestres** para evaluar
+la evolución de este cultivo en México, donde se encuentra el centro de
+origen y diversidad para este cultivo.
+
+El artículo [*Contemporary evolution of maize landraces and their wild
+relatives influenced by gene flow with modern maize
+varieties*](https://www.pnas.org/doi/full/10.1073/pnas.1817664116) puede
+ser consultado en este
+[enlace](https://www.pnas.org/doi/full/10.1073/pnas.1817664116), y los
+datos genómicos y metadatos están disponibles en el repositorio de
+[OSF](https://osf.io/pqvt4/).
+
+
+El archivo `"metadata_385_taxa_Rojas_etal_2019.txt"` contiene la informacion para los 385 genotios incluidos en el estudio.
+El archivo `"/meta/Samples_and_Accessions.csv"` contiene la informacion para las accesiones. 
+En este  caso una accession, representa un conjunto de muestras o genotipos colectados en una misma localidad y por tanto comparten las coordenadas gegraficas. 
+
+```{r tablas}
+genotipos <-read.delim("./meta/metadata_385_taxa_Rojas_etal_2019.txt", sep = "\t")
+
+accesiones <- read.delim( "./meta/Samples_and_Accessions.csv", sep = "\t", skip = 7)
+
+kable(head(genotipos, 3), align = "c") %>%
+  kable_styling(full_width = FALSE)
+
+kable(head(accesiones, 3), align = "c") %>%
+  kable_styling(full_width = FALSE)
+
+```
+
+### Editar las tablas de datos
+
+Extracción de los IDs para armar un subconjunto de datos con los maíces,
+excluyendo a los parientes silvestres. Es posible emplear los comandos
+de Bash dentro de un script de R. Para ello debemos usar el comando
+**`system`** y escribir el comando de Bash entre comillas.
+
+```{r lista_IDs}
+#Usar un comando de bash en R
+system("bcftools query -l ../../data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.recode.vcf > ./meta/genotypes_vcf.txt")
+
+#Cargar el set de datos extraído del archivo VCF y asignar nombres a las columnas
+IDs<- read.delim("./meta/genotypes_vcf.txt", sep = "_", header = FALSE)
+colnames(IDs) <- c("Genotipo", "Accesion_ID")
+
+kable(head(IDs, 5), align = "c") %>% 
+  kable_styling(full_width = FALSE)
+
+
+```
+
+Esta es la manera en que lucen los IDs de los genotipos extraidos de un
+archivo VCF. En este caso en específico, la columna 1 repesenta el ID-unico del
+genotipo y la columna 2 el nombre de la accesion a la que esta asignado
+ese genotipo.
+
+Ahora asignaremos nombres a las columnas de los IDs extraidos:
+**`Genotipo`** y **`Accesion_ID`**
+
+```{r VCF}
+#Extraer la información contenida en la columna de Accesion_ID
+extract <- IDs %>% separate(Accesion_ID,
+                       into = c("Raza", "Cultivar", "Anio_colecta"),
+                       sep = c(2,4,8))
+#Merge our new information 
+IDs<- merge(IDs, extract, by = "Genotipo")
+kable(head(IDs, 5), align = "c") %>% 
+  kable_styling(full_width = FALSE)
+
+```
+
+Una vez extraída la información hagamos un subconjunto unicamente con
+los genotipos de los parientes silvestres (teocintles)  que estan agrupados en dos subespecies: 
+*Zea mays* ssp. *mexicana* y *Zea mays* ssp. *parviglumis*. Las abreviaturas **`Tm y Tp`** en la columna
+**`Cultivar`** hacen referencia a los teocintles.
+
+```{r subsets}
+teocintles <- IDs[IDs$Cultivar %in% c("Tp", "Tm"),]
+
+kable(head(teocintles, 5), align = "c") %>% 
+  kable_styling(full_width = FALSE)
+```
+
+Ahora vamos a sustituir los nombres abreviados de las teocintles por los
+nombres en extenso empleando la siguiente clave:
+
+```{r pressure, echo=FALSE}
+#Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+# Your data
+df <- data.frame(
+  Abreviatura = c("Tm","Tp","Bo", "Ch", "Ms", "Pp", "Tb", "Va", "Zm", "Hn"),
+  `Nombre en extenso` = c("Zea mays ssp. mexicana","Zea mays ssp. parviglumis","Bonito", "Chalqueno", "Mushito", "Pepitilla", "Tabloncillo", "Vandeno", "Zamorano", "Hibrido")
+)
+
+# Print centered table
+kable(df, align = "c") %>%
+  kable_styling(full_width = FALSE)
+```
+
+Crea la columna **`Subespecie`** y sustituye las abreviaturas con los
+nombres dados en la tabla anterior.
+
+```{r editarDF}
+teocintles$Subespecie <- teocintles$Cultivar
+
+#Sustituir los valores
+#Recode la columna Extenso
+teocintles$Subespecie <- recode(teocintles$Subespecie, 
+                                Tp = "Zea mays ssp. parviglumis", Tm = "Zea mays ssp. mexicana")
+
+
+```
+
+### Creacion de un subconjunto de datos con un subset de genotipos
+
+El subset de datos con maíces esta integrado por 386 genotipos, para
+reducir el tiempo de computo y el tamaño de los archivos generaremos una
+**lista con 118 genotipos** solo con los parientes silvestres.
+
+```{r subset_teocintles, echo= FALSE}
+
+teocintles_subset <- read.delim("./meta/teosintes_subset.txt", header = FALSE, sep = "_")
+colnames(teocintles_subset) <- c("Genotipo", "Accession_ID")
+teocintles_slice <- teocintles[teocintles$Genotipo %in% teocintles_subset$Genotipo,]
+
+kable(head(teocintles_slice,5), align = "c") %>%
+  kable_styling(full_width = FALSE)
+
+```
+
+# 2.3 Integración de Metadatos
+
+### Agregar metadatos: coordenadas y altitud
+El archivo **`accessiones`** contiene la informacion de las coordenadas y altitud de cada accessión. Usando como referencia la columna **`Accesio_ID`**, fusionaremos la tabla **`teocintles_slice`** y **`accesiones`.**
+
+El resultado final de esta sección es una tabla que contiene los metadatos para los genotipos que emplearemos en la seccion número 3, para el análisis de agrupación y ancestría. 
+
+```{r add.coord}
+teocintles_meta <- merge(teocintles_slice, accesiones, by = "Accesion_ID", all.x = TRUE)
+kable(head(teocintles_meta,5), align = "c") %>% 
+  kable_styling(full_width = FALSE)
+
+write.table(teocintles_meta, "./meta/teocintles_subset_metadata.txt",
+            sep = "\t", row.names = FALSE, quote = FALSE)
+```
+
+## Ejercicio:
+
+Emplearemos los datos de distribucion geográfica para visualizar los genotipos en un mapa de México.
+
+**Paso 1:** Instal y carag las siguientes librerias en tu entorno.
+```{r install.librauries}
+#install.packages(c("ggplot2", "sf", "rnaturalearth", "rnaturalearthdata"))
+
+```
+
+Cargar librerias
+```{r load4Map}
+library(ggplot2)
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+```
+**Paso 2:**
+```{r map.PS, echo=TRUE}
+# Cargar mapa de México
+mexico <- ne_countries(scale = "medium", country = "Mexico", returnclass = "sf") #Mapa base
+```
+
+**Paso 3:**
+Genera un tabla con las columnas "Genotipo", "Subespecie", "Longitude","Latitude" a partir de la tabla `teocintles_meta`
+```{r, subset.teo, echo=FALSE}
+# Generar un tabla con las coordenadas
+datos <- teocintles_meta[, c("Genotipo", "Subespecie", "Longitude","Latitude")]
+
+```
+
+Convertir la tabla `datos` en un objeto espacial (sf) y graficar los puntos en el mapa.
+```{r graficar.Mapa, echo=TRUE}
+puntos <- st_as_sf(datos, coords = c("Longitude", "Latitude"), crs = 4326)
+
+#pallete
+palette.ps <- c("#B8860B", "#698B69")
+
+# ---- Graficar ----
+ggplot(data = mexico) +
+  geom_sf(fill = "white", color = "black") +                       
+  geom_sf(data = puntos, aes(color = Subespecie), size = 2) +      
+  scale_color_manual(values = palette.ps) +                      
+  theme_minimal() +
+  labs(title = "Distribución de Teocintles",
+       x = "Longitud", y = "Latitud", color = "Subespecie")
+```

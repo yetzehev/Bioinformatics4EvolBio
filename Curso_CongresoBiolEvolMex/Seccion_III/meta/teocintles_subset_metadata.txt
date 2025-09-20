@@ -1,0 +1,119 @@
+Accesion_ID	Genotipo	Raza	Cultivar	Anio_colecta	Subespecie	Locality	State	Accesion_Germplasm_Bank_ID	Longitude	Latitude	Altitude_masl	N
+BoTp2003	BoTp200301	Bo	Tp	2003	Zea mays ssp. parviglumis	San Cristobal Honduras	Oaxaca	Zea mays ssp. parviglumis(CUCBA JSG-RMM-LCL-483)	-97.0325	16.3238889	1272	5
+BoTp2003	BoTp200302	Bo	Tp	2003	Zea mays ssp. parviglumis	San Cristobal Honduras	Oaxaca	Zea mays ssp. parviglumis(CUCBA JSG-RMM-LCL-483)	-97.0325	16.3238889	1272	5
+BoTp2003	BoTp200303	Bo	Tp	2003	Zea mays ssp. parviglumis	San Cristobal Honduras	Oaxaca	Zea mays ssp. parviglumis(CUCBA JSG-RMM-LCL-483)	-97.0325	16.3238889	1272	5
+BoTp2003	BoTp200304	Bo	Tp	2003	Zea mays ssp. parviglumis	San Cristobal Honduras	Oaxaca	Zea mays ssp. parviglumis(CUCBA JSG-RMM-LCL-483)	-97.0325	16.3238889	1272	5
+BoTp2003	BoTp200305	Bo	Tp	2003	Zea mays ssp. parviglumis	San Cristobal Honduras	Oaxaca	Zea mays ssp. parviglumis(CUCBA JSG-RMM-LCL-483)	-97.0325	16.3238889	1272	5
+BoTp2015	BoTp201502	Bo	Tp	2015	Zea mays ssp. parviglumis	San Cristobal Honduras	Oaxaca	Zea mays ssp. parviglumis	-97.02734	16.32723	1280	7
+BoTp2015	BoTp201503	Bo	Tp	2015	Zea mays ssp. parviglumis	San Cristobal Honduras	Oaxaca	Zea mays ssp. parviglumis	-97.02734	16.32723	1280	7
+BoTp2015	BoTp201504	Bo	Tp	2015	Zea mays ssp. parviglumis	San Cristobal Honduras	Oaxaca	Zea mays ssp. parviglumis	-97.02734	16.32723	1280	7
+BoTp2015	BoTp201505	Bo	Tp	2015	Zea mays ssp. parviglumis	San Cristobal Honduras	Oaxaca	Zea mays ssp. parviglumis	-97.02734	16.32723	1280	7
+BoTp2015	BoTp201506	Bo	Tp	2015	Zea mays ssp. parviglumis	San Cristobal Honduras	Oaxaca	Zea mays ssp. parviglumis	-97.02734	16.32723	1280	7
+BoTp2015	BoTp201507	Bo	Tp	2015	Zea mays ssp. parviglumis	San Cristobal Honduras	Oaxaca	Zea mays ssp. parviglumis	-97.02734	16.32723	1280	7
+BoTp2015	BoTp20151b	Bo	Tp	2015	Zea mays ssp. parviglumis	San Cristobal Honduras	Oaxaca	Zea mays ssp. parviglumis	-97.02734	16.32723	1280	7
+ChTm1984	ChTm198401	Ch	Tm	1984	Zea mays ssp. mexicana	Amecameca	Estado de México	Zea mays ssp. mexicana (INIFAP 10046)	-98.76666667	19.13333333	2390	7
+ChTm1984	ChTm198402	Ch	Tm	1984	Zea mays ssp. mexicana	Amecameca	Estado de México	Zea mays ssp. mexicana (INIFAP 10046)	-98.76666667	19.13333333	2390	7
+ChTm1984	ChTm198403	Ch	Tm	1984	Zea mays ssp. mexicana	Amecameca	Estado de México	Zea mays ssp. mexicana (INIFAP 10046)	-98.76666667	19.13333333	2390	7
+ChTm1984	ChTm198404	Ch	Tm	1984	Zea mays ssp. mexicana	Amecameca	Estado de México	Zea mays ssp. mexicana (INIFAP 10046)	-98.76666667	19.13333333	2390	7
+ChTm1984	ChTm198405	Ch	Tm	1984	Zea mays ssp. mexicana	Amecameca	Estado de México	Zea mays ssp. mexicana (INIFAP 10046)	-98.76666667	19.13333333	2390	7
+ChTm1984	ChTm198406	Ch	Tm	1984	Zea mays ssp. mexicana	Amecameca	Estado de México	Zea mays ssp. mexicana (INIFAP 10046)	-98.76666667	19.13333333	2390	7
+ChTm1984	ChTm198407	Ch	Tm	1984	Zea mays ssp. mexicana	Amecameca	Estado de México	Zea mays ssp. mexicana (INIFAP 10046)	-98.76666667	19.13333333	2390	7
+ChTm2003	ChTm200301	Ch	Tm	2003	Zea mays ssp. mexicana	San Pedro Nexapa	Estado de México	Zea mays ssp. mexicana (CUCBA JSG-RMM-LCL-477)	-98.72694444	19.08277778	2705	5
+ChTm2003	ChTm200302	Ch	Tm	2003	Zea mays ssp. mexicana	San Pedro Nexapa	Estado de México	Zea mays ssp. mexicana (CUCBA JSG-RMM-LCL-477)	-98.72694444	19.08277778	2705	5
+ChTm2003	ChTm200303	Ch	Tm	2003	Zea mays ssp. mexicana	San Pedro Nexapa	Estado de México	Zea mays ssp. mexicana (CUCBA JSG-RMM-LCL-477)	-98.72694444	19.08277778	2705	5
+ChTm2003	ChTm200304	Ch	Tm	2003	Zea mays ssp. mexicana	San Pedro Nexapa	Estado de México	Zea mays ssp. mexicana (CUCBA JSG-RMM-LCL-477)	-98.72694444	19.08277778	2705	5
+ChTm2003	ChTm200305	Ch	Tm	2003	Zea mays ssp. mexicana	San Pedro Nexapa	Estado de México	Zea mays ssp. mexicana (CUCBA JSG-RMM-LCL-477)	-98.72694444	19.08277778	2705	5
+ChTm2014	ChTm201401	Ch	Tm	2014	Zea mays ssp. mexicana	San Pedro Nexapa	Estado de México	Zea mays ssp. mexicana	-98.824167	19.0814833	2522	4
+ChTm2014	ChTm201402	Ch	Tm	2014	Zea mays ssp. mexicana	San Pedro Nexapa	Estado de México	Zea mays ssp. mexicana	-98.824167	19.0814833	2522	4
+ChTm2014	ChTm201403	Ch	Tm	2014	Zea mays ssp. mexicana	San Pedro Nexapa	Estado de México	Zea mays ssp. mexicana	-98.824167	19.0814833	2522	4
+ChTm2014	ChTm201404	Ch	Tm	2014	Zea mays ssp. mexicana	San Pedro Nexapa	Estado de México	Zea mays ssp. mexicana	-98.824167	19.0814833	2522	4
+ChTm2015	ChTm201501	Ch	Tm	2015	Zea mays ssp. mexicana	San Pedro Nexapa	Estado de México	Zea mays ssp. mexicana	-98.7273	19.08338	2522	6
+ChTm2015	ChTm201502	Ch	Tm	2015	Zea mays ssp. mexicana	San Pedro Nexapa	Estado de México	Zea mays ssp. mexicana	-98.7273	19.08338	2522	6
+ChTm2015	ChTm201503	Ch	Tm	2015	Zea mays ssp. mexicana	San Pedro Nexapa	Estado de México	Zea mays ssp. mexicana	-98.7273	19.08338	2522	6
+ChTm2015	ChTm201504	Ch	Tm	2015	Zea mays ssp. mexicana	San Pedro Nexapa	Estado de México	Zea mays ssp. mexicana	-98.7273	19.08338	2522	6
+ChTm2015	ChTm201505	Ch	Tm	2015	Zea mays ssp. mexicana	San Pedro Nexapa	Estado de México	Zea mays ssp. mexicana	-98.7273	19.08338	2522	6
+ChTm2015	ChTm201506	Ch	Tm	2015	Zea mays ssp. mexicana	San Pedro Nexapa	Estado de México	Zea mays ssp. mexicana	-98.7273	19.08338	2522	6
+MsTm2004	MsTm200401	Ms	Tm	2004	Zea mays ssp. mexicana	San Agustín del maíz	Michoacán	Zea mays ssp. mexicana (JSG-RMM-450-04)	-101.4702778	20.03611111	2180	5
+MsTm2004	MsTm200402	Ms	Tm	2004	Zea mays ssp. mexicana	San Agustín del maíz	Michoacán	Zea mays ssp. mexicana (JSG-RMM-450-04)	-101.4702778	20.03611111	2180	5
+MsTm2004	MsTm200403	Ms	Tm	2004	Zea mays ssp. mexicana	San Agustín del maíz	Michoacán	Zea mays ssp. mexicana (JSG-RMM-450-04)	-101.4702778	20.03611111	2180	5
+MsTm2004	MsTm200404	Ms	Tm	2004	Zea mays ssp. mexicana	San Agustín del maíz	Michoacán	Zea mays ssp. mexicana (JSG-RMM-450-04)	-101.4702778	20.03611111	2180	5
+MsTm2004	MsTm200405	Ms	Tm	2004	Zea mays ssp. mexicana	San Agustín del maíz	Michoacán	Zea mays ssp. mexicana (JSG-RMM-450-04)	-101.4702778	20.03611111	2180	5
+MsTm2014	MsTm201401	Ms	Tm	2014	Zea mays ssp. mexicana	San Agustín del maíz	Michoacán	Zea mays ssp. mexicana	-101.15015	19.9068	1825	1
+MsTm2015	MsTm201501	Ms	Tm	2015	Zea mays ssp. mexicana	San Agustín del maíz	Michoacán	Zea mays ssp. mexicana	-101.1692	19.8958	1840	6
+MsTm2015	MsTm201502	Ms	Tm	2015	Zea mays ssp. mexicana	San Agustín del maíz	Michoacán	Zea mays ssp. mexicana	-101.1692	19.8958	1840	6
+MsTm2015	MsTm201503	Ms	Tm	2015	Zea mays ssp. mexicana	San Agustín del maíz	Michoacán	Zea mays ssp. mexicana	-101.1692	19.8958	1840	6
+MsTm2015	MsTm201504	Ms	Tm	2015	Zea mays ssp. mexicana	San Agustín del maíz	Michoacán	Zea mays ssp. mexicana	-101.1692	19.8958	1840	6
+MsTm2015	MsTm201505	Ms	Tm	2015	Zea mays ssp. mexicana	San Agustín del maíz	Michoacán	Zea mays ssp. mexicana	-101.1692	19.8958	1840	6
+MsTm2015	MsTm201506	Ms	Tm	2015	Zea mays ssp. mexicana	San Agustín del maíz	Michoacán	Zea mays ssp. mexicana	-101.1692	19.8958	1840	6
+PpTp1978	PpTp197801	Pp	Tp	1978	Zea mays ssp. parviglumis	Teloloapán	Guerrero	Zea mays ssp. parviglumis (INIFAP 10002-C-10-78)	-99.9	18.4	1450	1
+PpTp1978	PpTp197802	Pp	Tp	1978	Zea mays ssp. parviglumis	Teloloapán	Guerrero	Zea mays ssp. parviglumis (INIFAP 10002-C-10-78)	-99.9	18.4	1450	1
+PpTp1984a	PpTp1984a1	Pp	Tp	1984	Zea mays ssp. parviglumis	Teloloapán	Guerrero	Zea mays ssp. parviglumis (INIFAP 10062-JSG-LOS-117)	-99.9	18.4	1465	4
+PpTp1984a	PpTp1984a2	Pp	Tp	1984	Zea mays ssp. parviglumis	Teloloapán	Guerrero	Zea mays ssp. parviglumis (INIFAP 10062-JSG-LOS-117)	-99.9	18.4	1465	4
+PpTp1984a	PpTp1984a3	Pp	Tp	1984	Zea mays ssp. parviglumis	Teloloapán	Guerrero	Zea mays ssp. parviglumis (INIFAP 10062-JSG-LOS-117)	-99.9	18.4	1465	4
+PpTp1984a	PpTp1984a4	Pp	Tp	1984	Zea mays ssp. parviglumis	Teloloapán	Guerrero	Zea mays ssp. parviglumis (INIFAP 10062-JSG-LOS-117)	-99.9	18.4	1465	4
+PpTp1984b	PpTp1984b1	Pp	Tp	1984	Zea mays ssp. parviglumis	Ixcateopán	Guerrero	Zea mays ssp. parviglumis (INIFAP 10058-JSG-LOS-111)	-99.78333333	18.5	1795	1
+PpTp2003a	PpTp2003a1	Pp	Tp	2003	Zea mays ssp. parviglumis	Huitzuco	Guerrero	Zea mays ssp. parviglumis (JSG-RMM-LCL-504)	-99.19083333	18.24888889	1205	3
+PpTp2003a	PpTp2003a2	Pp	Tp	2003	Zea mays ssp. parviglumis	Huitzuco	Guerrero	Zea mays ssp. parviglumis (JSG-RMM-LCL-504)	-99.19083333	18.24888889	1205	3
+PpTp2003a	PpTp2003a3	Pp	Tp	2003	Zea mays ssp. parviglumis	Huitzuco	Guerrero	Zea mays ssp. parviglumis (JSG-RMM-LCL-504)	-99.19083333	18.24888889	1205	3
+PpTp2003b	PpTp2003b1	Pp	Tp	2003	Zea mays ssp. parviglumis	Ixcateopán	Guerrero	Zea mays ssp. parviglumis (JSG-RMM-LCL-495)	-99.78444444	18.50472222	1890	6
+PpTp2003b	PpTp2003b2	Pp	Tp	2003	Zea mays ssp. parviglumis	Ixcateopán	Guerrero	Zea mays ssp. parviglumis (JSG-RMM-LCL-495)	-99.78444444	18.50472222	1890	6
+PpTp2003b	PpTp2003b3	Pp	Tp	2003	Zea mays ssp. parviglumis	Ixcateopán	Guerrero	Zea mays ssp. parviglumis (JSG-RMM-LCL-495)	-99.78444444	18.50472222	1890	6
+PpTp2003b	PpTp2003b4	Pp	Tp	2003	Zea mays ssp. parviglumis	Ixcateopán	Guerrero	Zea mays ssp. parviglumis (JSG-RMM-LCL-495)	-99.78444444	18.50472222	1890	6
+PpTp2003b	PpTp2003b5	Pp	Tp	2003	Zea mays ssp. parviglumis	Ixcateopán	Guerrero	Zea mays ssp. parviglumis (JSG-RMM-LCL-495)	-99.78444444	18.50472222	1890	6
+PpTp2003b	PpTp2003b6	Pp	Tp	2003	Zea mays ssp. parviglumis	Ixcateopán	Guerrero	Zea mays ssp. parviglumis (JSG-RMM-LCL-495)	-99.78444444	18.50472222	1890	6
+PpTp2010	PpTp201001	Pp	Tp	2010	Zea mays ssp. parviglumis	Huitzuco	Guerrero	Zea mays ssp. parviglumis	-99.218	18.23769	1101	3
+PpTp2010	PpTp201002	Pp	Tp	2010	Zea mays ssp. parviglumis	Huitzuco	Guerrero	Zea mays ssp. parviglumis	-99.218	18.23769	1101	3
+PpTp2010	PpTp201003	Pp	Tp	2010	Zea mays ssp. parviglumis	Huitzuco	Guerrero	Zea mays ssp. parviglumis	-99.218	18.23769	1101	3
+PpTp2011	PpTp201101	Pp	Tp	2011	Zea mays ssp. parviglumis	Teloloapán	Guerrero	Zea mays ssp. parviglumis	-99.90842	18.411	1439	5
+PpTp2011	PpTp201102	Pp	Tp	2011	Zea mays ssp. parviglumis	Teloloapán	Guerrero	Zea mays ssp. parviglumis	-99.90842	18.411	1439	5
+PpTp2011	PpTp201103	Pp	Tp	2011	Zea mays ssp. parviglumis	Teloloapán	Guerrero	Zea mays ssp. parviglumis	-99.90842	18.411	1439	5
+PpTp2011	PpTp201104	Pp	Tp	2011	Zea mays ssp. parviglumis	Teloloapán	Guerrero	Zea mays ssp. parviglumis	-99.90842	18.411	1439	5
+PpTp2011	PpTp201105	Pp	Tp	2011	Zea mays ssp. parviglumis	Teloloapán	Guerrero	Zea mays ssp. parviglumis	-99.90842	18.411	1439	5
+SJTm2002	SJTm200201	SJ	Tm	2002	Zea mays ssp. mexicana	San Jeronimo Ayotlán	Jalisco	Zea mays ssp. mexicana allopatric 2002	-102.3333333	20.41666667	1597	6
+SJTm2002	SJTm200202	SJ	Tm	2002	Zea mays ssp. mexicana	San Jeronimo Ayotlán	Jalisco	Zea mays ssp. mexicana allopatric 2002	-102.3333333	20.41666667	1597	6
+SJTm2002	SJTm200203	SJ	Tm	2002	Zea mays ssp. mexicana	San Jeronimo Ayotlán	Jalisco	Zea mays ssp. mexicana allopatric 2002	-102.3333333	20.41666667	1597	6
+SJTm2002	SJTm200204	SJ	Tm	2002	Zea mays ssp. mexicana	San Jeronimo Ayotlán	Jalisco	Zea mays ssp. mexicana allopatric 2002	-102.3333333	20.41666667	1597	6
+SJTm2002	SJTm200205	SJ	Tm	2002	Zea mays ssp. mexicana	San Jeronimo Ayotlán	Jalisco	Zea mays ssp. mexicana allopatric 2002	-102.3333333	20.41666667	1597	6
+SJTm2002	SJTm200206	SJ	Tm	2002	Zea mays ssp. mexicana	San Jeronimo Ayotlán	Jalisco	Zea mays ssp. mexicana allopatric 2002	-102.3333333	20.41666667	1597	6
+SJTm2015	SJTm201501	SJ	Tm	2015	Zea mays ssp. mexicana	San Jeronimo Ayotlán	Jalisco	Zea mays ssp. mexicana allopatric 2015	-102.356356	20.418405	1577	5
+SJTm2015	SJTm201502	SJ	Tm	2015	Zea mays ssp. mexicana	San Jeronimo Ayotlán	Jalisco	Zea mays ssp. mexicana allopatric 2015	-102.356356	20.418405	1577	5
+SJTm2015	SJTm201503	SJ	Tm	2015	Zea mays ssp. mexicana	San Jeronimo Ayotlán	Jalisco	Zea mays ssp. mexicana allopatric 2015	-102.356356	20.418405	1577	5
+SJTm2015	SJTm201504	SJ	Tm	2015	Zea mays ssp. mexicana	San Jeronimo Ayotlán	Jalisco	Zea mays ssp. mexicana allopatric 2015	-102.356356	20.418405	1577	5
+SJTm2015	SJTm201505	SJ	Tm	2015	Zea mays ssp. mexicana	San Jeronimo Ayotlán	Jalisco	Zea mays ssp. mexicana allopatric 2015	-102.356356	20.418405	1577	5
+TbTp1983	TbTp198301	Tb	Tp	1983	Zea mays ssp. parviglumis	El palmar	Jalisco	Zea mays ssp. parviglumis (INIFAP 10036-JSG-LOS-73)	-104.0666667	19.95	980	4
+TbTp1983	TbTp198302	Tb	Tp	1983	Zea mays ssp. parviglumis	El palmar	Jalisco	Zea mays ssp. parviglumis (INIFAP 10036-JSG-LOS-73)	-104.0666667	19.95	980	4
+TbTp1983	TbTp198303	Tb	Tp	1983	Zea mays ssp. parviglumis	El palmar	Jalisco	Zea mays ssp. parviglumis (INIFAP 10036-JSG-LOS-73)	-104.0666667	19.95	980	4
+TbTp1983	TbTp198304	Tb	Tp	1983	Zea mays ssp. parviglumis	El palmar	Jalisco	Zea mays ssp. parviglumis (INIFAP 10036-JSG-LOS-73)	-104.0666667	19.95	980	4
+TbTp2003	TbTp200301	Tb	Tp	2003	Zea mays ssp. parviglumis	San Lorenzo	Jalisco	Zea mays ssp. parviglumis (RMM-13)	-103.9952778	19.94333333	982	5
+TbTp2003	TbTp200302	Tb	Tp	2003	Zea mays ssp. parviglumis	San Lorenzo	Jalisco	Zea mays ssp. parviglumis (RMM-13)	-103.9952778	19.94333333	982	5
+TbTp2003	TbTp200303	Tb	Tp	2003	Zea mays ssp. parviglumis	San Lorenzo	Jalisco	Zea mays ssp. parviglumis (RMM-13)	-103.9952778	19.94333333	982	5
+TbTp2003	TbTp200304	Tb	Tp	2003	Zea mays ssp. parviglumis	San Lorenzo	Jalisco	Zea mays ssp. parviglumis (RMM-13)	-103.9952778	19.94333333	982	5
+TbTp2003	TbTp200305	Tb	Tp	2003	Zea mays ssp. parviglumis	San Lorenzo	Jalisco	Zea mays ssp. parviglumis (RMM-13)	-103.9952778	19.94333333	982	5
+VaTp2003	VaTp200301	Va	Tp	2003	Zea mays ssp. parviglumis	Huetamo	Michoacán	Zea mays ssp. parviglumis ( JSG-RMM-457-2002)	-100.9161111	18.82055556	672	3
+VaTp2003	VaTp200302	Va	Tp	2003	Zea mays ssp. parviglumis	Huetamo	Michoacán	Zea mays ssp. parviglumis ( JSG-RMM-457-2002)	-100.9161111	18.82055556	672	3
+VaTp2003	VaTp200303	Va	Tp	2003	Zea mays ssp. parviglumis	Huetamo	Michoacán	Zea mays ssp. parviglumis ( JSG-RMM-457-2002)	-100.9161111	18.82055556	672	3
+ZmTm1983	ZmTm198301	Zm	Tm	1983	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana (INIFAP 10026-JSG-LOS-48)	-102.0833333	20.15	1800	5
+ZmTm1983	ZmTm198302	Zm	Tm	1983	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana (INIFAP 10026-JSG-LOS-48)	-102.0833333	20.15	1800	5
+ZmTm1983	ZmTm198303	Zm	Tm	1983	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana (INIFAP 10026-JSG-LOS-48)	-102.0833333	20.15	1800	5
+ZmTm1983	ZmTm198304	Zm	Tm	1983	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana (INIFAP 10026-JSG-LOS-48)	-102.0833333	20.15	1800	5
+ZmTm1983	ZmTm198305	Zm	Tm	1983	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana (INIFAP 10026-JSG-LOS-48)	-102.0833333	20.15	1800	5
+ZmTm2004	ZmTm200401	Zm	Tm	2004	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana (JSG-RMM-438-04)	-102.060833	20.078333	1910	6
+ZmTm2004	ZmTm200402	Zm	Tm	2004	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana (JSG-RMM-438-04)	-102.060833	20.078333	1910	6
+ZmTm2004	ZmTm200403	Zm	Tm	2004	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana (JSG-RMM-438-04)	-102.060833	20.078333	1910	6
+ZmTm2004	ZmTm200404	Zm	Tm	2004	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana (JSG-RMM-438-04)	-102.060833	20.078333	1910	6
+ZmTm2004	ZmTm200405	Zm	Tm	2004	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana (JSG-RMM-438-04)	-102.060833	20.078333	1910	6
+ZmTm2004	ZmTm200407	Zm	Tm	2004	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana (JSG-RMM-438-04)	-102.060833	20.078333	1910	6
+ZmTm2014	ZmTm201401	Zm	Tm	2014	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana	-102.06897	20.15188	1834	3
+ZmTm2014	ZmTm201402	Zm	Tm	2014	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana	-102.06897	20.15188	1834	3
+ZmTm2014	ZmTm201403	Zm	Tm	2014	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana	-102.06897	20.15188	1834	3
+ZmTm2015	ZmTm201501	Zm	Tm	2015	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana	-102.075	20.1666	1820	5
+ZmTm2015	ZmTm201502	Zm	Tm	2015	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana	-102.075	20.1666	1820	5
+ZmTm2015	ZmTm201503	Zm	Tm	2015	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana	-102.075	20.1666	1820	5
+ZmTm2015	ZmTm201504	Zm	Tm	2015	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana	-102.075	20.1666	1820	5
+ZmTm2015	ZmTm201505	Zm	Tm	2015	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana	-102.075	20.1666	1820	5
+ZmTm2015	ZmTm201506	Zm	Tm	2015	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana	-102.075	20.1666	1820	5
+ZmTm2015	ZmTm201507	Zm	Tm	2015	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana	-102.075	20.1666	1820	5
+ZmTm2015	ZmTm201508	Zm	Tm	2015	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana	-102.075	20.1666	1820	5
+ZmTm2015	ZmTm201509	Zm	Tm	2015	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana	-102.075	20.1666	1820	5
+ZmTm2015	ZmTm201510	Zm	Tm	2015	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana	-102.075	20.1666	1820	5
+ZmTm2015	ZmTm201511	Zm	Tm	2015	Zea mays ssp. mexicana	Churintzio	Michoacán	Zea mays ssp. mexicana	-102.075	20.1666	1820	5
