@@ -3,6 +3,7 @@ title: "Transformación de datos"
 author: "Daniela Felix"
 output:
   html_document:
+    css: styles.css
     toc: true
     toc_float: true
 date: "`r Sys.Date()`"
@@ -13,6 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r include=FALSE}
+library(here)
 library(vcfR)
 library(adegenet)
 library(dartR)
@@ -20,7 +22,7 @@ library(tidyverse)
 ```
 
 ```{r}
-# setwd("Bioinformatics4EvolBio/Bioinformatics4EvolBio/Curso_CongresoBiolEvolMex/")
+# setwd("Bioinformatics4EvolBio/")
 ```
 
 El archivo es un VCF, por lo que tenemos que utilizar la función `read.vcfR` de la paquetería `vcfR`
@@ -28,7 +30,8 @@ El archivo es un VCF, por lo que tenemos que utilizar la función `read.vcfR` de
 ```{r}
 fish.vcf <- read.vcfR("../Seccion_II/datos/plectropomus_leopardus/radiator_data_20220330_1452.vcf")
 ```
-Dado que nuestra base de datos se compone de solo 200 individuos, sin embargo, nuestro objeto VCF muestra que tenemos 209, esto significa que algunos de los ID de los indivuos se encuentran repetidos, antes de poder convertilos a un archivo `genind`, debemos filtrarlos:
+
+Nuestra base de datos se compone de solo 200 individuos; sin embargo, nuestro objeto VCF muestra que tenemos 209, esto significa que algunos de los ID de los indivuos se encuentran repetidos, antes de poder convertilos a un archivo `genind`, debemos filtrarlos:
 
 ```{r}
 # Single pipe to fix IDs
@@ -61,13 +64,11 @@ Si revisamos ahora nuestro objeto `genind`, cuántos individuos han quedado desp
 
 ### Uso de paquetería dartR
 
-
 ```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '100%'}
 # knitr::include_graphics("../../../../images/dartR_logo.png")
 ```
 
 La paquetería dartR permite la conversión de archivos en distintos formatos a partir de un archivo `genlight`
-
 
 ```{r}
 fish.gl <- vcfR2genlight(fish.vcf)
@@ -79,21 +80,28 @@ library(dartRverse)
 library(dartR)
 ```
 
-Para convertirlo en un archivo `bayescan`:
+Para convertirlo en un archivo `bayescan`, primero revisaremos la integridad de nuestro objeto `genlight` para evitar errores en su conversión:
+
 ```{r}
-# gl2bayescan(fish.gl, outfile = "../../../Seccion_III/out/out_formats/fish_bayescan.txt", verbose = NULL)
+fish.gl <- gl.compliance.check(fish.gl, verbose = 3)
+fish_bayescan <- gl2bayescan(fish.gl, outpath = "./outputs", outfile = "fish_bayescan.txt")
 ```
 
-Para convertilo en un archivo `genepop`:
+Para convertirlo en un archivo `genepop`, podemos explorar las opciones para formatear el archivo como cambiar el order de las poblaciones
+
 ```{r}
-gl2genepop(fish.gl, outfile = "fish_genepop.txt", outpath = tempdir(), verbose = NULL)
+fish_gen <- gl2genepop(fish.gl, outpath = "./outputs", outfile = "fish.gen")
 ```
 
+Para convertirlo a formato `structure`:
 
-Para convertilo a formato `plink`:
 ```{r}
-# gl2plink(fish.gl, outfile = "fish_plink")
+fish_structure <- gl2structure(fish.gl, outpath = "./outputs", outfile = "fish_structure.txt")
 ```
 
-
+Guardaremos nuestro objeto para poder llamarlo en las siguientes secciones:
+```{r}
+saveRDS(fish.ind, file.path("outputs", "fish.ind.rds"))
+saveRDS(fish.gl, file.path("outputs", "fish.gl.rds"))
+```
 

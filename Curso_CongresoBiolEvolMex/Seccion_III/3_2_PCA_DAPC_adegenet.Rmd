@@ -3,7 +3,9 @@ title: "Paquetería adegenet"
 author: "Daniela Felix"
 output:
   html_document:
-    df_print: paged
+    css: styles.css
+    toc: true
+    toc_float: true
 date: "`r Sys.Date()`"
 ---
 
@@ -13,77 +15,118 @@ knitr::opts_chunk$set(echo = TRUE)
 
 La documentación para la paquetería puede consultarse [aquí](https://academic.oup.com/bioinformatics/article/24/11/1403/191127)
 
-```{r}
+```{r include=FALSE}
 library(adegenet)
 library(ggplot2)
-library(dartR)
-library(vcfR)
 ```
 
 Vamos a seleccionar el folder donde tenemos guardados nuestros archivos
 > Si trabajamos con distintos sets de datos de distintos proyectos, podemos crear un proyecto específico. Esto nos permitirá guardar nuestros avances, tener las librerías y carpetas cargadas sin necesidad de estar buscando cada archivo de R a la vez.
 
 ```{r}
-setwd("Curso_CongresoBiolEvolMex\Seccion_II\datos\plectropomus_leopardus")
+# setwd("Curso_CongresoBiolEvolMex\Seccion_II\datos\plectropomus_leopardus")
 ```
 <sub>Se recomienda evitar los espacios en los nombres de carpetas para evitar errores de carga.</sub>
 
-El archivo es un VCF, por lo que tenemos que utilizar la función `read.vcfR` de la paquetería `vcfR`
-```{r}
-# fish.vcf <- read.vcfR("plectropomus_leopardus/radiator_data_20220330_1452.vcf")
-```
 
-Convertir nuestro objeto VCF a un objeto Genind
 
+Cargaremos nuestro objeto `genind` en esta sesión:
 ```{r}
-# fish.ind <- vcfR2genind(fish.vcf) # 4.47Gb usage for a few seconds analysis
+fish.ind <- readRDS(file.path("../Seccion_II/outputs/", "fish.ind.rds"))
+fish.ind
 ```
 
 
-## Metadatos 
-Para este análisis, contamos con las coordenadas de los sitios de muestreo y la asignación de regiones de acuerdo a su cercanía a la costa, de la siguiente manera:
-
-| STRATA               | Latitude  | Longitude | Region    |
-| -------------------- | --------- | --------- | --------- |
-| TorresStrait         | \-10.1926 | 142.2947  | GBR       |
-| PrincessCharlotteBay | \-14.3707 | 143.9447  | GBR       |
-| Ribbons              | \-14.8105 | 145.6973  | GBR       |
-| EscapeReef           | \-15.8763 | 145.7992  | GBR       |
-| Townsville           | \-18.2348 | 146.7342  | GBR       |
-| Swains               | \-21.9814 | 152.4738  | GBR       |
-| CapricornBunkers     | \-23.5039 | 152.002   | GBR       |
-| Flinders             | \-17.5657 | 148.4762  | Coral Sea |
-| Marion               | \-19.399  | 152.3002  | Coral Sea |
-| LihouWest            | \-17.7084 | 151.3075  | Coral Sea |
-| LihouEast            | \-17.357  | 151.9831  | Coral Sea |
-
-### Agregar los metadatos al archivo genind
-
 ```{r}
-pop_info <- read.csv("plectropomus_leopardus/strata.filtered.tsv", sep = "\t", stringsAsFactors = FALSE)
+pop_info <- readRDS(file.path("../Seccion_II/outputs", "pop_info.rds"))
 pop_info
 ```
 
-Nuestros datos se encuentran de la siguiente forma:
-| INDIVIDUALS | STRATA           |
-| ----------- | ---------------- |
-| EP1A-C07    | CapricornBunkers |
-| EP1A-H08    | CapricornBunkers |
-| EP1A-B08    | CapricornBunkers |
-| EP1A-D08    | CapricornBunkers |
-...
 
-Con lo que aprendimos en el módulo de `tidyverse`, coordinaremos el orden de nuestro objeto Genind con los metadatos:
+## Análisis de componentes principales (PCA) 
+
+Para calcular los eigenvalues podemos utilizar nuestro objeto genlight previamente guardado en la Sección I del curso. Cómo lo cargarían ustedes?
+
 ```{r}
-pop_info <- pop_info[match(indNames(fish.ind), pop_info$INDIVIDUALS), ]
+fish.gl <- readRDS(file.path("../Seccion_II/outputs", "fish.gl.rds"))
+fish.gl
 ```
 
-Ahora agregaremos los metadatos al objeto Genind
+Eigenvalues: cuál es el porcentaje de varianza explicada por los datos
 ```{r}
-pop(fish.ind) <- as.factor(pop_info$STRATA)
+fish.pca <- glPca(fish.gl, nf = 3)
 ```
 
-## Running the DAPC in `adegenet`
 ```{r}
-fish.dapc <- dapc(fish.ind, n.pca = 3, n.da = 2)
+barplot(100*fish.pca$eig/sum(fish.pca$eig),
+        col = heat.colors(50), main="PCA Eigenvalues")
+title(ylab="Percent of variance\nexplained", line = 2)
+title(xlab="Eigenvalues", line = 1)
 ```
+
+```{r}
+fish.pca
+```
+
+```{r}
+fish.scores <- as.data.frame(fish.pca$scores)
+fish.scores$pop <- pop(fish.gl)
+```
+
+
+
+```{r warning=FALSE}
+set.seed(9)
+fish_graph_pca <- ggplot(fish.scores, aes(x=PC1, y=PC2, colour=fish.scores$pop)) +
+  geom_point(size=2) +
+  stat_ellipse(level = 0.95, size = 1) +
+  # scale_color_manual(values = cols) +
+  geom_hline(yintercept = 0) +
+  geom_vline(xintercept = 0) +
+  theme_bw()
+
+fish_graph_pca
+```
+
+## Análisis discriminante de componentes principales (DAPC) en `adegenet`
+
+
+```{r}
+fish.dapc <- dapc(fish.ind, n.pca = 50, n.da = length(levels(pop(fish.ind))) - 1)
+```
+
+```{r}
+scatter.dapc(fish.dapc)
+```
+
+Personalizando el gráfico:
+```{r}
+# Plot the discriminant space
+scatter(
+  fish.dapc,
+  posi.da = "bottomright",
+  bg = "white",
+  pch = 19,
+  cstar = 0,
+  col = adegenet::funky(nPop(fish.ind))
+)
+
+```
+
+```{r}
+# Build a color vector of length equal to the number of groups
+K <- ncol(fish.dapc$posterior)  # number of groups (columns in Q)
+cols <- adegenet::funky(K)
+```
+
+
+```{r}
+compoplot(fish.dapc,col = function(x) cols, posi = 'top')
+```
+
+```{r}
+K <- ncol(fish.dapc$posterior)  # number of groups (columns in Q)
+compoplot(fish.dapc, col = K, posi = 'top')
+```
+
+
