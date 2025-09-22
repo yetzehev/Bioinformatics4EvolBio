@@ -49,16 +49,14 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
 
 - **Explicación visual**: Mostrar ejemplos de cada formato:
 
-  - **1.3.3** BAM, SAM, BED (Idalia) 
-  - **1.3.1** Variant Calling File (VCF) (Idalia)
-  - **1.3.2** Plink (Idalia)
+  - **1.3.1** BAM, SAM, BED (Idalia) 
+  - **1.3.2** Variant Calling File (VCF) (Idalia)
+  - **1.3.3** Plink (Idalia)
   - **1.3.4** Genepop  (Daniela)
   - **1.3.5** Metadatos (Daniela)
   - **1.3.6** Geneind/Genelight
 
 - **Comparativa**: Tabla con columnas "Formato", "Estructura", "Casos de uso"
-
-- 
 
   
 
@@ -66,11 +64,11 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
 
 - **Flujo de trabajo**: Diagrama de conversión entre formatos (Idalia)
 
-- **Ejercicio práctico**: Generar un archivo Geneligth (Daniel)
+- **Ejercicio práctico**: Generar un archivo Geneligth (Daniela)
 
-  - Cargar un VCF  en R (`vcfR` package) (Idalia)
+  - Cargar un VCF  en R (`vcfR` package) 
 
-  - Convertir el archivo con adegenet
+  - Convertir el archivo a genelight con adegenet
 
 - **Alternativas en R** (Daniela)
 
