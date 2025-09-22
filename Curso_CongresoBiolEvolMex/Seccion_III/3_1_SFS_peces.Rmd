@@ -1,0 +1,72 @@
+---
+title: "Site frequency spectrum analysis (SFS)"
+author: "Daniela Felix"
+output:
+  html_document:
+    css: styles.css
+    toc: true
+    toc_float: true
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Para esta sección, seguiremos utilizando el ejemplo de los datos de peces
+
+```{r include=FALSE}
+library(adegenet)
+library(pegas)       
+library(poppr)      
+```
+
+Continuando con nuestro objeto genind llamado `fish.ind`
+```{r}
+fish.ind <- readRDS(file.path("../Seccion_II/outputs/", "fish.ind.rds"))
+fish.ind
+```
+
+Primero obtendremos los counts por individuo:
+```{r}
+allele_counts <- tab(fish.ind, freq = FALSE)  # rows = individuals, cols = alleles
+```
+
+Ahora mapearemos los alelos a los loci:
+```{r}
+locus_factor <- locFac(fish.ind)
+```
+
+Minor allele count por locus
+```{r}
+minor_counts <- tapply(1:ncol(allele_counts), locus_factor, function(cols) {
+  counts_per_allele <- colSums(allele_counts[, cols, drop = FALSE], na.rm = TRUE)
+  min(counts_per_allele)
+})
+```
+
+Removemos los loci monomórficos
+```{r}
+minor_counts <- minor_counts[minor_counts > 0]
+```
+
+
+Count-based SFS
+```{r}
+sfs <- table(minor_counts)
+```
+
+Finalmente graficamos en un barplot nuestro resultados:
+```{r}
+barplot(sfs,
+        xlab = "Minor allele count",
+        ylab = "Number of loci",
+        main = "Count-based Site Frequency Spectrum",
+        col = "steelblue")
+```
+
+
+Agregar preguntas complementarias relacionadas a conceptos clave:
+genlight integra los metadatos
+

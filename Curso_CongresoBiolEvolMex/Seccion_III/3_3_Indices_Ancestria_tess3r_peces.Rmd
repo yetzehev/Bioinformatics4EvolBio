@@ -1,0 +1,133 @@
+---
+title: "Indices de ancestría en `tess3r`"
+author: "Daniela Felix"
+output:
+  html_document:
+    css: styles.css
+    toc: true
+    toc_float: true
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r include=FALSE}
+library(tess3r)
+library(maps)
+library(ggplot2)
+# library(sf)
+# library(rnaturalearth)
+```
+
+```{r}
+fish.ind <- readRDS(file.path("../Seccion_II/outputs/", "fish.ind.rds"))
+fish.ind
+```
+
+```{r}
+pop_info <- readRDS(file.path("../Seccion_II/outputs", "pop_info.rds"))
+pop_info
+```
+
+
+```{r}
+strata <- pop_info
+```
+
+
+```{r}
+# Load coordinates (assumed to have Stratum, X, Y columns)
+coords <- read.csv("../Seccion_II/datos/plectropomus_leopardus/coordinates.csv", header = TRUE)
+```
+
+```{r}
+# Merge to assign coordinates to each sample
+sample_coords <- merge(strata, coords, by = "STRATA")
+
+# Order to match the genind/geno matrix
+sample_coords <- sample_coords[match(indNames(fish.ind), sample_coords$INDIVIDUALS), ]
+
+# Extract only coordinates matrix
+coord_matrix <- as.matrix(sample_coords[, c("Longitude", "Latitude")])
+
+
+# Make sure the order of coord_matrix rows matches the order of your genind individuals:
+sample_coords <- sample_coords[match(indNames(fish.ind), sample_coords$INDIVIDUALS), ]
+coord_matrix <- as.matrix(sample_coords[, c("Longitude", "Latitude")])
+
+
+# If your genind object is called *.ind
+fish_geno <- tab(fish.ind, NA.method = "mean")  # convert to numeric, impute missing with mean
+fish_geno <- round(fish_geno)  # make sure values are integers 0/1/2
+
+# install.packages("rnaturalearth")
+# install.packages("rnaturalearthdata")
+library(maps)
+library(fields)
+library(rnaturalearth)
+library(sf)
+
+
+plot(coord_matrix, pch = 19, cex = .5, 
+     xlab = "Longitude (°E)", ylab = "Latitude (°N)")
+map(add = TRUE, interior = FALSE)
+
+
+
+# Download coastline data
+coast <- ne_coastline(scale = "medium", returnclass = "sf")
+
+plot(st_geometry(coast), col = "grey70", bg = "lightblue",
+     xlim = range(coord_matrix[,1]), ylim = range(coord_matrix[,2]))
+
+points(coord_matrix[,1], coord_matrix[,2], pch=21, bg=cols, col="black", cex=1)
+
+
+library(tess3r)
+
+tess3.obj <- tess3(
+  X = fish_geno,
+  coord = coord_matrix,  # from your previous step
+  K = 1:10,              # range of clusters to test
+  ploidy = 2,
+  method = "projected.ls",
+  rep = 5
+)
+
+
+dev.new()
+#-------------- Estimating ancestry coefficients 
+plot(tess3.obj, pch = 19, col = "blue",
+     xlab = "Number of ancestral populations",
+     ylab = "Cross-validation score")
+
+
+
+
+
+dev.new()
+# retrieve tess3 Q matrix for K = 5 clusters 
+q.matrix <- qmatrix(tess3.obj, K = 2)
+# STRUCTURE-like barplot for the Q-matrix 
+barplot(q.matrix, border = NA, space = 0, 
+        xlab = "Individuals", ylab = "Ancestry proportions", 
+        main = "Ancestry matrix") -> bp
+
+axis(1, at = 1:nrow(q.matrix), labels = bp$order, las = 3, cex.axis = .4) 
+
+
+
+dev.new()
+my.colors <- c("tomato", "orange", "lightblue", "olivedrab")
+my.palette <- CreatePalette(my.colors, 9)
+
+plot(q.matrix, coord_matrix, method = "sea", interpol = FieldsKrigModel(10),
+     xlab = "Longitude", ylab = "Latitude", 
+     resolution = c(300,300), 
+     col.palette = my.palette)
+
+
+```
+
