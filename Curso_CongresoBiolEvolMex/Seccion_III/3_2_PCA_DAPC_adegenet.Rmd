@@ -2,69 +2,73 @@
 title: "Paquetería adegenet"
 author: "Daniela Felix"
 output:
-  html_document:
+  learnr::tutorial:
     css: styles.css
     toc: true
     toc_float: true
+    storage: "none"
+runtime: shiny_prerendered
 date: "`r Sys.Date()`"
 ---
 
 ```{r setup, include=FALSE}
+#runtime: shiny_prerendered
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 La documentación para la paquetería puede consultarse [aquí](https://academic.oup.com/bioinformatics/article/24/11/1403/191127)
 
-```{r include=FALSE}
+```{r shiny, include=FALSE}
+library(shiny)
+library(learnr)
+```
+
+Cargamos las paqueterías a utilizar en esta sección:
+
+```{r libraries, message=FALSE, warning=FALSE}
 library(adegenet)
 library(ggplot2)
 ```
 
-Vamos a seleccionar el folder donde tenemos guardados nuestros archivos
-> Si trabajamos con distintos sets de datos de distintos proyectos, podemos crear un proyecto específico. Esto nos permitirá guardar nuestros avances, tener las librerías y carpetas cargadas sin necesidad de estar buscando cada archivo de R a la vez.
+Vamos a seleccionar el folder donde tenemos guardados nuestros archivos \> Si trabajamos con distintos sets de datos de distintos proyectos, podemos crear un proyecto específico. Esto nos permitirá guardar nuestros avances, tener las librerías y carpetas cargadas sin necesidad de estar buscando cada archivo de R a la vez.
 
-```{r}
-# setwd("Curso_CongresoBiolEvolMex\Seccion_II\datos\plectropomus_leopardus")
-```
 <sub>Se recomienda evitar los espacios en los nombres de carpetas para evitar errores de carga.</sub>
 
-
-
 Cargaremos nuestro objeto `genind` en esta sesión:
-```{r}
+
+```{r genind}
 fish.ind <- readRDS(file.path("../Seccion_II/outputs/", "fish.ind.rds"))
 fish.ind
 ```
 
-
-```{r}
+```{r metadata}
 pop_info <- readRDS(file.path("../Seccion_II/outputs", "pop_info.rds"))
 pop_info
 ```
 
-
-## Análisis de componentes principales (PCA) 
+## Análisis de componentes principales (PCA)
 
 Para calcular los eigenvalues podemos utilizar nuestro objeto genlight previamente guardado en la Sección I del curso. Cómo lo cargarían ustedes?
 
-```{r}
+```{r genlight, include=FALSE}
 fish.gl <- readRDS(file.path("../Seccion_II/outputs", "fish.gl.rds"))
 fish.gl
 ```
 
 Eigenvalues: cuál es el porcentaje de varianza explicada por los datos
-```{r}
+
+```{r pca}
 fish.pca <- glPca(fish.gl, nf = 3)
 ```
 
-```{r}
+```{r barplot pca}
 barplot(100*fish.pca$eig/sum(fish.pca$eig),
         col = heat.colors(50), main="PCA Eigenvalues")
 title(ylab="Percent of variance\nexplained", line = 2)
 title(xlab="Eigenvalues", line = 1)
 ```
 
-```{r}
+```{r pca results}
 fish.pca
 ```
 
@@ -73,14 +77,11 @@ fish.scores <- as.data.frame(fish.pca$scores)
 fish.scores$pop <- pop(fish.gl)
 ```
 
-
-
-```{r warning=FALSE}
+```{r pca plot, warning=FALSE}
 set.seed(9)
 fish_graph_pca <- ggplot(fish.scores, aes(x=PC1, y=PC2, colour=fish.scores$pop)) +
   geom_point(size=2) +
   stat_ellipse(level = 0.95, size = 1) +
-  # scale_color_manual(values = cols) +
   geom_hline(yintercept = 0) +
   geom_vline(xintercept = 0) +
   theme_bw()
@@ -90,17 +91,17 @@ fish_graph_pca
 
 ## Análisis discriminante de componentes principales (DAPC) en `adegenet`
 
-
-```{r}
+```{r dapc}
 fish.dapc <- dapc(fish.ind, n.pca = 50, n.da = length(levels(pop(fish.ind))) - 1)
 ```
 
-```{r}
+```{r dapc plot}
 scatter.dapc(fish.dapc)
 ```
 
 Personalizando el gráfico:
-```{r}
+
+```{r dapc customised}
 # Plot the discriminant space
 scatter(
   fish.dapc,
@@ -113,20 +114,32 @@ scatter(
 
 ```
 
-```{r}
+Vamos a crear un vector de colores que sea igual al número de grupos
+
+```{r K}
 # Build a color vector of length equal to the number of groups
-K <- ncol(fish.dapc$posterior)  # number of groups (columns in Q)
+K <- ncol(fish.dapc$posterior)  # número de grupos (columnas en Q)
+```
+
+
+```{r quizz, echo=FALSE}
+question("Cuántos grupos tenemos de acuerdo con K?",
+answer("5", correct = FALSE),
+answer("7", correct = TRUE),
+answer("3", correct = FALSE),
+answer("8", correct = FALSE),
+allow_retry = TRUE)
+```
+
+```{r colours}
 cols <- adegenet::funky(K)
 ```
 
-
-```{r}
+```{r admixture plot}
 compoplot(fish.dapc,col = function(x) cols, posi = 'top')
 ```
 
-```{r}
+```{r admixture customised}
 K <- ncol(fish.dapc$posterior)  # number of groups (columns in Q)
 compoplot(fish.dapc, col = K, posi = 'top')
 ```
-
-

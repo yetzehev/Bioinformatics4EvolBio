@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Para esta sección, seguiremos utilizando el ejemplo de los datos de peces
 
-```{r include=FALSE}
+```{r packages, message=FALSE, warning=FALSE}
 library(adegenet)
 library(pegas)       
 library(poppr)      

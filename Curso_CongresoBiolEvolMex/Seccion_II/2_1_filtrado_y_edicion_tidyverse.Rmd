@@ -21,13 +21,10 @@ Existen distintas formas de manipular nuestros datos en R, y en esta sección ut
 Para cargar los metadatos para este curso, vamos a seleccionar el folder donde tenemos guardados nuestros archivos
 > Si trabajamos con distintos sets de datos de distintos proyectos, podemos crear un proyecto específico. Esto nos permitirá guardar nuestros avances, tener las librerías y carpetas cargadas sin necesidad de estar buscando cada archivo de R a la vez.
 
-```{r}
+Cargamos las paqueterías a utilizar en esta sección, para ello utilizaremos la función `library`:
+```{r packages, message=FALSE, warning=FALSE}
 library(adegenet)
 library(here)
-```
-
-Ahora cargaremos la paquetería mediante la función `library()`
-```{r include=FALSE}
 library(tidyverse)
 ```
 
@@ -51,10 +48,16 @@ Para este análisis, contamos con las coordenadas de los sitios de muestreo y la
 Ahora crearemos un objeto llamado `pop_info` que utilizaremos para llamar a nuestros metadatos durante el análisis. En este caso, necesitamos hacer que nuestra columna de `INDIVIDUALS` coincida con los `indNames` de nuestro objeto `fish.ind` que contiene los datos genéticos.
 
 
-Cargaremos nuestro objeto `genind` en esta sesión:
+Cargaremos nuestro objeto `genind`:
 ```{r}
 fish.ind <- readRDS(file.path("../Seccion_I/outputs", "fish.ind.rds"))
 fish.ind
+```
+Y también cargaremos nuestro objeto `genlight`:
+
+```{r}
+fish.gl <- readRDS(file.path("../Seccion_I/outputs", "fish.gl.rds"))
+fish.gl
 ```
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}

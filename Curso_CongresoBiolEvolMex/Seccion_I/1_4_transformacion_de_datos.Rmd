@@ -13,7 +13,8 @@ date: "`r Sys.Date()`"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r include=FALSE}
+Paqueterías a utilizar en esta sección:
+```{r packages, message=FALSE, warning=FALSE}
 library(here)
 library(vcfR)
 library(adegenet)
@@ -21,9 +22,7 @@ library(dartR)
 library(tidyverse)
 ```
 
-```{r}
-# setwd("Bioinformatics4EvolBio/")
-```
+Una de las bases de datos que utilizaremos como ejemplo en este curso, provienen de el siguiente artículo 
 
 El archivo es un VCF, por lo que tenemos que utilizar la función `read.vcfR` de la paquetería `vcfR`
 
@@ -70,12 +69,12 @@ Si revisamos ahora nuestro objeto `genind`, cuántos individuos han quedado desp
 
 La paquetería dartR permite la conversión de archivos en distintos formatos a partir de un archivo `genlight`
 
-```{r}
+```{r, warning=FALSE}
 fish.gl <- vcfR2genlight(fish.vcf)
 fish.gl
 ```
 
-```{r include=FALSE}
+```{r dartR, message=FALSE, warning=FALSE}
 library(dartRverse)
 library(dartR)
 ```
@@ -102,6 +101,7 @@ fish_structure <- gl2structure(fish.gl, outpath = "./outputs", outfile = "fish_s
 Guardaremos nuestro objeto para poder llamarlo en las siguientes secciones:
 ```{r}
 saveRDS(fish.ind, file.path("outputs", "fish.ind.rds"))
+saveRDS(fish.gl, file.path("outputs", "fish.gl.rds"))
 saveRDS(fish.gl, file.path("outputs", "fish.gl.rds"))
 ```
 
