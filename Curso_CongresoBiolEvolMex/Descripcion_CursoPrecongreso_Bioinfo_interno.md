@@ -49,12 +49,27 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
 
 - **Explicación visual**: Mostrar ejemplos de cada formato:
 
-  - **1.3.1** BAM, SAM, BED (Idalia) 
-  - **1.3.2** Variant Calling File (VCF) (Idalia)
-  - **1.3.3** Plink (Idalia)
-  - **1.3.4** Genepop  (Daniela)
+  - **1.3.1** Formato AB1
+
+  - **1.3.2**  FASTA
+
+  - **1.3.3**  FASTQ
+
+  - **1.3.4**  Archivos BAM, SAM
+
+  - **1.3.5** Archivos BED 
+
+  - **1.3.5** Variant Calling File (VCF) 
+
+  - **1.3.6** Plink 
+
+  - **1.3.7** Genepop  (Daniela)
+
+  - **1.3.8** Geneind/Genelight
+
   - **1.3.5** Metadatos (Daniela)
-  - **1.3.6** Geneind/Genelight
+
+    
 
 - **Comparativa**: Tabla con columnas "Formato", "Estructura", "Casos de uso"
 
