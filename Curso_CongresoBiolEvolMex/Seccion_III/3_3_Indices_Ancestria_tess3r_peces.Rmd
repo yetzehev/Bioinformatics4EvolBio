@@ -14,9 +14,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r include=FALSE}
-# devtools::install_github("bcm-uga/TESS3_encho_sen")
-# BiocManager::install("LEA")
-# install.packages('rworldmap',dependencies=TRUE) 
 library(adegenet)
 library(tess3r)
 library(maps)
@@ -24,7 +21,6 @@ library(ggplot2)
 library(sf)
 library(rnaturalearth)
 library(rworldmap)
-# library(LEA)
 ```
 
 ### Preparando nuestros datos genéticos
@@ -92,7 +88,6 @@ map(add = TRUE, interior = FALSE)
 ```
 Vamos a descargar los datos de la línea de costa:
 ```{r}
-# install.packages("rnaturalearthdata")
 library(rnaturalearthdata)
 coast <- ne_coastline(scale = "medium", returnclass = "sf")
 ```
@@ -155,31 +150,10 @@ plot(q.matrix, coord_matrix, method = "map.max", interpol = FieldsKrigModel(10),
 ```
 
 
-```{r}
-# # Install and use marmap for bathymetry data
-# if (!require(marmap)) {
-#   install.packages("marmap")
-#   library(marmap)
-# }
-# 
-# # Get bathymetry data for your region
-# bathy <- getNOAA.bathy(lon1 = min(coord_matrix[,1])-5, 
-#                        lon2 = max(coord_matrix[,1])+5,
-#                        lat1 = min(coord_matrix[,2])-5, 
-#                        lat2 = max(coord_matrix[,2])+5,
-#                        resolution = 4)
-
-
-# Add your tess3 results
-plot(q.matrix, coord_matrix, method = "map.max", add = TRUE)
-```
-
-
 
 ```{r}
 library(maps)
 
-# SIMPLE VERSION THAT ALWAYS WORKS
 plot(coord_matrix[,1], coord_matrix[,2], type = "n",
      xlab = "Longitude", ylab = "Latitude",
      main = "Population Structure - Marine Samples")
@@ -222,8 +196,6 @@ grid()
 
 ```{r}
 library(fields)
-library(maps)
-
 # 1. Create proper color palette for ocean
 ocean.palette <- colorRampPalette(c("darkblue", "cyan", "yellow", "red"))(100)
 
@@ -280,9 +252,6 @@ print("Ocean should now show ancestry colors with contour lines!")
 ```
 
 ```{r}
-library(fields)
-library(maps)
-
 # 1. Check what K values are available in your tess3.obj
 print("Available K values in tess3.obj:")
 print(length(tess3.obj))  # This shows how many K values you have
@@ -381,10 +350,7 @@ grid()
 
 
 ```{r}
-library(ggplot2)
 library(metR)
-library(maps)
-
 # 1. Create interpolation (same as before)
 ocean.palette <- colorRampPalette(c("darkblue", "cyan", "yellow", "red"))(100)
 tps_model <- Tps(coord_matrix, q.matrix[,1])
