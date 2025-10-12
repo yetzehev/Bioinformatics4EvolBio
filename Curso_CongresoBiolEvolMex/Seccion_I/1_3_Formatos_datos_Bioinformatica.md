@@ -1,8 +1,11 @@
-# 2.3. Formatos de datos en Bioinformática para la Biología Evolutiva
+# 1.3 Formatos de datos en Bioinformática para la Biología Evolutiva
 
 Actualmente, en biología evolutiva se emplea una gran variedad de formatos para el análisis de datos. En algunos casos, programas o paquetes nuevos requieren formatos ad hoc que contengan la información necesaria para cumplir con los supuestos de cada análisis. Lo más común es partir de un formato base o primario, como los generados por plataformas de secuenciación, entre los que destacan AB1, FASTQ o BAM.
 
-## 2.3.1 Formato AB1 (cromatograma)
+
+
+## 1.3.1 Formato AB1 (cromatograma)
+
 Debido a su precisión, la secuenciación Sanger se considera el estándar de referencia. Los datos de salida se reportan en forma de cromatograma, que permite visualizar los picos de secuenciación. Estos cromatogramas se almacenan en archivos de texto con extensión .ab1.
 
 A pesar de su alta precisión, la secuenciación Sanger tiene limitaciones en cuanto a la rapidez, costo, cantidad y longitud de los fragmentos producidos, por lo que suele emplearse para secuenciar fragmentos menores a 1000 pb. [1](https://www.cd-genomics.com/blog/sanger-sequencing-introduction-principle-and-protocol/)
@@ -24,14 +27,15 @@ Además, de los programas mencionados es posible realizar el alineamiento  y an�
 
 
 
-## 2.3.2 Formato FASTA 
+## 1.3.2 FASTA 
 
-  ​	El formato FASTA es la representacion mas sencilla  de una secuencia de nucleotidos o aminoacidos, con  la nomenclatura de la [IUPAC](https://www.bioinformatics.org/sms/iupac.html). La primera línea de un archivo FASTA comienza con un símbolo «>» (mayor que) seguido de la descripción o identificador de la secuencia. 
+ El formato FASTA es la representacion mas sencilla  de una secuencia de nucleotidos o aminoacidos, con  la nomenclatura de la [IUPAC](https://www.bioinformatics.org/sms/iupac.html). La primera línea de un archivo FASTA comienza con un símbolo «>» (mayor que) seguido de la descripción o identificador de la secuencia. 
   La segunda linea contiene la  secuencia en código estándar de una letra [Fuente](https://www.hadriengourle.com/tutorials/file_formats/).
 
 Algunos ejemplos de secuencias:
 Secuencia de nucleotidos del gen Teosinte branched 1 descargado de la base de datos [Gene de NCBI](https://www.ncbi.nlm.nih.gov/gene/103643875)
 gene.fna
+
 ```
 >NC_050096.1:272330844-272332595 LOC103643875 [organism=Zea mays] [GeneID=103643875] [chromosome=1]
 GTAGAGATCAACACACACTGCTCTTAGTGCCAGGACCTAGAGAGGGGAGCGTGGAGAGGGCATCAGGGGG
@@ -70,7 +74,7 @@ GACGACCGTGACCACTTCGGCAAGAAGCGCCTTGATCTGGCAGGTCCGCTCATGGCGCAAGTGTTCCGCCTGAAGTTCCA
 
 
 
-## 2.3.3. Formato FASTQ 
+## 1.3.3 FASTQ 
 
 El formato fastq también es un formato basado en texto para representar secuencias de nucleótidos, pero además de la secuencua contiene la calidad correspondiente de cada nucleótido. Es el estándar para almacenar la salida de instrumentos de secuenciación masiva, por ejemplo Illumina.
 
@@ -93,42 +97,7 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 
 
 
-##  2.3.4  Variant Calling File (VCF)
-
-El formato VCF  es un formato estadarizado para almacenar los tipos más frecuentes de variación de secuencias, incluyendo los SNP (Polimorfismo de un solo nucleotido), indels y variantes estructurales de mayor tamaño.  El formato fue desarrollado por 1000 Genomes Project para representar y almacenar los datos genéticos humanos, pero su uso no esta restringido a genomas diploides y su uso se ha extendido a otros contextos y organismos: Pantas, animales no humanos, y hongos. 
-
-### Un vistazo a la estructura del formato VCF
-
-El formato VCF consta de un encabezado y una sección de datos (Figura 2). El encabezad contiene un número arbitrario de líneas de metainformación, cada una de las cuales comienza con los caracteres '##', y una línea de definición de campos delimitada por TAB, que comienza con un único carácter '#'. Las líneas del encabezado almacenan los metadatos que proporcionan una descripción normalizada de las etiquetas y anotaciones utilizadas en la sección de datos.
-
- El uso de los metadatos permite adaptar la información almacenada en un archivo VCF al conjunto de datos en cuestión. También puede utilizarse para proporcionar información sobre el medio de creación del archivo, la fecha de creación, la versión de la secuencia de referencia, el software utilizado y cualquier otra información relevante para la historia del archivo. 
-
-La última linea del encabezado nombra ocho columnas obligatorias, que corresponden a columnas de datos que representan el cromosoma (CHROM), una posición basada en 1 del inicio de la variante (POS), identificadores únicos de la variante (ID), el alelo de referencia (REF), una lista separada por comas de alelos alternativos  (ALT), una puntuación de calidad estandarizada por phred (QUAL), información de filtrado de variantes (FILTER) y una lista separada por punto y coma de anotaciones adicionales extensibles por el usuario (INFO) [Fuente](https://doi.org/10.1093/bioinformatics/btr330)
-
-
-
-![VCF_FILE](../../images/VCF.png)
-
-
-## 2.3.5 Plink (Idalia)
-
-  PLINK es un conjunto de herramientas de análisis de asociación de genomas completos gratuito, de uso común y de código abierto diseñado por Shaun Purcell [Fuente](https://en.wikipedia.org/wiki/PLINK_(genetic_tool-set)). Tiene dos tipos principales de formato, el formato plink integrado por dos tipos de archivos .map y .ped; y el formato binario (.bed,.bim,.fam)
-
-  **.map**  (Archivo de texto con informacion de variantes geneticas)
-
-  Un archivo de texto sin encabezado,donde cada línea reprsenta una variante con los 3-4 columnas.
-
-  **Cromosoma.** Indica el numero de cromosoma, la version PLINK 1.9 también permite nombres de contig, aunque en versiones más antiguas no es posible.
-  **Identificador de la variante** Nombre asociado a la variante genetica.
-  **Posición en morgans o centimorgans** Posición del la variante (opcional; también es posible utilizar el valor ficticio «0»)
-  **Coordenada** Posición  de la variante en contabilizada en  pares de bases.
-  Todas las líneas deben tener el mismo número de columnas (por lo que o bien ninguna línea contiene la columna morgans/centimorgans, o todas la contienen) [Fuente](https://www.cog-genomics.org/plink/1.9/formats#map).
-
-  **.ped** (Archivo de texto con  la información de pedigree y tabla de genotipos)
-
-  No contiene encabezado, cada línea representa un genotipo.  El numero de equivalentes es igual a 2V+6 campos donde V es el número de variantes. Los seis primeros campos son los mismos que los de un archivo .fam. Los campos séptimo y octavo son las variantes alélicas llamadas para la primera variante en el archivo .map ('0' = sin llamada); los campos noveno y décimo son llamadas alélicas para la segunda variante; y así sucesivamente [Fuente](https://www.cog-genomics.org/plink/1.9/formats#map)
-
-## 2.3.6  Archivos SAM&BAM 
+## 1.3.4  Archivos SAM&BAM 
 
 Los archivos SAM y BAM son el resultado del proceso de alineación (o mapeo) de lecturas en una secuencia de referencia. El formato SAM (*Sequence Alignment/Map*, que se traduce literalmente como "Mapa de alineamiento de secuencias") es un formato de texto delimitado por tabuladores que consta de dos secciones: un encabezado opcional y una sección de alineación. Los archivos BAM, por su parte, son la versión comprimida y binaria del formato SAM, lo que los hace más ligeros y permite un almacenamiento más eficiente.
 
@@ -166,7 +135,8 @@ Todos los segmentos mapeados en la sección de alineamiento se representan en su
 
 
 
-## 2.3.7 BED 
+## 1.3.5 Archivos BED 
+
 El formato BED (*Browser Extensible Data*, traducible como "Datos Extensibles para Navegador") es un formato de texto ligero que almacena coordenadas genómicas y sus anotaciones asociadas mediante columnas separadas por espacios o tabuladores. Cada línea representa una región genómica (locus) con un mínimo de 3 columnas obligatorias (cromosoma, posición de inicio y fin) y hasta 12 campos opcionales para anotaciones adicionales.
 
 La principal ventaja del formato BED radica en el uso de coordenadas en lugar de secuencias nucleotídicas, lo que optimiza significativamente el tiempo de procesamiento en comparaciones genómicas y análisis a gran escala. Además, su estructura simple facilita su manipulación mediante lenguajes de scripting como Python o Perl, así como el uso de herramientas especializadas como BEDTools, convirtiéndolo en un formato versátil y ampliamente adoptado en análisis genómicos y visualización de datos.
@@ -202,11 +172,56 @@ chr7    127473530    127474697
 
 Fuente: https://en.wikipedia.org/wiki/BED_(file_format)
 
-- **2.3.5**Genepop (Daniela)
 
-- **2.3.6** GTF, GFF (Daniela)
 
-- **2.3.7** Metadatos (Daniela)
+##  1.3.5  Variant Calling File (VCF)
+
+El formato VCF  es un formato estadarizado para almacenar los tipos más frecuentes de variación de secuencias, incluyendo los SNP (Polimorfismo de un solo nucleotido), indels y variantes estructurales de mayor tamaño.  El formato fue desarrollado por 1000 Genomes Project para representar y almacenar los datos genéticos humanos, pero su uso no esta restringido a genomas diploides y su uso se ha extendido a otros contextos y organismos: Pantas, animales no humanos, y hongos. 
+
+### Un vistazo a la estructura del formato VCF
+
+El formato VCF consta de un encabezado y una sección de datos (Figura 2). El encabezad contiene un número arbitrario de líneas de metainformación, cada una de las cuales comienza con los caracteres '##', y una línea de definición de campos delimitada por TAB, que comienza con un único carácter '#'. Las líneas del encabezado almacenan los metadatos que proporcionan una descripción normalizada de las etiquetas y anotaciones utilizadas en la sección de datos.
+
+ El uso de los metadatos permite adaptar la información almacenada en un archivo VCF al conjunto de datos en cuestión. También puede utilizarse para proporcionar información sobre el medio de creación del archivo, la fecha de creación, la versión de la secuencia de referencia, el software utilizado y cualquier otra información relevante para la historia del archivo. 
+
+La última linea del encabezado nombra ocho columnas obligatorias, que corresponden a columnas de datos que representan el cromosoma (CHROM), una posición basada en 1 del inicio de la variante (POS), identificadores únicos de la variante (ID), el alelo de referencia (REF), una lista separada por comas de alelos alternativos  (ALT), una puntuación de calidad estandarizada por phred (QUAL), información de filtrado de variantes (FILTER) y una lista separada por punto y coma de anotaciones adicionales extensibles por el usuario (INFO) [Fuente](https://doi.org/10.1093/bioinformatics/btr330)
+
+
+
+![VCF_FILE](../../images/VCF.png)
+
+
+## 1.3.6 Plink 
+
+  PLINK es un conjunto de herramientas de análisis de asociación de genomas completos gratuito, de uso común y de código abierto diseñado por Shaun Purcell [Fuente](https://en.wikipedia.org/wiki/PLINK_(genetic_tool-set)). Tiene dos tipos principales de formato, el formato plink integrado por dos tipos de archivos .map y .ped; y el formato binario (.bed,.bim,.fam)
+
+  **.map**  (Archivo de texto con informacion de variantes geneticas)
+
+  Un archivo de texto sin encabezado,donde cada línea reprsenta una variante con los 3-4 columnas.
+
+  **Cromosoma.** Indica el numero de cromosoma, la version PLINK 1.9 también permite nombres de contig, aunque en versiones más antiguas no es posible.
+  **Identificador de la variante** Nombre asociado a la variante genetica.
+  **Posición en morgans o centimorgans** Posición del la variante (opcional; también es posible utilizar el valor ficticio «0»)
+  **Coordenada** Posición  de la variante en contabilizada en  pares de bases.
+  Todas las líneas deben tener el mismo número de columnas (por lo que o bien ninguna línea contiene la columna morgans/centimorgans, o todas la contienen) [Fuente](https://www.cog-genomics.org/plink/1.9/formats#map).
+
+  **.ped** (Archivo de texto con  la información de pedigree y tabla de genotipos)
+
+  No contiene encabezado, cada línea representa un genotipo.  El numero de equivalentes es igual a 2V+6 campos donde V es el número de variantes. Los seis primeros campos son los mismos que los de un archivo .fam. Los campos séptimo y octavo son las variantes alélicas llamadas para la primera variante en el archivo .map ('0' = sin llamada); los campos noveno y décimo son llamadas alélicas para la segunda variante; y así sucesivamente [Fuente](https://www.cog-genomics.org/plink/1.9/formats#map)
+
+
+
+## 1.3.7 Genepop (Daniela)
+
+
+
+## 1.3.8 Geneind/Genelight
+
+
+
+## 1.4 Transformación y conversión de formatos
+
+
 
 **2.4. Transformación de formatos**
 

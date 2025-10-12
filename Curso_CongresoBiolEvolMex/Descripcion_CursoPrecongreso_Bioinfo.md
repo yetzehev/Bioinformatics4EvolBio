@@ -49,12 +49,27 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
 
 - **Explicación visual**: Mostrar ejemplos de cada formato:
 
-  - **1.3.1** BAM, SAM, BED (Idalia) 
-  - **1.3.2** Variant Calling File (VCF) (Idalia)
-  - **1.3.3** Plink (Idalia)
-  - **1.3.4** Genepop  (Daniela)
+  - **1.3.1** Formato AB1
+
+  - **1.3.2**  FASTA
+
+  - **1.3.3**  FASTQ
+
+  - **1.3.4**  Archivos BAM, SAM
+
+  - **1.3.5** Archivos BED 
+
+  - **1.3.5** Variant Calling File (VCF) 
+
+  - **1.3.6** Plink 
+
+  - **1.3.7** Genepop  (Daniela)
+
+  - **1.3.8** Geneind/Genelight
+
   - **1.3.5** Metadatos (Daniela)
-  - **1.3.6** Geneind/Genelight
+
+    
 
 - **Comparativa**: Tabla con columnas "Formato", "Estructura", "Casos de uso"
 
@@ -87,27 +102,29 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
 - **Pipe operator** (`%>%`): Transformación intuitiva ([Referencia](https://rpubs.com/paraneda/tidyverse))
 - **Set de datos:** Plectopromus
 
-### 2.2 Filtrado y Edición  (Idalia)
+### 2.2 Filtrado y Edición  de tablas
 
-Empleareamos un conjunto de datos publicos  para  extraer  e integrar los metadatos  con los datos geneticos. 
+Empleareamos un conjunto de datos publicos  para  extraer  y realizar un subconjunto de individuos empleando los metadatos.
 
-- **Casos comunes**: 
+- 2.2.1 Dependencias para la edición y filtrado de tablas
   
-  - Eliminar NAs
-  - Reordenar columnas
-  - Unir tablas
+- 2.2.2 Cargar archivos en Rstudio
+  
+- 2.2.3 Editar las tablas de datos
+  
+- 2.2.4 Creacion de un subconjunto de datos
   
 - **Ejercicio guiado**: Limpiar un conjunto de datos
 
-  Objetivo: Dejar listas las tablas de datos`teocintles_meta` para graficar al inicio de la segunda sesión.
+  Objetivo: Dejar listas las tablas de datos`teocintles_meta` para filtrar el archivo VCF en la segunda sesión.
   
-### 2.3 Integración de Metadatos (Idalia)
+### 2.3 Integración de Metadatos
 
-  - Conjunto de datos curados e integración de los metadatos para realizar  visualizaciones 
+- 2.3.1 Agregar metadatos: coordenadas y altitud
 
-  - **Ejemplo práctico**: Visualizar los genotipos sobre un un mapa y asignar paleta de colores basados en la `Subespecie`.
+- 2.3.2 Ejercicio:  Visualizar los genotipos sobre un un mapa y asignar paleta de colores basados en la `Subespecie`.
 
-    s
+  
 
 ------
 
@@ -115,9 +132,9 @@ Empleareamos un conjunto de datos publicos  para  extraer  e integrar los metada
 
 ### 3.1 Visualización de Estadísticos (1 h) 
 
-- **HierFstat demo**: Frecuencias alélicas  (Idalia)
-
 - **SFS**: Cálculo y visualización del Site Frequency Spectrum (SFS) (Daniela)
+
+- **HierFstat demo**: Frecuencias alélicas  (Idalia)
 
 **PAUSA (15 min)**
 
