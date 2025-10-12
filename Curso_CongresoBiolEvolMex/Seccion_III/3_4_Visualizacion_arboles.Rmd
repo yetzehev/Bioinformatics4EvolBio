@@ -13,6 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Para construir esta filogenia emplearesmo como input SNPs de un archivo VCF. 
 
+Via al archivo
+
 ```{r cars}
 bcftools view -c 1:minor -v snps -e 'F_MISSING>0.1 || QUAL<30' input.vcf -Ov -o snps_only.vcf
 ```
