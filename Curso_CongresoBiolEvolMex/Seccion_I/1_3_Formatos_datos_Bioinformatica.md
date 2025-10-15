@@ -211,25 +211,77 @@ La última linea del encabezado nombra ocho columnas obligatorias, que correspon
 
 
 
-## 1.3.7 Genepop (Daniela)
+## 1.3.7 Genepop 
+
+El formato genepop es un archivo de texto plano conformado por una estructura fácil de manejar. Puede separarse por espacios o tabuladores. La primer columna corresponde al ID de los individuos, seguido de una coma y un espacio o tabulación. Las siguientes columnas corresponden a los loci y los números en las columnas a los alelos, estos pueden ir en el formato de tres (002002) o dos dígitos (02). Los datos faltantes son representados por “0”, en un ejemplo de loci con datos faltantes a dos dígitos se representaría como “0000”. El primer renglón corresponde a la información del archivo, los datos se consideran a partir del segundo renglón. Las poblaciones se separan por la palabra “POP”.
+Aquí algunos ejemplos de formatos de archivo genepop.
+
+En este ejemplo, el nombre de los loci se encuentran en el segundo renglón y separados por una coma entre ellos.
+
+![GENE_POP](../../images/Genepop_01.png)
+
+En este otro ejemplo, el nombre de los loci se encuentran enlistados, ambos formatos son archivos genepop válidos:
+
+![GENEPOP2](../../images/Genepop_02.png)
+
+Para más detalles, pueden consultar en el siguiente link: https://genepop.curtin.edu.au/help_input.html 
 
 
 
-## 1.3.8 Geneind/Genelight
 
 
 
-## 1.4 Transformación y conversión de formatos
+
+## 1.3.8 Formato Geneind
+
+El objeto genind es la estructura central de datos en el paquete adegenet de R, utilizada para representar genotipos individuales en estudios de genética de poblaciones. Más que una simple tabla, es un objeto formal (S4) que almacena la información de manera integrada, asegurando la consistencia entre los genotipos, la ubicación de los individuos, y otra información crucial.
+
+Efectivamente, se conforma de una lista de que permiten un análisis y una manipulación eficientes. Algunos de los componentes más importantes son:
+
+​	**·** **@tab:** Probablemente el slot más importante. Es una matriz de **conteos de alelos** donde las filas son individuos y las columnas representan cada alelo de cada locus. Los individuos diploides tendrán '2's (homocigotos) o '1's (heterocigotos) para sus alelos, y '0's en el resto. Esta matriz es la base para muchos análisis multivariados (como el DAPC).
+
+​	**·** **@gen (o @genotype en versiones antiguas):** Es una lista que contiene los genotipos 'crudos' de cada individuo, mostrando directamente qué alelos posee en cada locus.
+
+​	**·** **@loc.nall:** Un vector que indica el número de alelos (n.all) encontrados en cada locus.
+
+​	**·** **@loc.fac:** Un factor que identifica a qué locus pertenece cada columna de la matriz @tab.
+
+​	**·** **@pop:** Un factor que define la asignación poblacional de cada individuo. Es esencial para realizar análisis que comparan poblaciones predefinidas.
+
+​	**·** **@strata:** Un data.frame opcional que permite almacenar información adicional sobre los individuos (e.j., sexo, grupo de edad, región), útil para análisis más complejos con jerarquías.
+
+La gran ventaja de genind es que todos estos componentes se mantienen sincronizados. Cuando se subsetean individuos o se calculan frecuencias alélicas, adegenet actualiza automáticamente todos los **slots**, lo que previene errores y simplifica el flujo de trabajo.
+
+Para más información, pueden consultar el siguiente link:
+
+https://www.rdocumentation.org/packages/adegenet/versions/1.0-0/topics/genind 
 
 
 
-**2.4. Transformación de formatos**
+##  1.3.8.1 Objeto genelight
 
-- **2.4.1** PGD Spider ([Enlace](https://software.bioinformatics.unibe.ch/pgdspider/)) (Daniela)
-- **2.4.2** Paqueterías y herramientas en R (Daniela)
-- **2.4.3** dartR ([Enlace](https://green-striped-gecko.github.io/dartR/))
-  -
-  
+Al igual que el genind, el objeto genlight es también un objeto formal (S4) en adegenet, pero está optimizado para el big data genético. Mientras que genind es ideal para decenas o cientos de loci, genlight surge para abordar el desafío de los conjuntos de datos de genotipado de nueva generación (NGS), que pueden contener desde miles hasta millones de SNPs.
+
+Su principal innovación, es el almacenamiento de genotipos en un formato binario compacto usando un esquema de codificación a nivel de bit. Esto significa que, en lugar de guardar un carácter o número por alelo, utiliza un solo bit de la memoria de la computadora para representar la presencia (1) o ausencia (0) de un alelo de referencia para cada SNP en cada individuo.
+
+Componentes Principales (slots):
+
+**·** **@gen:** Es una lista de vectores binarios compactos. Cada elemento de la lista corresponde a un individuo, y su vector interno almacena eficientemente todos sus genotipos. No se puede visualizar directamente como una matriz normal.
+
+**·** **@n.loc:** El número total de loci (SNPs) en el conjunto de datos.
+
+**·** **@ind.names:** Nombres o identificadores de los individuos.
+
+**·** **@loc.names:** Nombres o identificadores de cada locus (por ejemplo, la posición cromosómica).
+
+**·** **@chromosome:**Un vector que indica el cromosoma al que pertenece cada locus.
+
+**·** **@position:** Un vector con la posición física de cada locus en el cromosoma.
+
+**·** **@pop:** Al igual que en genind, un factor que define la población de cada individuo.
+
+**·** **@ploidy:** Un vector que indica la ploidía de cada individuo (e.j., 2 para diploides, 1 para haploides). Esto es crucial para interpretar correctamente los genotipos binarios.
+
 ## Referencias
  https://www.formbio.com/blog/your-essential-guide-different-file-formats-bioinformatics
  https://www.hadriengourle.com/tutorials/file_formats/

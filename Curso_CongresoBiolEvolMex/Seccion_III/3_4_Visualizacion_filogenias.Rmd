@@ -12,18 +12,186 @@ library('ape')
 
 ## Data set
 
+Para construir la filogenia empleareamos individups la especie *Zea perennis*, y las tres subespecies de *Zea mays*: *Zea mays* ssp *mays*, *Zea mays* ssp. *mexicana*, *Zea mays* ssp. *mexicana* y *Zea mays* ssp. *parviglumis*
 
 
-```{r cars}
-summary(cars)
+```{r vcf_filter, echo=TRUE}
+
+system("vcftools --vcf ../../data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.recode.vcf --keep ./meta/subset_arbol.txt --remove-indels --max-missing 0.95  --minQ 30 --minDP 5 --recode --recode-INFO-all --out ./subset/Zea_snps_only")
 ```
+## Generacion del archivo Phylip
 
-## Including Plots
+## Bibliotecas
 
-You can also embed plots, for example:
+
 
 ```{r pressure, echo=FALSE}
-plot(pressure)
+#required_pkgs <- c("ape", "phangorn")
+#for (p in required_pkgs) {
+ # if (!suppressWarnings(requireNamespace(p, quietly = TRUE))) {
+#    install.packages(p, repos = "https://cloud.r-project.org")
+  #}
+  #library(p, character.only = TRUE)
+#}
+
+```
+install `ggtree`
+
+```{r ggtree, echo=TRUE}
+
+#if (!require("BiocManager", quietly = TRUE))
+ #   install.packages("BiocManager")
+
+#BiocManager::install("ggtree")
+#BiocManager::install("treeio")
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Llamar a las librerias
+```{r lib, echo=FALSE}
+library(ape)
+library(phangorn)
+library(ggtree)
+library(treeio)
+```
+Cargar archivos
+```{r load.phyl}
+
+# --- 1. User parameters ---
+input_phylip <- "./subset/Zea_snps_only.phy"     # your PHYLIP interleaved file
+out_prefix   <- "./out/phylo_out"         # output prefix
+n_bootstrap  <- 100                # R bootstrap replicates
+iqtree_bin   <- "iqtree2"           # IQ-TREE executable (try "iqtree2" or "iqtree")
+iqtree_boot  <- 100              # IQ-TREE ultrafast bootstrap replicates
+
+# --- 2. Read PHYLIP alignment ---
+message("Reading PHYLIP alignment: ", input_phylip)
+dna <- read.dna(input_phylip, format = "interleaved", as.matrix = FALSE)
+phydat <- phyDat(dna, type = "DNA")
+
+# --- 3. Build initial ML tree (phangorn) ---
+dm <- dist.ml(phydat)
+nj_tree <- NJ(dm)
+nj_tree$tip.label <- rownames(as.matrix(dna))
+
+fit <- pml(nj_tree, phydat)
+fit_opt <- optim.pml(fit, model = "GTR", optGamma = TRUE, optInv = TRUE,
+                     rearrangement = "stochastic", control = pml.control(trace = 0))
+ml_tree <- fit_opt$tree
+write.tree(ml_tree, file = paste0(out_prefix, "_ML_tree.nwk"))
+message("Saved ML tree to: ", paste0(out_prefix, "_ML_tree.nwk"))
+```
+Calcular soporte
+```{r boot, echo=TRUE}
+# --- 4. Compute R bootstrap (phangorn) ---
+message("Running ", n_bootstrap, " bootstrap replicates in R ...")
+set.seed(123)
+bs_trees <- bootstrap.pml(fit_opt, bs = n_bootstrap, optNni = TRUE)
+r_boot <- round(100 * prop.clades(ml_tree, bs_trees) / n_bootstrap, 1)
+ml_tree$node.label <- r_boot
+
+# --- 5. Run IQ-TREE automatically for SH-aLRT & UFBoot ---
+iqtree_available <- nzchar(Sys.which(iqtree_bin))
+iq_supports <- data.frame(node = integer(0), SH = numeric(0), UF = numeric(0))
+
+if (iqtree_available) {
+  message("Running IQ-TREE (", iqtree_bin, ") for SH-aLRT and UFBoot ...")
+  iq_prefix <- paste0(out_prefix, "_iqtree")
+  cmd <- sprintf("%s -s %s -m GTR+G -bb %d -alrt 1000 -nt AUTO -pre %s",
+                 iqtree_bin, shQuote(input_phylip), iqtree_boot, iq_prefix)
+  message("Running command: ", cmd)
+  system(cmd, intern = FALSE)
+  
+  treefile <- paste0(iq_prefix, ".treefile")
+  if (!file.exists(treefile)) {
+    stop("IQ-TREE did not produce expected treefile: ", treefile)
+  }
+  
+  message("Reading IQ-TREE results: ", treefile)
+  iq_tree <- read.tree(treefile)
+  
+  # Parse IQ-TREE node labels formatted as "SH/UFBoot"
+  sh_vals <- ub_vals <- rep(NA, length(iq_tree$node.label))
+  for (i in seq_along(iq_tree$node.label)) {
+    lbl <- iq_tree$node.label[i]
+    parts <- strsplit(lbl, "/")[[1]]
+    if (length(parts) >= 2) {
+      a <- as.numeric(parts[1]); b <- as.numeric(parts[2])
+      if (!is.na(a) && a <= 1) a <- a * 100
+      if (!is.na(b) && b <= 1) b <- b * 100
+      sh_vals[i] <- a; ub_vals[i] <- b
+    }
+  }
+  
+  iq_supports <- data.frame(node = (Ntip(iq_tree) + 1):(Ntip(iq_tree) + iq_tree$Nnode),
+                            SH = round(sh_vals, 1), UF = round(ub_vals, 1))
+} else {
+  message("IQ-TREE not found on system PATH. Skipping SH-aLRT and UFBoot.")
+}
+
+# --- 6. Merge R bootstrap with IQ-TREE supports ---
+# match clades by descendant tip sets
+get_clade_tips <- function(tree, node) {
+  sort(ape::extract.clade(tree, node)$tip.label)
+}
+
+internal_nodes <- (Ntip(ml_tree) + 1):(Ntip(ml_tree) + ml_tree$Nnode)
+node_info <- data.frame(node = internal_nodes, Rboot = r_boot, SH = NA, UF = NA)
+
+if (nrow(iq_supports) > 0) {
+  iq_nodes <- (Ntip(iq_tree) + 1):(Ntip(iq_tree) + iq_tree$Nnode)
+  iq_clades <- lapply(iq_nodes, function(n) get_clade_tips(iq_tree, n))
+  for (i in seq_along(internal_nodes)) {
+    tips <- get_clade_tips(ml_tree, internal_nodes[i])
+    match_idx <- which(sapply(iq_clades, function(x) identical(x, tips)))
+    if (length(match_idx) == 1) {
+      node_info$SH[i] <- iq_supports$SH[match_idx]
+      node_info$UF[i] <- iq_supports$UF[match_idx]
+    }
+  }
+}
+
+# Combined label
+node_info$label <- apply(node_info[, c("SH", "UF", "Rboot")], 1, function(x) {
+  fmt <- function(v) ifelse(is.na(v), "-", sprintf("%.1f", v))
+  paste(fmt(x[1]), fmt(x[2]), fmt(x[3]), sep = " / ")
+})
+
+# --- 7. Visualization ---
+library(ggtree)
+annot_df <- node_info
+
+p <- ggtree(ml_tree) +
+  geom_tiplab(size = 3) +
+  geom_text2(aes(subset = !isTip, label = label),
+             hjust = -0.2, vjust = -0.5, size = 3.2,
+             data = annot_df) +
+  ggtitle("SNP Phylogeny: SH-aLRT / UFBoot / R-bootstrap") +
+  theme_tree2()
+
+print(p)
+ggsave(filename = paste0(out_prefix, "_tree_with_supports.png"), plot = p,
+       width = 10, height = 8, dpi = 300)
+message("Saved annotated tree plot to: ", paste0(out_prefix, "_tree_with_supports.png"))
+
+# --- 8. Output node supports table ---
+write.csv(annot_df, file = paste0(out_prefix, "_node_supports.csv"), row.names = FALSE)
+message("Saved node support table: ", paste0(out_prefix, "_node_supports.csv"))
+
+# --- 9. Summary ---
+message("\n=== Summary ===")
+message("Alignment: ", input_phylip)
+message("Tips: ", Ntip(ml_tree))
+message("Internal nodes: ", ml_tree$Nnode)
+message("R bootstrap replicates: ", n_bootstrap)
+if (iqtree_available) {
+  message("IQ-TREE SH-aLRT and UFBoot computed (", iqtree_boot, " reps).")
+}
+message("Outputs:")
+message("  • ", out_prefix, "_ML_tree.nwk")
+message("  • ", out_prefix, "_tree_with_supports.png")
+message("  • ", out_prefix, "_node_supports.csv")
+message("Done.")
+# =========================================================
+```
+
