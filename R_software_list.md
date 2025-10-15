@@ -22,8 +22,8 @@
 | **metR** | `pak::pak("metR")` | [GitHub](https://github.com/eliocamp/metR) |
 | **here** | `install.packages("here")` | [Website](https://here.r-lib.org/) |
 | **BiocManager** | `install.packages("BiocManager")` | [Bioconductor](https://bioconductor.org/) |
-| **ggtree** | `BiocManager::install("ggtree")` | — |
-| **treeio** | `BiocManager::install("treeio")` | — |
+| **ggtree** | `BiocManager::install("ggtree")` | [Bioconductor](https://bioconductor.org/packages/release/bioc/html/ggtree.html) |
+| **treeio** | `BiocManager::install("treeio")` | [Bioconductor](https://bioconductor.org/packages/release/bioc/html/treeio.html) |
 | **SNPRelate** | `BiocManager::install("SNPRelate")` | [Bioconductor](https://bioconductor.org/packages/release/bioc/html/SNPRelate.html) |
 | **devtools** | `install.packages("devtools")` | — |
 | **tess3R** | `devtools::install_github("cayek/TESS3/tess3r")` | [GitHub](https://github.com/cayek/TESS3) |
