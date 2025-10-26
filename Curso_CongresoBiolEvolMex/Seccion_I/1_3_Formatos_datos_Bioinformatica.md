@@ -274,7 +274,7 @@ Componentes Principales (slots):
 
 **·** **@loc.names:** Nombres o identificadores de cada locus (por ejemplo, la posición cromosómica).
 
-**·** **@chromosome:**Un vector que indica el cromosoma al que pertenece cada locus.
+**·** **@chromosome:** Un vector que indica el cromosoma al que pertenece cada locus.
 
 **·** **@position:** Un vector con la posición física de cada locus en el cromosoma.
 
@@ -283,5 +283,5 @@ Componentes Principales (slots):
 **·** **@ploidy:** Un vector que indica la ploidía de cada individuo (e.j., 2 para diploides, 1 para haploides). Esto es crucial para interpretar correctamente los genotipos binarios.
 
 ## Referencias
- https://www.formbio.com/blog/your-essential-guide-different-file-formats-bioinformatics
- https://www.hadriengourle.com/tutorials/file_formats/
+- https://www.formbio.com/blog/your-essential-guide-different-file-formats-bioinformatics
+- https://www.hadriengourle.com/tutorials/file_formats/ 
