@@ -26,13 +26,13 @@ Una de las bases de datos que utilizaremos como ejemplo en este curso, provienen
 
 El archivo es un VCF, por lo que tenemos que utilizar la función `read.vcfR` de la paquetería `vcfR`
 
-```{r}
-fish.vcf <- read.vcfR("../Seccion_II/datos/plectropomus_leopardus/radiator_data_20220330_1452.vcf")
+```{r fish_file, echo=TRUE}
+#fish.vcf <- read.vcfR("../Seccion_II/datos/plectropomus_leopardus/radiator_data_20220330_1452.vcf")
 ```
 
 Nuestra base de datos se compone de solo 200 individuos; sin embargo, nuestro objeto VCF muestra que tenemos 209, esto significa que algunos de los ID de los indivuos se encuentran repetidos, antes de poder convertilos a un archivo `genind`, debemos filtrarlos:
 
-```{r}
+```{r single_pipe}
 # Single pipe to fix IDs
 fish.vcf@fix[,3] <- tibble(
   id = getID(fish.vcf),
