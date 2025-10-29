@@ -226,15 +226,14 @@ image.plot(zlim = c(0, 1),
 
 # 11. Add grid for reference
 grid()
+```
 
-print("Ocean should now show ancestry colors with contour lines!")
+Checar cuántos valores de K hay disponibles en nuestro objeto `tess3.obj`
+```{r}
+print(length(tess3.obj))
 ```
 
 ```{r}
-# 1. Check what K values are available in your tess3.obj
-print("Available K values in tess3.obj:")
-print(length(tess3.obj))  # This shows how many K values you have
-
 # 2. Check cross-entropy if available
 if (!is.null(tess3.obj$crossentropy)) {
   print("Cross-entropy values:")

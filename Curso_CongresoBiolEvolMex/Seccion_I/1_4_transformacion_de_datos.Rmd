@@ -25,8 +25,13 @@ Una de las bases de datos que utilizaremos como ejemplo en este curso, provienen
 
 El archivo es un VCF, por lo que tenemos que utilizar la función `read.vcfR` de la paquetería `vcfR`
 
+<<<<<<< HEAD
 ```{r vcf file}
 fish.vcf <- read.vcfR("../Seccion_II/datos/plectropomus_leopardus/radiator_data_20220330_1452.vcf")
+=======
+```{r fish_file, echo=TRUE}
+#fish.vcf <- read.vcfR("../Seccion_II/datos/plectropomus_leopardus/radiator_data_20220330_1452.vcf")
+>>>>>>> 84275d621ca120f084f67fae9de2ed5ecaa9da2d
 ```
 <div style="background-color:rgba(196, 208, 208, 0.8);">
 > Los datos son correctos?
@@ -35,7 +40,12 @@ fish.vcf <- read.vcfR("../Seccion_II/datos/plectropomus_leopardus/radiator_data_
 
 Nuestra base de datos se compone de solo 200 individuos; sin embargo, nuestro objeto VCF muestra que tenemos 209, esto significa que algunos de los ID de los indivuos se encuentran repetidos, antes de poder convertilos a un archivo `genind`, debemos filtrarlos:
 
+<<<<<<< HEAD
 ```{r filtrado}
+=======
+```{r single_pipe}
+# Single pipe to fix IDs
+>>>>>>> 84275d621ca120f084f67fae9de2ed5ecaa9da2d
 fish.vcf@fix[,3] <- tibble(
   id = getID(fish.vcf),
   chrom = getCHROM(fish.vcf),

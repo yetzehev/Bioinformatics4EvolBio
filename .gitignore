@@ -22,3 +22,6 @@ Curso_CongresoBiolEvolMex/Seccion_III/.RData
 *.P
 *.Q
 *.html
+./Curso_CongresoBiolEvolMex/Seccion_III/archive_SIII/*
+./Archive/*
+
