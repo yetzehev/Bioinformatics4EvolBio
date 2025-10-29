@@ -24,13 +24,13 @@ library(rworldmap)
 ```
 
 ### Preparando nuestros datos genéticos
-```{r}
+```{r objeto genind}
 fish.ind <- readRDS(file.path("../Seccion_II/outputs/", "fish.ind.rds"))
 fish.ind
 ```
 
+Convertir nuestro objeto genind en una matriz numérica
 ```{r}
-# If your genind object is called *.ind
 fish_geno <- tab(fish.ind, NA.method = "mean")  # convert to numeric, impute missing with mean
 fish_geno <- round(fish_geno)  # make sure values are integers 0/1/2
 ```
@@ -72,34 +72,13 @@ fish_geno <- tab(fish.ind, NA.method = "mean")  # convert to numeric, impute mis
 fish_geno <- round(fish_geno)  # make sure values are integers 0/1/2
 ```
 
-```{r}
-# install.packages("rnaturalearth")
-# install.packages("rnaturalearthdata")
-# library(maps)
-# library(fields)
-# library(rnaturalearth)
-# library(sf)
-```
 
 ```{r}
 plot(coord_matrix, pch = 19, cex = .5, 
      xlab = "Longitude (°E)", ylab = "Latitude (°N)")
 map(add = TRUE, interior = FALSE)
 ```
-Vamos a descargar los datos de la línea de costa:
-```{r}
-library(rnaturalearthdata)
-coast <- ne_coastline(scale = "medium", returnclass = "sf")
-```
 
-```{r}
-plot(st_geometry(coast), col = "grey70", bg = "lightblue",
-     xlim = range(coord_matrix[,1]), ylim = range(coord_matrix[,2]))
-```
-
-```{r}
-# points(coord_matrix[,1], coord_matrix[,2], pch=21, bg=cols, col="black", cex=1)
-```
 
 Ahora tenemos todo listo para poder correr el análisis en `tess3r`:
 ```{r include=FALSE}
@@ -113,14 +92,14 @@ tess3.obj <- tess3(
 )
 ```
 
+Estimaremos el coeficiente de ancestría:
 ```{r}
-#-------------- Estimating ancestry coefficients 
 plot(tess3.obj, pch = 19, col = "blue",
      xlab = "Number of ancestral populations",
      ylab = "Cross-validation score")
 ```
 
-
+Dado que el gráfico anterior nos arroja una K=2, los especificaremos en nuestra `qmatrix`
 ```{r}
 # retrieve tess3 Q matrix for K = 5 clusters 
 q.matrix <- qmatrix(tess3.obj, K = 2)

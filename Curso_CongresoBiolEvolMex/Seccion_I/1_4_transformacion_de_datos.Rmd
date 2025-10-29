@@ -3,7 +3,6 @@ title: "Transformación de datos"
 author: "Daniela Felix"
 output:
   html_document:
-    css: styles.css
     toc: true
     toc_float: true
 date: "`r Sys.Date()`"
@@ -22,18 +21,21 @@ library(dartR)
 library(tidyverse)
 ```
 
-Una de las bases de datos que utilizaremos como ejemplo en este curso, provienen de el siguiente artículo 
+Una de las bases de datos que utilizaremos como ejemplo en este curso, provienen de el siguiente [artículo](https://onlinelibrary.wiley.com/doi/full/10.1111/eva.13450): "Demographic histories shape population genomics of the common coral grouper (_Plectropomus leopardus_)", un trabajo de de genética poblacional en una especie de pez arrecifal de importancia económica y ecológica en la costa noreste de Australia. En el artículo se reportan 4,548 loci en 200 individuos, por lo que debemos asegurarnos que estos valores coincidan en nuestro dataset.
 
 El archivo es un VCF, por lo que tenemos que utilizar la función `read.vcfR` de la paquetería `vcfR`
 
-```{r}
+```{r vcf file}
 fish.vcf <- read.vcfR("../Seccion_II/datos/plectropomus_leopardus/radiator_data_20220330_1452.vcf")
 ```
+<div style="background-color:rgba(196, 208, 208, 0.8);">
+> Los datos son correctos?
+</div>
+
 
 Nuestra base de datos se compone de solo 200 individuos; sin embargo, nuestro objeto VCF muestra que tenemos 209, esto significa que algunos de los ID de los indivuos se encuentran repetidos, antes de poder convertilos a un archivo `genind`, debemos filtrarlos:
 
-```{r}
-# Single pipe to fix IDs
+```{r filtrado}
 fish.vcf@fix[,3] <- tibble(
   id = getID(fish.vcf),
   chrom = getCHROM(fish.vcf),
@@ -53,7 +55,7 @@ fish.vcf@fix[,3] <- tibble(
   pull(new_id)
 ```
 
-```{r, echo= TRUE}
+```{r archivo genind, echo= TRUE}
 fish.ind <- vcfR2genind(fish.vcf)
 fish.ind
 ```
@@ -63,13 +65,9 @@ Si revisamos ahora nuestro objeto `genind`, cuántos individuos han quedado desp
 
 ### Uso de paquetería dartR
 
-```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '100%'}
-# knitr::include_graphics("../../../../images/dartR_logo.png")
-```
-
 La paquetería dartR permite la conversión de archivos en distintos formatos a partir de un archivo `genlight`
 
-```{r, warning=FALSE}
+```{r objeto genlight, warning=FALSE}
 fish.gl <- vcfR2genlight(fish.vcf)
 fish.gl
 ```
@@ -81,25 +79,26 @@ library(dartR)
 
 Para convertirlo en un archivo `bayescan`, primero revisaremos la integridad de nuestro objeto `genlight` para evitar errores en su conversión:
 
-```{r}
+```{r bayescan}
 fish.gl <- gl.compliance.check(fish.gl, verbose = 3)
 fish_bayescan <- gl2bayescan(fish.gl, outpath = "./outputs", outfile = "fish_bayescan.txt")
 ```
 
 Para convertirlo en un archivo `genepop`, podemos explorar las opciones para formatear el archivo como cambiar el order de las poblaciones
 
-```{r}
+```{r genepop}
 fish_gen <- gl2genepop(fish.gl, outpath = "./outputs", outfile = "fish.gen")
 ```
 
 Para convertirlo a formato `structure`:
 
-```{r}
+```{r structure}
 fish_structure <- gl2structure(fish.gl, outpath = "./outputs", outfile = "fish_structure.txt")
 ```
 
+### Salvar objetos 
 Guardaremos nuestro objeto para poder llamarlo en las siguientes secciones:
-```{r}
+```{r outputs}
 saveRDS(fish.ind, file.path("outputs", "fish.ind.rds"))
 saveRDS(fish.gl, file.path("outputs", "fish.gl.rds"))
 saveRDS(fish.gl, file.path("outputs", "fish.gl.rds"))
