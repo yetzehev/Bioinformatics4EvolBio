@@ -3,7 +3,6 @@ title: "Indices de ancestría en `tess3r`"
 author: "Daniela Felix"
 output:
   html_document:
-    css: styles.css
     toc: true
     toc_float: true
 date: "`r Sys.Date()`"
