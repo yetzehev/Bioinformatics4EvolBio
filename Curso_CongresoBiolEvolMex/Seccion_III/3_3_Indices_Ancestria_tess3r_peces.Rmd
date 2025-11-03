@@ -13,7 +13,7 @@ date: "`r Sys.Date()`"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r include=FALSE}
+```{r libraries, message=FALSE, warning=FALSE}
 library(adegenet)
 library(tess3r)
 library(maps)
@@ -23,6 +23,7 @@ library(rnaturalearth)
 library(rworldmap)
 library(fields)
 library(metR)
+library(dplyr)
 ```
 
 ### Preparando nuestros datos genéticos
@@ -73,10 +74,32 @@ fish_geno <- round(fish_geno)
 
 
 ```{r}
-plot(coord_matrix, pch = 19, cex = .5, 
+plot(coord_matrix, pch = 19, cex = 2, 
      xlab = "Longitude (°E)", ylab = "Latitude (°N)")
 map(add = TRUE, interior = FALSE)
 ```
+Convertir el objeto `coord_matrix` en un `dataframe`
+```{r}
+coord_df <- as.data.frame(coord_matrix)
+colnames(coord_df) <- c("lon", "lat")
+```
+
+Vamos a obtener los datos del mapa mundial para poder usarlo en nuestro gráfico mediante la función `map_data()` de la paquetería `ggplot2` y luego correremos el código para el gráfico
+```{r}
+# Get world map data
+world_map <- map_data("world")
+
+# Plot only region of interest
+ggplot() +
+  geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
+               fill = "azure3", color = "gray3") +
+  geom_point(data = coord_df, aes(x = lon, y = lat),
+             color = "black", size = 3) +
+  coord_fixed(xlim = range(x_seq), ylim = range(y_seq)) +
+  labs(x = "Longitud (°E)", y = "Latitud (°N)") +
+  theme_bw()
+```
+
 
 
 Ahora tenemos todo listo para poder correr el análisis en `tess3r`:
@@ -106,8 +129,7 @@ q.matrix <- qmatrix(tess3.obj, K = 2)
 STRUCTURE-like barplot for the Q-matrix
 ```{r barplot, message=FALSE, warning=FALSE}
 barplot(q.matrix, border = NA, space = 0, 
-        xlab = "Individuals", ylab = "Ancestry proportions", 
-        main = "Ancestry matrix") -> bp
+        xlab = "Individuos", ylab = "Proporción de ancestría") -> bp
 
 axis(1, at = 1:nrow(q.matrix), labels = bp$order, las = 3, cex.axis = .4) 
 ```
@@ -122,120 +144,19 @@ Usaremos nuestra matriz para crear el mapa con la ancestría
 plot(q.matrix, coord_matrix, method = "map.max", interpol = FieldsKrigModel(10),  
      main = "Ancestry coefficients",
      xlab = "Longitude", ylab = "Latitude", 
-     resolution = c(300,300), cex = .4, 
+     resolution = c(300,300), cex = 1, 
      col.palette = my.palette)
 ```
 
 
-
-```{r}
-plot(coord_matrix[,1], coord_matrix[,2], type = "n",
-     xlab = "Longitude", ylab = "Latitude",
-     main = "Population Structure - Marine Samples")
-
-# Ocean background
-rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], 
-     col = "lightblue", border = NA)
-
-# Create simple colors directly
-ancestry_colors <- rgb(
-  red = q.matrix[,1],    # Red component = ancestry cluster 1
-  green = 1 - q.matrix[,1], # Green component = inverse of cluster 1
-  blue = 0.5,            # Fixed blue component
-  alpha = 0.8
-)
-
-# Add colored points
-points(coord_matrix[,1], coord_matrix[,2], 
-       pch = 21, bg = ancestry_colors, col = "black", 
-       cex = 2, lwd = 1.5)
-
-# Add land
-map("world", add = TRUE, col = "lightgreen", fill = TRUE, border = "darkgreen")
-
-# Simple legend
-legend_colors <- rgb(
-  red = c(0, 0.5, 1),
-  green = c(1, 0.5, 0), 
-  blue = c(0.5, 0.5, 0.5)
-)
-
-legend("topright", 
-       title = "Ancestry Cluster 1",
-       legend = c("Low (0)", "Medium (0.5)", "High (1)"),
-       pch = 21, pt.bg = legend_colors,
-       pt.cex = 1.5, bty = "n")
-
-grid()
-```
-
-Vamos a crear una paleta de colores a utilizar en el océano, especificaremos los colores y la cantidad que necesitaremos
-```{r ocean colours}
-ocean.palette <- colorRampPalette(c("darkblue", "cyan", "yellow", "red"))(100)
-# ocean.palette <- colorRampPalette(c("darkblue",  "red"))(50)
-
-```
-
-Create interpolation surface for ancestry in the ocean
-```{r}
-tps_model <- Tps(coord_matrix, q.matrix[,1])
-
-# 3. Create a detailed grid covering your ocean area
-x_seq <- seq(min(coord_matrix[,1])-2, max(coord_matrix[,1])+2, length.out = 200)
-y_seq <- seq(min(coord_matrix[,2])-2, max(coord_matrix[,2])+2, length.out = 200)
-grid_points <- as.matrix(expand.grid(x_seq, y_seq))
-
-# 4. Predict ancestry values across the entire grid
-pred_ancestry <- predict(tps_model, grid_points)
-pred_matrix <- matrix(pred_ancestry, nrow = length(x_seq), ncol = length(y_seq))
-```
-
-
-
-```{r}
-# Añade primero la interpolación de ancestría (esto coloreará el océano)
-image(x_seq, y_seq, pred_matrix, 
-      col = ocean.palette, 
-      zlim = c(0, 1),
-      xlab = "", ylab = "", add = FALSE)  # Don't use add=TRUE here
-
-# Agregar las isolíneas para mostrar el gradiente de ancestría
-contour(x_seq, y_seq, pred_matrix, 
-        levels = seq(0, 1, 0.1),
-        add = TRUE, drawlabels = TRUE, 
-        col = "white", lwd = 0.8, labcex = 0.7)
-
-
-# En este paso agregaremos la tierra sobre la ancestría (para cubrir los colores)
-map("world", add = TRUE, col = "gray", fill = TRUE, border = "black")
-
-
-# Ahora los puntos en color blanco
-points(coord_matrix[,1], coord_matrix[,2], 
-       pch = 21, bg = "white", col = "black", cex = 1.2, lwd = 1)
-
-
-image.plot(zlim = c(0, 1), 
-           col = ocean.palette,
-           legend.only = TRUE,
-           horizontal = FALSE,
-           legend.args = list(text = "Ancestry\nProportion", 
-                             side = 4, line = 2.5, cex = 0.9),
-           smallplot = c(0.88, 0.91, 0.2, 0.8))
-
-
-# Ahora el grid
-grid()
-```
 
 Checar cuántos valores de K hay disponibles en nuestro objeto `tess3.obj`
 ```{r}
 print(length(tess3.obj))
 ```
 
-
+Crearemos una interpolación para el océano
 ```{r}
-library(metR)
 # 1. Create interpolation (same as before)
 ocean.palette <- colorRampPalette(c("darkblue", "cyan", "yellow", "red"))(100)
 tps_model <- Tps(coord_matrix, q.matrix[,1])
@@ -248,93 +169,73 @@ grid_points <- as.matrix(expand.grid(x_seq, y_seq))
 
 pred_ancestry <- predict(tps_model, grid_points)
 pred_matrix <- matrix(pred_ancestry, nrow = length(x_seq), ncol = length(y_seq))
+```
 
-# 2. Convert to data frame for ggplot
+
+`ggplot2`, a diferencia de la función base de `plot` en R, requiere de un `dataframe` para leer los datos por lo que los convertiremos en antes de poder crear nuestro gráfico:
+```{r}
 interp_df <- data.frame(
   x = rep(x_seq, length(y_seq)),
   y = rep(y_seq, each = length(x_seq)),
   ancestry = as.vector(pred_matrix)
 )
+```
 
-# 3. Get world map data using map_data() instead of fortify()
-world_map <- map_data("world")
 
+Ahora crearemos un dataframe con los puntos de nuestras localidades
+```{r}
 # 4. Create sample points data
 sample_df <- data.frame(
   x = coord_matrix[,1],
   y = coord_matrix[,2],
   ancestry = q.matrix[,1]
 )
+```
 
-# 5. Create the ggplot
+Qué es lo que está haciendo nuestro código en esta parte?
+  `x = coord_matrix[,1]`
+  `y = coord_matrix[,2]`
+
+
+```{r}
 ggplot() +
-  # Main ancestry surface
-  geom_tile(data = interp_df, aes(x = x, y = y, fill = ancestry), alpha = 0.8) +
+  # Superficie ancestral principal
+  geom_tile(data = interp_df, aes(x = x, y = y, fill = ancestry), alpha = 1) +
   
-  # Smooth contour lines with labels
+  # Contornos suaves con etiquetas
   geom_contour(data = interp_df, aes(x = x, y = y, z = ancestry),
-               color = "white", breaks = seq(0, 1, 0.1), linewidth = 0.3) +
+               color = "white", breaks = seq(0, 1, 0.1), linewidth = 0.4) +
   
   geom_text_contour(data = interp_df, aes(x = x, y = y, z = ancestry),
                     color = "white", size = 3, check_overlap = TRUE,
                     breaks = seq(0, 1, 0.1)) +
   
-  # Land overlay
-  geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
-               fill = "gray40", color = "black", alpha = 0.7) +
-  
-  # Sample locations
+  # Localidades de las muestras
   geom_point(data = sample_df, aes(x = x, y = y),
              color = "black", fill = "white", shape = 21, size = 2.5, stroke = 0.8) +
   
-  # Styling
+  # Estilo del gráfico y aplicación de colores
   scale_fill_gradientn(colors = ocean.palette,
                        limits = c(0, 1),
-                       name = "Ancestry\nProportion") +
+                       name = "Proporción de\nAncestría",
+                       na.value = "transparent") +
   coord_fixed(xlim = range(x_seq), ylim = range(y_seq)) +
-  labs(title = "Population Structure - Marine Environment",
-       x = "Longitude", y = "Latitude") +
+  labs(x = "Longitud", y = "Latitud") +
   theme_bw() +
   theme(
     panel.background = element_rect(fill = "white"),
     panel.grid = element_line(color = "gray80")
-  )
+  ) +
+
+  # Superposición del continente al final para que cubra todo lo que hay debajo, en este caso los colores de ancestría
+  geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
+               fill = "azure3", color = "gray3")
+
 ```
 
+
+Vamos a graficar los resultados de ancestría por cluster, para ello encontraremos al cluster dominante para cada muestra
 ```{r}
-# Create plots for each ancestry component
-for (k in 1:ncol(q.matrix)) {
-  
-  tps_model <- Tps(coord_matrix, q.matrix[,k])
-  pred_ancestry <- predict(tps_model, grid_points)
-  pred_matrix <- matrix(pred_ancestry, nrow = length(x_seq), ncol = length(y_seq))
-  
-  interp_df <- data.frame(
-    x = rep(x_seq, length(y_seq)),
-    y = rep(y_seq, each = length(x_seq)),
-    ancestry = as.vector(pred_matrix)
-  )
-  
-  p <- ggplot() +
-    geom_tile(data = interp_df, aes(x = x, y = y, fill = ancestry), alpha = 0.8) +
-    geom_contour(data = interp_df, aes(x = x, y = y, z = ancestry),
-                 color = "white", breaks = seq(0, 1, 0.1), linewidth = 0.3) +
-    geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
-                 fill = "gray40", color = "black", alpha = 0.7) +
-    geom_point(data = sample_df, aes(x = x, y = y),
-               color = "black", fill = "white", shape = 21, size = 1.5) +
-    scale_fill_gradientn(colors = ocean.palette, limits = c(0, 1),
-                         name = paste("Cluster", k)) +
-    coord_fixed(xlim = range(x_seq), ylim = range(y_seq)) +
-    labs(title = paste("Ancestry Cluster", k),
-         x = "Longitude", y = "Latitude") +
-    theme_bw()
-  
-  print(p)
-}
-```
-```{r}
-# Find dominant cluster for each sample
 dominant_cluster <- apply(q.matrix, 1, which.max)
 
 sample_df_dominant <- data.frame(
@@ -342,91 +243,83 @@ sample_df_dominant <- data.frame(
   y = coord_matrix[,2],
   cluster = factor(dominant_cluster)
 )
+```
 
-# Create colors for each cluster
+Ahora asignaremos los colores a cada cluster, como no sabemos cuántos tenemos, asignaremos 4 colores, pero pueden ser más y graficaremos.
+```{r}
 cluster_colors <- c("red", "blue", "green", "purple", "orange")[1:ncol(q.matrix)]
 
 ggplot() +
-  geom_tile(data = interp_df, aes(x = x, y = y), fill = "lightblue") +
+  geom_tile(data = interp_df, aes(x = x, y = y), fill = "transparent") +
   geom_point(data = sample_df_dominant, aes(x = x, y = y, color = cluster), 
              size = 3, alpha = 0.8) +
   geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
                fill = "gray40", color = "black", alpha = 0.7) +
-  scale_color_manual(values = cluster_colors, name = "Dominant\nCluster") +
+  scale_color_manual(values = cluster_colors, name = "Cluster\ndominante") +
   coord_fixed(xlim = range(x_seq), ylim = range(y_seq)) +
-  labs(title = "Dominant Ancestry Cluster",
-       x = "Longitude", y = "Latitude") +
+  labs(x = "Longitud", y = "Latitud") +
   theme_bw()
+```
+Dado que se mostraron dos (K=2), crearemos una paleta de colores que representen a cada uno de los encontrados, agregando un color intermedio para balancear y representarlos mejor.
+```{r}
+balance.palette <- colorRampPalette(c("blue", "white", "red"))(100)
+```
+
+Usaremos la proporción del cluster 1 como nuestra variable principal
+```{r}
+tps_model <- Tps(coord_matrix, q.matrix[,1])
 ```
 
 ```{r}
-library(ggplot2)
-library(fields)
-library(maps)
-
-# Since K=2, we can show the balance between the two clusters
-# Let's use: Blue = high Cluster 1, Red = high Cluster 2
-
-# Create color palette for the balance
-balance.palette <- colorRampPalette(c("blue", "white", "red"))(100)
-
-# Use Cluster 1 proportion as our main variable (Cluster 2 is 1 - Cluster 1)
-tps_model <- Tps(coord_matrix, q.matrix[,1])  # Using Cluster 1 proportions
-
 x_seq <- seq(min(coord_matrix[,1])-2, max(coord_matrix[,1])+2, length.out = 200)
 y_seq <- seq(min(coord_matrix[,2])-2, max(coord_matrix[,2])+2, length.out = 200)
 grid_points <- as.matrix(expand.grid(x_seq, y_seq))
 
 pred_ancestry <- predict(tps_model, grid_points)
 pred_matrix <- matrix(pred_ancestry, nrow = length(x_seq), ncol = length(y_seq))
+```
 
+
+De nuevo, los correspondientes dataframe para cada sección, la interpolación y las muestras.
+```{r}
 interp_df <- data.frame(
   x = rep(x_seq, length(y_seq)),
   y = rep(y_seq, each = length(x_seq)),
   cluster1_proportion = as.vector(pred_matrix)  # Proportion of Cluster 1
 )
 
-world_map <- map_data("world")
-
 sample_df <- data.frame(
   x = coord_matrix[,1],
   y = coord_matrix[,2],
-  cluster1_proportion = q.matrix[,1],  # Proportion of Cluster 1
-  cluster2_proportion = q.matrix[,2]   # Proportion of Cluster 2
-)
+  cluster1_proportion = q.matrix[,1],  
+  cluster2_proportion = q.matrix[,2]  
+) 
+```
 
-# Create the plot
+Y ahora, graficamos por cluster
+```{r}
 ggplot() +
-  # Interpolation surface - Blue (Cluster 1) to Red (Cluster 2)
   geom_tile(data = interp_df, aes(x = x, y = y, fill = cluster1_proportion), alpha = 0.8) +
-  
-  # Contour lines
   geom_contour(data = interp_df, aes(x = x, y = y, z = cluster1_proportion),
                color = "white", breaks = seq(0, 1, 0.1), linewidth = 0.3) +
-  
-  # Land overlay
-  geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
-               fill = "gray40", color = "black", alpha = 0.7) +
-  
-  # Sample points colored by their cluster balance
   geom_point(data = sample_df, aes(x = x, y = y, fill = cluster1_proportion),
              color = "black", shape = 21, size = 2.5, stroke = 0.8) +
-  
-  # Color scale: Blue = Cluster 1 dominant, Red = Cluster 2 dominant
   scale_fill_gradientn(colors = balance.palette,
                        limits = c(0, 1),
+                       na.value = "transparent",
                        name = "Cluster Balance",
                        breaks = c(0, 0.5, 1),
                        labels = c("Cluster 2\nDominant", "Equal", "Cluster 1\nDominant")) +
-  
   coord_fixed(xlim = range(x_seq), ylim = range(y_seq)) +
-  labs(title = "Population Structure - K=2 Clusters",
-       subtitle = "Blue: Cluster 1 dominant | Red: Cluster 2 dominant",
+  labs(title = "Estructura poblacional - K=2 Clusters",
+       subtitle = "Azul: Cluster dominante 1 | Rojo: Cluster dominante 2",
        x = "Longitude", y = "Latitude") +
   theme_bw() +
   theme(
-    panel.background = element_rect(fill = "lightblue"),
+    panel.background = element_rect(fill = "transparent"),
     panel.grid = element_line(color = "gray80")
-  )
+  ) +
+  geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
+               fill = "azure3", color = "gray3")
 ```
 
