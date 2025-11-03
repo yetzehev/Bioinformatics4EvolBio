@@ -3,7 +3,6 @@ title: "Filtrado y edición de tablas en tidyverse"
 author: "Daniela Felix"
 output:
   html_document:
-    css: styles.css
     toc: true
     toc_float: true
 date: "`r Sys.Date()`"
