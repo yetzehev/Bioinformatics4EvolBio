@@ -32,63 +32,63 @@ fish.ind
 ```
 
 Convertir nuestro objeto genind en una matriz numérica
-```{r}
+```{r genind a matriz}
 fish_geno <- tab(fish.ind, NA.method = "mean")  # convert to numeric, impute missing with mean
 fish_geno <- round(fish_geno)  # make sure values are integers 0/1/2
 ```
 
 ### Preparando nuestros metadatos
 De igual forma, cargaremos nuestro metadatos previamente filtrados:
-```{r}
+```{r pop data}
 pop_info <- readRDS(file.path("../Seccion_II/outputs", "pop_info.rds"))
 strata <- pop_info
 ```
 
 Además, tenemos que cargar nuestras coordenadas geográficas:
-```{r}
+```{r coordenadas}
 coords <- read.csv("../Seccion_II/datos/plectropomus_leopardus/coordinates.csv", header = TRUE)
 ```
 
 Ahora, empataremos nuestras coordenadas con nuestros metadatos, tenemos que lograr que nuestros ID coincidan con su correspondiente coordenada, para ello uniremos nuestras bases:
-```{r}
+```{r coordenadas + ID}
 sample_coords <- merge(strata, coords, by = "STRATA")
 ```
 
 También debemos ordenar nuestros ID en el archivo `genind` y hacer que coincida con los ID de los metadatos
-```{r}
+```{r ID + genind}
 # Order to match the genind/geno matrix
 sample_coords <- sample_coords[match(indNames(fish.ind), sample_coords$INDIVIDUALS), ]
 ```
 
 Extraeremos solamente las coordenadas geográficas:
-```{r}
+```{r solo coordenadas}
 coord_matrix <- as.matrix(sample_coords[, c("Longitude", "Latitude")])
 ```
 
 Convertiremos el archivo `genind` en una matriz, esta no debe de incluir `NA` dado que la paquetería no puede tratar los datos faltantes, para ello, podemos optar por la opción de calcular la `media` para rellenar eso datos:
-```{r}
+```{r NA datos}
 fish_geno <- tab(fish.ind, NA.method = "mean")  
 fish_geno <- round(fish_geno) 
 ```
 
 
-```{r}
+```{r mapa plano}
 plot(coord_matrix, pch = 19, cex = 2, 
      xlab = "Longitude (°E)", ylab = "Latitude (°N)")
 map(add = TRUE, interior = FALSE)
 ```
 Convertir el objeto `coord_matrix` en un `dataframe`
-```{r}
+```{rmatriz a dataframe}
 coord_df <- as.data.frame(coord_matrix)
 colnames(coord_df) <- c("lon", "lat")
 ```
 
 Vamos a obtener los datos del mapa mundial para poder usarlo en nuestro gráfico mediante la función `map_data()` de la paquetería `ggplot2` y luego correremos el código para el gráfico
-```{r}
-# Get world map data
+```{r mapa ggplot}
+# mapa del mundo
 world_map <- map_data("world")
 
-# Plot only region of interest
+# Solo la región de interés
 ggplot() +
   geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
                fill = "azure3", color = "gray3") +
@@ -102,7 +102,7 @@ ggplot() +
 
 
 Ahora tenemos todo listo para poder correr el análisis en `tess3r`:
-```{r include=FALSE}
+```{r tess3r, include=FALSE}
 tess3.obj <- tess3(
   X = fish_geno,
   coord = coord_matrix,  
@@ -114,18 +114,18 @@ tess3.obj <- tess3(
 ```
 
 Estimaremos el coeficiente de ancestría:
-```{r}
+```{r coeficiente}
 plot(tess3.obj, pch = 19, col = "blue",
      xlab = "Number of ancestral populations",
      ylab = "Cross-validation score")
 ```
 
 Dado que el gráfico anterior nos arroja una K=2, los especificaremos en nuestra `qmatrix`
-```{r}
+```{r qmatrix}
 q.matrix <- qmatrix(tess3.obj, K = 2)
 ```
 
-STRUCTURE-like barplot for the Q-matrix
+STRUCTURE-like barplot para la matriz Q (Q-matrix)
 ```{r barplot, message=FALSE, warning=FALSE}
 barplot(q.matrix, border = NA, space = 0, 
         xlab = "Individuos", ylab = "Proporción de ancestría") -> bp
@@ -133,7 +133,7 @@ barplot(q.matrix, border = NA, space = 0,
 axis(1, at = 1:nrow(q.matrix), labels = bp$order, las = 3, cex.axis = .4) 
 ```
 
-```{r}
+```{r paleta de colores}
 my.colors <- c("tomato", "orange", "lightblue", "olivedrab")
 my.palette <- CreatePalette(my.colors, 9)
 ```
@@ -150,18 +150,17 @@ plot(q.matrix, coord_matrix, method = "map.max", interpol = FieldsKrigModel(10),
 
 
 Checar cuántos valores de K hay disponibles en nuestro objeto `tess3.obj`
-```{r}
+```{r valores K}
 print(length(tess3.obj))
 ```
 
 Crearemos una interpolación para el océano
-```{r}
-# 1. Create interpolation (same as before)
+```{r colores interpolación}
 ocean.palette <- colorRampPalette(c("darkblue", "cyan", "yellow", "red"))(100)
 tps_model <- Tps(coord_matrix, q.matrix[,1])
 ```
 
-```{r}
+```{r datos de ancestria}
 x_seq <- seq(min(coord_matrix[,1])-2, max(coord_matrix[,1])+2, length.out = 200)
 y_seq <- seq(min(coord_matrix[,2])-2, max(coord_matrix[,2])+2, length.out = 200)
 grid_points <- as.matrix(expand.grid(x_seq, y_seq))
@@ -172,7 +171,7 @@ pred_matrix <- matrix(pred_ancestry, nrow = length(x_seq), ncol = length(y_seq))
 
 
 `ggplot2`, a diferencia de la función base de `plot` en R, requiere de un `dataframe` para leer los datos por lo que los convertiremos en antes de poder crear nuestro gráfico:
-```{r}
+```{r dataframe interpolacion}
 interp_df <- data.frame(
   x = rep(x_seq, length(y_seq)),
   y = rep(y_seq, each = length(x_seq)),
@@ -182,8 +181,7 @@ interp_df <- data.frame(
 
 
 Ahora crearemos un dataframe con los puntos de nuestras localidades
-```{r}
-# 4. Create sample points data
+```{r puntos localidades}
 sample_df <- data.frame(
   x = coord_matrix[,1],
   y = coord_matrix[,2],
@@ -196,7 +194,7 @@ Qué es lo que está haciendo nuestro código en esta parte?
   `y = coord_matrix[,2]`
 
 
-```{r}
+```{r mapa ancestria océano}
 ggplot() +
   # Superficie ancestral principal
   geom_tile(data = interp_df, aes(x = x, y = y, fill = ancestry), alpha = 1) +
@@ -234,7 +232,7 @@ ggplot() +
 
 
 Vamos a graficar los resultados de ancestría por cluster, para ello encontraremos al cluster dominante para cada muestra
-```{r}
+```{r clusters dominantes}
 dominant_cluster <- apply(q.matrix, 1, which.max)
 
 sample_df_dominant <- data.frame(
@@ -245,7 +243,7 @@ sample_df_dominant <- data.frame(
 ```
 
 Ahora asignaremos los colores a cada cluster, como no sabemos cuántos tenemos, asignaremos 4 colores, pero pueden ser más y graficaremos.
-```{r}
+```{r mapa clusters puntos}
 cluster_colors <- c("red", "blue", "green", "purple", "orange")[1:ncol(q.matrix)]
 
 ggplot() +
@@ -260,16 +258,16 @@ ggplot() +
   theme_bw()
 ```
 Dado que se mostraron dos (K=2), crearemos una paleta de colores que representen a cada uno de los encontrados, agregando un color intermedio para balancear y representarlos mejor.
-```{r}
+```{r paleta balance}
 balance.palette <- colorRampPalette(c("blue", "white", "red"))(100)
 ```
 
 Usaremos la proporción del cluster 1 como nuestra variable principal
-```{r}
+```{r cluster principal}
 tps_model <- Tps(coord_matrix, q.matrix[,1])
 ```
 
-```{r}
+```{r datos cluster principal}
 x_seq <- seq(min(coord_matrix[,1])-2, max(coord_matrix[,1])+2, length.out = 200)
 y_seq <- seq(min(coord_matrix[,2])-2, max(coord_matrix[,2])+2, length.out = 200)
 grid_points <- as.matrix(expand.grid(x_seq, y_seq))
@@ -280,7 +278,7 @@ pred_matrix <- matrix(pred_ancestry, nrow = length(x_seq), ncol = length(y_seq))
 
 
 De nuevo, los correspondientes dataframe para cada sección, la interpolación y las muestras.
-```{r}
+```{r interpolacion y muestras K}
 interp_df <- data.frame(
   x = rep(x_seq, length(y_seq)),
   y = rep(y_seq, each = length(x_seq)),
@@ -296,7 +294,7 @@ sample_df <- data.frame(
 ```
 
 Y ahora, graficamos por cluster
-```{r}
+```{r mapa ancestria clusters}
 ggplot() +
   geom_tile(data = interp_df, aes(x = x, y = y, fill = cluster1_proportion), alpha = 0.8) +
   geom_contour(data = interp_df, aes(x = x, y = y, z = cluster1_proportion),
