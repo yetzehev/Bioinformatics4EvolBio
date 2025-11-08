@@ -2,12 +2,9 @@
 title: "Paquetería adegenet"
 author: "Daniela Felix"
 output:
-  learnr::tutorial:
-    css: styles.css
+  html_document:
     toc: true
     toc_float: true
-    storage: "none"
-runtime: shiny_prerendered
 date: "`r Sys.Date()`"
 ---
 
@@ -20,7 +17,6 @@ La documentación para la paquetería puede consultarse [aquí](https://academic
 
 ```{r shiny, include=FALSE}
 library(shiny)
-library(learnr)
 ```
 
 Cargamos las paqueterías a utilizar en esta sección:
@@ -72,7 +68,7 @@ title(xlab="Eigenvalues", line = 1)
 fish.pca
 ```
 
-```{r}
+```{r pca scores}
 fish.scores <- as.data.frame(fish.pca$scores)
 fish.scores$pop <- pop(fish.gl)
 ```
@@ -114,22 +110,13 @@ scatter(
 
 ```
 
-Vamos a crear un vector de colores que sea igual al número de grupos
+Vamos a crear un vector de colores que sea igual al número de grupos:
 
 ```{r K}
 # Build a color vector of length equal to the number of groups
 K <- ncol(fish.dapc$posterior)  # número de grupos (columnas en Q)
 ```
 
-
-```{r quizz, echo=FALSE}
-question("Cuántos grupos tenemos de acuerdo con K?",
-answer("5", correct = FALSE),
-answer("7", correct = TRUE),
-answer("3", correct = FALSE),
-answer("8", correct = FALSE),
-allow_retry = TRUE)
-```
 
 ```{r colours}
 cols <- adegenet::funky(K)

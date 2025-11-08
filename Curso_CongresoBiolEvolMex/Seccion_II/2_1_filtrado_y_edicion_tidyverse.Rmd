@@ -3,7 +3,6 @@ title: "Filtrado y edición de tablas en tidyverse"
 author: "Daniela Felix"
 output:
   html_document:
-    css: styles.css
     toc: true
     toc_float: true
 date: "`r Sys.Date()`"
@@ -18,7 +17,8 @@ Existen distintas formas de manipular nuestros datos en R, y en esta sección ut
 `tidyverse` se compone por distintas paqueterías diseñadas para manipular y visualizar datos en R, entre las paqueterías incluídas en este universo se encuentran: `ggplot2`, `string`, `dplyr`, entre otras.
 
 
-Para cargar los metadatos para este curso, vamos a seleccionar el folder donde tenemos guardados nuestros archivos
+Para cargar los metadatos para este curso, vamos a seleccionar el folder donde tenemos guardados nuestros archivos.
+
 > Si trabajamos con distintos sets de datos de distintos proyectos, podemos crear un proyecto específico. Esto nos permitirá guardar nuestros avances, tener las librerías y carpetas cargadas sin necesidad de estar buscando cada archivo de R a la vez.
 
 Cargamos las paqueterías a utilizar en esta sección, para ello utilizaremos la función `library`:
