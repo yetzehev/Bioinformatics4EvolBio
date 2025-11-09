@@ -29,7 +29,7 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
 - Aplicar métodos de agrupamiento para el análisis de poblaciones
 
 ## Dia 1 (10 de Noviembre de 2025)
-
+------
 ## Presentación y conexión al servidor (10:00 - 11:00)
 - Presentación de las instructoras y organizadores del curso (10:00 - 10:10)
 - Presentación de los participantes: Nombre, Grado de estudios y si tu tesis fuera soundtrack, ¿qué canción o canciones incluirías? (10:10 - 10:30)
