@@ -16,8 +16,6 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
 **Valor curricular:** NA
 **Costos:** Incluido en el costo de inscripcion al Primer Congreso Mexicano de Biologia Evolutiva 
 
-
-
 ## Módulo II: Manejo de Tablas y Visualización de Datos en RStudio 
 
 ### Objetivos del Módulo
@@ -86,7 +84,6 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
   - Convertir el archivo a genelight con adegenet
   
 ###  Pausa corta (5 min) (12:35- 12:40)
-------
 
 ## **Sección 2: Manipulación de Tablas ** 
 
@@ -122,6 +119,7 @@ Empleareamos un conjunto de datos publicos  para  extraer  y realizar un subconj
   
 ## Dia 2 (11 de Noviembre de 2025)
 ------
+
 ### Preguntas de repaso (10:00 -10:15 )
 ## Sección 3: Visualización de datos genéticos
 
