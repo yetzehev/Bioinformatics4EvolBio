@@ -85,7 +85,7 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
   
 ###  Pausa corta (5 min) (12:35- 12:40)
 
-## **Sección 2: Manipulación de Tablas ** 
+## Sección 2: Manipulación de Tablas
 
 ### 2.1 Tidyverse (Daniela Félix) (12:40 - 12:50)
 
