@@ -1,6 +1,6 @@
 # **Bioinformática para biología evolutiva**
 
-### **Responsables:**
+### **Responsables**
 
 - Idalia C. Rojas Barrera
 
@@ -29,7 +29,7 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
 - Aplicar métodos de agrupamiento para el análisis de poblaciones
 
 ## Dia 1 (10 de Noviembre de 2025)
-------
+
 ## Presentación y conexión al servidor (10:00 - 11:00)
 - Presentación de las instructoras y organizadores del curso (10:00 - 10:10)
 - Presentación de los participantes: Nombre, Grado de estudios y si tu tesis fuera soundtrack, ¿qué canción o canciones incluirías? (10:10 - 10:30)
@@ -85,6 +85,7 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
   
 ###  Pausa corta (5 min) (12:35- 12:40)
 
+
 ## Sección 2: Manipulación de Tablas
 
 ### 2.1 Tidyverse (Daniela Félix) (12:40 - 12:50)
@@ -121,6 +122,7 @@ Empleareamos un conjunto de datos publicos  para  extraer  y realizar un subconj
 ------
 
 ### Preguntas de repaso (10:00 -10:15 )
+
 ## Sección 3: Visualización de datos genéticos
 
 ### 3.1 Visualización de Estadísticos (Daniela Félix) (10:15 - 10:30) 
