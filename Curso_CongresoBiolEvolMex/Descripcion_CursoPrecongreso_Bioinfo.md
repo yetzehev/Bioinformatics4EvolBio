@@ -10,11 +10,11 @@
 
 El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStudio** es un extracto del **Módulo II** del curso de **Genómica de Poblaciones**, desarrollado por los integrantes de la **ReMBE**. El curso ha sido adaptado para cubrir el manejo de datos y su visualización, utilizando paquetes y librerías disponibles en **RStudio**.
 
-**Fechas:** 10 y 11 de noviembre de 2025
-**Duracion:** 2 sesiones de 4 horas cada una
-**Institución que expedir las constancias:** Red Mexicana de Biologia Evolutiva
-**Valor curricular:** NA
-**Costos:** Incluido en el costo de inscripcion al Primer Congreso Mexicano de Biologia Evolutiva 
+- **Fechas:** 10 y 11 de noviembre de 2025
+- **Duracion:** 2 sesiones de 4 horas cada una
+- **Institución que expedir las constancias:** Red Mexicana de Biologia Evolutiva (ReMBE)
+- **Valor curricular:** NA
+- **Costos:** Incluido en el costo de inscripcion al Primer Congreso Mexicano de Biologia Evolutiva 
 
 ## Módulo II: Manejo de Tablas y Visualización de Datos en RStudio 
 
