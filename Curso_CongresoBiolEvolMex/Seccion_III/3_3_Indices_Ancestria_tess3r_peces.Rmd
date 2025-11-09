@@ -194,6 +194,7 @@ Qué es lo que está haciendo nuestro código en esta parte?
   `y = coord_matrix[,2]`
 
 
+Ahora vamos a pasar los colores al océano que es lo que nos interesa y salvaremos la figura en una buena calidad
 ```{r mapa ancestria océano}
 ggplot() +
   # Superficie ancestral principal
@@ -228,6 +229,7 @@ ggplot() +
   geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
                fill = "azure3", color = "gray3")
 
+# ggsave("ancestria.png", width = 8, height = 6, dpi = 300)
 ```
 
 
@@ -299,9 +301,7 @@ ggplot() +
   geom_tile(data = interp_df, aes(x = x, y = y, fill = cluster1_proportion), alpha = 0.8) +
   geom_contour(data = interp_df, aes(x = x, y = y, z = cluster1_proportion),
                color = "white", breaks = seq(0, 1, 0.1), linewidth = 0.3) +
-  geom_point(data = sample_df, aes(x = x, y = y, fill = cluster1_proportion),
-             color = "black", shape = 21, size = 2.5, stroke = 0.8) +
-  scale_fill_gradientn(colors = balance.palette,
+    scale_fill_gradientn(colors = balance.palette,
                        limits = c(0, 1),
                        na.value = "transparent",
                        name = "Cluster Balance",
@@ -317,6 +317,8 @@ ggplot() +
     panel.grid = element_line(color = "gray80")
   ) +
   geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
-               fill = "azure3", color = "gray3")
+               fill = "azure3", color = "gray3") +
+  geom_point(data = sample_df, aes(x = x, y = y, fill = cluster1_proportion),
+             color = "black", shape = 21, size = 2.5, stroke = 0.8) 
 ```
 

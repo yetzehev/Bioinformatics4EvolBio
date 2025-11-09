@@ -135,6 +135,7 @@ z
 ### Entendiendo la estructura de los objetos
 
 Qué tipo de objeto es 'x'?
+
 ```{r class}
 class(x)
 ```
