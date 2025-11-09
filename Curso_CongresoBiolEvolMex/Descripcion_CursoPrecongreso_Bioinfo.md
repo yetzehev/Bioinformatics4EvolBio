@@ -20,7 +20,7 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
 
 ## Módulo II: Manejo de Tablas y Visualización de Datos en RStudio 
 
-## Objetivos del Módulo
+### Objetivos del Módulo
 
 - Dominar el manejo de diferentes formatos de datos bioinformáticos en R
 
@@ -80,8 +80,8 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
 ### 1.4 Resumen de los formatos y conversión de archivos (Daniela Félix & Idalia Rojas) (12:05 - 12:35)
 
 - **1.4.1**  Flujo general de conversión y generación de formatos de datos géneticos (12:05 -12:10)
-- 
-- **1.4.2 ** Ejercicio práctico:  Generar un archivo Geneligth (12:10 - 12:35)
+
+- **1.4.2** Ejercicio práctico:  Generar un archivo Geneligth (12:10 - 12:35)
   - Cargar un VCF  en R (`vcfR` package) 
   - Convertir el archivo a genelight con adegenet
   
@@ -135,7 +135,7 @@ Flujo de trabajo con `adegenet`
 
 ### 3.3 Graficar en Rstudio los índices de ancestría  (Idalia Rojas)
 Dos conjuntos de datos  y dos herramientas
-- **3.3.1** K-means calculado con ADMIXTURE` 
+- **3.3.1** K-means calculado con `ADMIXTURE` 
 - **3.3.2** K-means calculado con `tess3r` 
 
 ### **3.4** Visualizacion de arboles en R (Idalia Rojas)
