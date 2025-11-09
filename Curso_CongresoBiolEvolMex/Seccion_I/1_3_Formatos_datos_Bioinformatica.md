@@ -25,6 +25,11 @@ La presencia de múltiples picos superpuestos a lo largo de la secuencia puede i
 
 Además, de los programas mencionados es posible realizar el alineamiento  y análisis de múltiples secuencias en formato AB, en la paqueteria de  R: [SangerAnalyseR]( https://github.com/roblanf/sangeranalyseR) que es de código abierto y sin costo. 
 
+**Reflexiona:**
+
+- ¿Qué diferencias observas entre las regiones centrales y los extremos de un cromatograma?
+- ¿Por qué los picos pueden aparecer superpuestos o mal definidos?
+
 
 
 ## 1.3.2 FASTA 
@@ -95,7 +100,18 @@ GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
 
 [Fuente original](https://www.hadriengourle.com/tutorials/file_formats/)
 
+**Quiz:**
 
+- ¿Qué aporta la información de calidad (línea 4) que no tiene un archivo FASTA?
+
+<!--  ANSWER: Un FASTQ incluye **información de calidad por nucleótido**, representada con un código ASCII en la cuarta línea. -->
+
+- Interpreta los caracteres de la línea 4 en este ejemplo: ¿qué indican los símbolos más altos o bajos?
+  <!-- Los símbolos reflejan la **probabilidad de error**: caracteres con valores altos (por ejemplo, `I`, `J`) indican alta calidad; bajos (`!`, `#`) indican baja confianza. -->
+  
+- **Ejercicio**
+  - Abre un archivo FASTQ en un editor de texto.
+  - Identifica cuántas secuencias hay y cuántos nucleótidos tiene la primera.
 
 ## 1.3.4  Archivos SAM&BAM 
 
@@ -190,6 +206,19 @@ La última linea del encabezado nombra ocho columnas obligatorias, que correspon
 
 ![VCF_FILE](../../images/VCF.png)
 
+**Quiz:**
+
+- ¿Qué ventaja aporta incluir metadatos en el encabezado de un VCF?
+<!--El encabezado (##) contiene metadatos del programa, versión, referencia y filtros, útiles para reproducibilidad. -->
+
+- ¿Cómo podrías distinguir un SNP de un indel?
+<!-- Un SNP se identifica cuando REF y ALT tienen la misma longitud (una base cada uno); un indel ocurre cuando difieren en longitud. -->
+**Ejercicio:**
+Abre un archivo .vcf con el comando `less`.
+
+- Identifica las columnas CHROM, POS, REF y ALT.
+
+- Encuentra una línea con el campo INFO y analiza qué tipo de información contiene.
 
 ## 1.3.6 Plink 
 
@@ -225,10 +254,6 @@ En este otro ejemplo, el nombre de los loci se encuentran enlistados, ambos form
 ![GENEPOP2](../../images/Genepop_02.png)
 
 Para más detalles, pueden consultar en el siguiente link: https://genepop.curtin.edu.au/help_input.html 
-
-
-
-
 
 
 

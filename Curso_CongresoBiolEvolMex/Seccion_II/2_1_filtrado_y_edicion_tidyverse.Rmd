@@ -12,7 +12,6 @@ date: "`r Sys.Date()`"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
 Existen distintas formas de manipular nuestros datos en R, y en esta sección utilizaremos la paquetería [tidyverse]("https://www.tidyverse.org/") para manipular nuestras bases de datos.
 `tidyverse` se compone por distintas paqueterías diseñadas para manipular y visualizar datos en R, entre las paqueterías incluídas en este universo se encuentran: `ggplot2`, `string`, `dplyr`, entre otras.
 
