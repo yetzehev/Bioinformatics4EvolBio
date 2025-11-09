@@ -255,18 +255,7 @@ En este otro ejemplo, el nombre de los loci se encuentran enlistados, ambos form
 
 Para más detalles, pueden consultar en el siguiente link: https://genepop.curtin.edu.au/help_input.html 
 
-
-
-<<<<<<< HEAD
 ## 1.3.8 Formato Geneind
-=======
-
-
-
-
-## 1.3.8 Formato Genind
->>>>>>> c22ad05714359a9843fbed5f9af6622e5d73d135
-
 El objeto genind es la estructura central de datos en el paquete adegenet de R, utilizada para representar genotipos individuales en estudios de genética de poblaciones. Más que una simple tabla, es un objeto formal (S4) que almacena la información de manera integrada, asegurando la consistencia entre los genotipos, la ubicación de los individuos, y otra información crucial.
 
 Efectivamente, se conforma de una lista de que permiten un análisis y una manipulación eficientes. Algunos de los componentes más importantes son:
@@ -291,7 +280,7 @@ https://www.rdocumentation.org/packages/adegenet/versions/1.0-0/topics/genind
 
 
 
-##  1.3.8.1 Objeto genlight
+##  1.3.9 Objeto Genlight
 
 Al igual que el genind, el objeto genlight es también un objeto formal (S4) en adegenet, pero está optimizado para el big data genético. Mientras que genind es ideal para decenas o cientos de loci, genlight surge para abordar el desafío de los conjuntos de datos de genotipado de nueva generación (NGS), que pueden contener desde miles hasta millones de SNPs.
 

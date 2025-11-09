@@ -23,31 +23,37 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
 ## Objetivos del Módulo
 
 - Dominar el manejo de diferentes formatos de datos bioinformáticos en R
+
 - Aprender técnicas de manipulación de tablas con tidyverse
+
 - Desarrollar habilidades para visualizar datos genéticos
+
 - Aplicar métodos de agrupamiento para el análisis de poblaciones
+
+## Presentación y conexión al servidor (10:00 - 11:00)
+- Presentación de las instructoras y organizadores del curso (10:00 - 10:10)
+- Presentación de los participantes: Nombre, Grado de estudios y si tu tesis fuera soundtrack, ¿qué canción o canciones incluirías? (10:10 - 10:30)
+- Conexión a Rstudio server y clonación del repositorio de GitHub (10:30 - 10:45)
+- Introducción a Rstudio (Daniela Félix) (10:45 - 11:00)
 
 ## Sección 1: Fundamentos 
 
-### 1.1 R y RStudio (Daniela)
+### 1.1 R y RStudio (Daniela Félix) (11:00 - 11:10)
 
 - **Demostración**: Interfaz de RStudio (consola, editor, environment, plots)
 
 - **Ejercicio rápido**: Crear un script básico con comentarios
 
-  
 
-### 1.2 Objetos de R (Daniela)
+### 1.2 Objetos de R (Daniela Félix) (11:10 - 11:20)
 
 - Tipos de objetos: vectores, matrices, data frames, listas
 
 - **Ejercicio práctico**: Crear objetos de cada tipo
 
-  
+###  Pausa (11:20 - 11: 35)
 
-### 1.3 Formatos de Datos en Bioinformática (D&I)
-
-- **Explicación visual**: Mostrar ejemplos de cada formato:
+### 1.3 Formatos de Datos en Bioinformática (Daniela Félix & Idalia Rojas) (11:35 - 12:05)
 
   - **1.3.1** Formato AB1
 
@@ -63,19 +69,13 @@ El curso de precongreso de **Manejo de Tablas y Visualización de Datos en RStud
 
   - **1.3.6** Plink 
 
-  - **1.3.7** Genepop  (Daniela)
+  - **1.3.7** Genepop 
 
-  - **1.3.8** Geneind/Genelight
+  - **1.3.8** Geneind
 
-  - **1.3.5** Metadatos (Daniela)
+  - **1.3.9** Genlight
 
-    
-
-- **Comparativa**: Tabla con columnas "Formato", "Estructura", "Casos de uso"
-
-  
-
-- ### 1.4 Transformación de Formatos (D&I)
+- ### 1.4 Transformación de Formatos (Daniela Félix & Idalia Rojas) (12:05 - 12:35)
 
 - **Flujo de trabajo**: Diagrama de conversión entre formatos (Idalia)
 
