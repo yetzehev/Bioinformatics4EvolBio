@@ -24,9 +24,10 @@ getwd()
 
 #### 2. Generar achivos de entrada
 Admixture emplea archivos binarios de plink para estimar el numero de grupos geneticos. Emplearemos **`plink`**
+**NOTE**: Vías absolutas actualizadas para ejecutar el código en el servidor del IB.
 
 ```{r input.file}
-system( "/home/irojas/bin/plink/plink --vcf ./subset/radiator_data_20220330_1452_neutral.vcf --make-bed --allow-extra-chr --out ./subset/plectopromus ")
+system( "plink --vcf ../../../course_data/subset/radiator_data_20220330_1452_neutral.vcf --make-bed --allow-extra-chr --out ./subset/plectopromus ")
 
 # ADMIXTURE does not accept chromosome names that are not human chromosomes. We will thus just exchange the first column by 0
 system("awk '{$1=\"0\";print $0}' ./subset/plectopromus.bim > ./subset/plectopromus.bim.tmp")
@@ -37,8 +38,7 @@ system("mv ./subset/plectopromus.bim.tmp ./subset/plectopromus.bim")
 #### 3. Ejecutar ADMIXTURE
 Con los archivos binarios de **`plink`** ejecutaremos ADMIXTURE con un valor de K desde 1 hasta 7. Recuerda que ADMIXTURE funciona como un `stand alone` package en bash, pero emplearemos el comando system para ejecutarlo sn salir de Rstudio. 
 ```{r ADMIXTURE}
-#system("bash -c 'for K in {1..7}; do ~/bin/admixture_linux-1.3.0/admixture -s time --cv=10 -j4 ./subset/plectopromus.bed $K | tee ./results/plectopromus_${K}.out; done'")
-
+system("bash -c 'for K in {1..7}; do admixture -s time --cv=10 -j4 ./subset/plectopromus.bed $K | tee ./results/plectopromus_${K}.out; done'")
 
 ```
 Extraer y graficar los valores de CV
