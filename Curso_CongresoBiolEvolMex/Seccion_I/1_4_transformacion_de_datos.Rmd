@@ -19,6 +19,7 @@ library(vcfR)
 library(adegenet)
 library(dartR)
 library(tidyverse)
+library(stringr)
 ```
 
 Una de las bases de datos que utilizaremos como ejemplo en este curso, provienen de el siguiente [artículo](https://onlinelibrary.wiley.com/doi/full/10.1111/eva.13450): "Demographic histories shape population genomics of the common coral grouper (_Plectropomus leopardus_)", un trabajo de de genética poblacional en una especie de pez arrecifal de importancia económica y ecológica en la costa noreste de Australia. En el artículo se reportan 4,548 loci en 200 individuos, por lo que debemos asegurarnos que estos valores coincidan en nuestro dataset.
@@ -34,27 +35,23 @@ fish.vcf <- read.vcfR("../Seccion_II/datos/plectropomus_leopardus/radiator_data_
 </div>
 
 
-Nuestra base de datos se compone de solo 200 individuos; sin embargo, nuestro objeto VCF muestra que tenemos 209, esto significa que algunos de los ID de los indivuos se encuentran repetidos, antes de poder convertilos a un archivo `genind`, debemos filtrarlos:
+Nuestra base de datos se compone de solo 200 individuos; sin embargo, al correr el archivo genind nos arroja un error, esto significa que algunos de los ID de los indivuos se encuentran repetidos, antes de poder convertilos a un archivo `genind`, debemos filtrarlos:
 
-```{r filtrado}
-fish.vcf@fix[,3] <- tibble(
-  id = getID(fish.vcf),
-  chrom = getCHROM(fish.vcf),
-  pos = getPOS(fish.vcf)
+```{r corregir IDs, warning=FALSE}
+fish.vcf@fix[, 3] <- tibble(
+  id = fish.vcf@fix[, 3],
+  chrom = fish.vcf@fix[, 1],
+  pos = fish.vcf@fix[, 2]
 ) %>%
   mutate(
-    row = row_number(),
-    new_id = case_when(
-      id == "." ~ paste0(chrom, ":", pos),
-      TRUE ~ id
-    )
+    pos_clean = str_replace(pos, "^[^_]*__", ""),  # "1__101248__226" → "101248__226"
+    new_id = if_else(str_detect(id, "NA|\\."), paste0(chrom, ":", pos_clean), id)
   ) %>%
-  group_by(new_id) %>%
-  mutate(
-    new_id = if(n() > 1) paste0(new_id, "_", row) else new_id
-  ) %>%
-  pull(new_id)
+  pull(new_id) %>%
+  as.character()
 ```
+
+
 
 ```{r archivo genind, echo= TRUE}
 fish.ind <- vcfR2genind(fish.vcf)

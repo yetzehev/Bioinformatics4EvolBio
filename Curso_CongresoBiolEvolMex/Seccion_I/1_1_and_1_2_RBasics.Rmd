@@ -96,7 +96,6 @@ Mostrar el contenido dentro del vector x
 ```{r contenido vector}
 x
 ```
-
 Es importante recordar que, 'x' anteriormente tenía un valor, dado que volvimos a correr 'x' con otros valores, el objeto 'x' se sobreescribirá.
 
 Repetir el contenido del vector dos veces
@@ -128,7 +127,6 @@ row.names(z) <- species
 ```
 
 ```{r mostrar matriz}
-# Ver la matriz con nombres de filas
 z
 ```
 
