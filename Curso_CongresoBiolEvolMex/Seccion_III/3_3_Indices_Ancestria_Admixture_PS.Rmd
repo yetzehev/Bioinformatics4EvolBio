@@ -38,7 +38,7 @@ system("mv ./subset/teosintes_subset.bim.tmp ./subset/teosintes_subset.bim")
 #### 3. Ejecutar ADMIXTURE
 Con los archivos binarios de **`plink`** ejecutaremos ADMIXTURE con un valor de K desde 1 hasta 7. Recuerda que ADMIXTURE funciona como un `stand alone` package en bash, pero emplearemos el comando system para ejecutarlo sn salir de Rstudio. 
 ```{r ADMIXTURE}
-#system("bash -c 'for K in {1..7}; do admixture -s time --cv=10 -j4 ./subset/teosintes_subset.bed $K | tee ./results/teosintes_subset_${K}.out; done'")
+system("bash -c 'for K in {1..7}; do admixture -s time --cv=10 -j4 ./subset/teosintes_subset.bed $K | tee ./results/teosintes_subset_${K}.out; done'")
 
 
 ```
