@@ -24,7 +24,7 @@ getwd()
 
 #### 2. Generar achivos de entrada
 Admixture emplea archivos binarios de plink para estimar el numero de grupos geneticos. Emplearemos **`plink`**
-**NOTE**: Vías absolutas actualizadas para ejecutar el código en el servidor del IB.
+**NOTE:** Vías absolutas actualizadas para ejecutar el código en el servidor del IB.
 
 ```{r input.file}
 system( "plink --vcf ../../../course_data/subset/radiator_data_20220330_1452_neutral.vcf --make-bed --allow-extra-chr --out ./subset/plectopromus ")
