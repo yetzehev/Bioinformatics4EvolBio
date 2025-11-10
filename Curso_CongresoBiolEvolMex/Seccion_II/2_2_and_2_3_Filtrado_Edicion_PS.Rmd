@@ -75,7 +75,7 @@ de Bash dentro de un script de R. Para ello debemos usar el comando
 
 ```{r lista_IDs}
 #Usar un comando de bash en R
-system("bcftools query -l ../../data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.recode.vcf > ./meta/genotypes_vcf.txt")
+#system("bcftools query -l ../../data/Zea_mays.AGPv4.2x_0.8_0.01.NewID.Rojas2019.recode.vcf > ./meta/genotypes_vcf.txt") #3.2 Gb file size
 
 #Cargar el set de datos extraído del archivo VCF y asignar nombres a las columnas
 IDs<- read.delim("./meta/genotypes_vcf.txt", sep = "_", header = FALSE)
