@@ -66,5 +66,5 @@ barplot(sfs,
 ```
 
 
-
+  El **SFS** (Site Frequency Spectrum) ofrece una visión general de la distribución de frecuencias de las variantes genéticas, lo que permite formular distintas hipótesis acerca de los procesos demográficos que ocurren en una población.![sfs](../../images/Unfold_SFS.jpg){width=100%,height=100%}
 
