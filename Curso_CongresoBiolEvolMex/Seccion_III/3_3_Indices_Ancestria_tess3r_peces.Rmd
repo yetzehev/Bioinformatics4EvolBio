@@ -56,7 +56,7 @@ sample_coords <- merge(strata, coords, by = "STRATA")
 
 También debemos ordenar nuestros ID en el archivo `genind` y hacer que coincida con los ID de los metadatos
 ```{r ID + genind}
-# Order to match the genind/geno matrix
+# Ordenar para coincidir el genind/geno matrix con los IDs de las coordenadas
 sample_coords <- sample_coords[match(indNames(fish.ind), sample_coords$INDIVIDUALS), ]
 ```
 
@@ -71,11 +71,16 @@ fish_geno <- tab(fish.ind, NA.method = "mean")
 fish_geno <- round(fish_geno) 
 ```
 
-
+Vamos a graficar el mapa solo con nuestros puntos de las localidades. Dado que algunas paqueterías tienen la función `map()`, vamos a forzar a R que llame la función desde la librería `maps()`, esto es necesario en este ejemplo porque hemos cargado `dplyr` de la paqutería `tidyverse` y tiene como dependencia a `purr` que enmascara nuestra función para mapear. 
 ```{r mapa plano}
 plot(coord_matrix, pch = 19, cex = 2, 
      xlab = "Longitude (°E)", ylab = "Latitude (°N)")
-map(add = TRUE, interior = FALSE)
+
+
+maps::map("world", add = TRUE, 
+          xlim = range(coord_matrix[,1]),
+          ylim = range(coord_matrix[,2]))
+
 ```
 Convertir el objeto `coord_matrix` en un `dataframe`
 ```{r matriz a dataframe}
@@ -98,6 +103,8 @@ ggplot() +
   labs(x = "Longitud (°E)", y = "Latitud (°N)") +
   theme_bw()
 ```
+> Nota: 
+
 
 
 
@@ -127,8 +134,8 @@ q.matrix <- qmatrix(tess3.obj, K = 2)
 
 STRUCTURE-like barplot para la matriz Q (Q-matrix)
 ```{r barplot, message=FALSE, warning=FALSE}
-barplot(q.matrix, border = NA, space = 0, 
-        xlab = "Individuos", ylab = "Proporción de ancestría") -> bp
+bp <- barplot(q.matrix, border = NA, space = 0, 
+        xlab = "Individuos", ylab = "Proporción de ancestría") 
 
 axis(1, at = 1:nrow(q.matrix), labels = bp$order, las = 3, cex.axis = .4) 
 ```
@@ -161,10 +168,6 @@ tps_model <- Tps(coord_matrix, q.matrix[,1])
 ```
 
 ```{r datos de ancestria}
-x_seq <- seq(min(coord_matrix[,1])-2, max(coord_matrix[,1])+2, length.out = 200)
-y_seq <- seq(min(coord_matrix[,2])-2, max(coord_matrix[,2])+2, length.out = 200)
-grid_points <- as.matrix(expand.grid(x_seq, y_seq))
-
 pred_ancestry <- predict(tps_model, grid_points)
 pred_matrix <- matrix(pred_ancestry, nrow = length(x_seq), ncol = length(y_seq))
 ```
