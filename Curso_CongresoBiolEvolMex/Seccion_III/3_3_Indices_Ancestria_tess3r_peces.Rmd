@@ -76,7 +76,6 @@ Vamos a graficar el mapa solo con nuestros puntos de las localidades. Dado que a
 plot(coord_matrix, pch = 19, cex = 2, 
      xlab = "Longitude (°E)", ylab = "Latitude (°N)")
 
-
 maps::map("world", add = TRUE, 
           xlim = range(coord_matrix[,1]),
           ylim = range(coord_matrix[,2]))
@@ -168,6 +167,10 @@ tps_model <- Tps(coord_matrix, q.matrix[,1])
 ```
 
 ```{r datos de ancestria}
+x_seq <- seq(min(coord_matrix[,1])-2, max(coord_matrix[,1])+2, length.out = 200)
+y_seq <- seq(min(coord_matrix[,2])-2, max(coord_matrix[,2])+2, length.out = 200)
+grid_points <- as.matrix(expand.grid(x_seq, y_seq))
+
 pred_ancestry <- predict(tps_model, grid_points)
 pred_matrix <- matrix(pred_ancestry, nrow = length(x_seq), ncol = length(y_seq))
 ```
@@ -273,10 +276,6 @@ tps_model <- Tps(coord_matrix, q.matrix[,1])
 ```
 
 ```{r datos cluster principal}
-x_seq <- seq(min(coord_matrix[,1])-2, max(coord_matrix[,1])+2, length.out = 200)
-y_seq <- seq(min(coord_matrix[,2])-2, max(coord_matrix[,2])+2, length.out = 200)
-grid_points <- as.matrix(expand.grid(x_seq, y_seq))
-
 pred_ancestry <- predict(tps_model, grid_points)
 pred_matrix <- matrix(pred_ancestry, nrow = length(x_seq), ncol = length(y_seq))
 ```
@@ -324,4 +323,3 @@ ggplot() +
   geom_point(data = sample_df, aes(x = x, y = y, fill = cluster1_proportion),
              color = "black", shape = 21, size = 2.5, stroke = 0.8) 
 ```
-
