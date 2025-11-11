@@ -102,7 +102,7 @@ ggplot() +
   labs(x = "Longitud (°E)", y = "Latitud (°N)") +
   theme_bw()
 ```
-> Nota: 
+
 
 
 
