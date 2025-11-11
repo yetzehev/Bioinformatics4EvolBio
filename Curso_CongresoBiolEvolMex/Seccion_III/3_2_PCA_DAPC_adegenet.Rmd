@@ -47,8 +47,7 @@ pop_info
 Para calcular los eigenvalues podemos utilizar nuestro objeto genlight previamente guardado en la Sección I del curso. Cómo lo cargarían ustedes?
 
 ```{r genlight, include=FALSE}
-fish.gl <- readRDS(file.path("../Seccion_II/outputs", "fish.gl.rds"))
-fish.gl
+
 ```
 
 Eigenvalues: cuál es el porcentaje de varianza explicada por los datos
