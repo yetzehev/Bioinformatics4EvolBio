@@ -96,6 +96,12 @@ Mostrar el contenido dentro del vector x
 ```{r contenido vector}
 x
 ```
+
+```{r}
+matrix(c(1,2,3,"Yes", "No", "Maybe"), nrow=3, ncol=2)
+```
+
+
 Es importante recordar que, 'x' anteriormente tenía un valor, dado que volvimos a correr 'x' con otros valores, el objeto 'x' se sobreescribirá.
 
 Repetir el contenido del vector dos veces
