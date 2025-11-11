@@ -78,7 +78,7 @@ plot(coord_matrix, pch = 19, cex = 2,
 map(add = TRUE, interior = FALSE)
 ```
 Convertir el objeto `coord_matrix` en un `dataframe`
-```{rmatriz a dataframe}
+```{r matriz a dataframe}
 coord_df <- as.data.frame(coord_matrix)
 colnames(coord_df) <- c("lon", "lat")
 ```
@@ -94,7 +94,7 @@ ggplot() +
                fill = "azure3", color = "gray3") +
   geom_point(data = coord_df, aes(x = lon, y = lat),
              color = "black", size = 3) +
-  coord_fixed(xlim = range(x_seq), ylim = range(y_seq)) +
+  coord_fixed(xlim = range(coord_df$lon), ylim = range(coord_df$lat)) +
   labs(x = "Longitud (°E)", y = "Latitud (°N)") +
   theme_bw()
 ```
